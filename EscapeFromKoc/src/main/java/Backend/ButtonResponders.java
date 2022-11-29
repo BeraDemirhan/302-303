@@ -58,11 +58,9 @@ public class ButtonResponders {
             String rgx = "thisissplitter";
             info = line.split(rgx);
             if (username.equals(info[0])) {
-                br.close();
                 valid = false;
             }
         }
-        br.close();
         if(valid) {
             namePw += username;
             namePw += "thisissplitter";
@@ -72,6 +70,7 @@ public class ButtonResponders {
             out.append(System.lineSeparator());
             out.close();
         }
+        br.close();
         return valid;
     }
 
