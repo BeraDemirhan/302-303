@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 
+
 public class Register extends JFrame implements ActionListener {
 
     Container container = getContentPane();
@@ -24,7 +25,8 @@ public class Register extends JFrame implements ActionListener {
     JButton resetButton = new JButton("RESET");
     JButton signUp = new JButton("SIGN UP");
     JCheckBox showPassword = new JCheckBox("Show Password");
-    private boolean LoginSuccess = false;
+
+    JLabel background =new JLabel(new ImageIcon("EscapeFromKoc/resources/EscapeFomKoc.png"));
 
 
     public Register() {
@@ -48,8 +50,7 @@ public class Register extends JFrame implements ActionListener {
         showPassword.setBounds(150, 250, 150, 30);
         loginButton.setBounds(30, 300, 100, 30);
         resetButton.setBounds(220, 300, 100, 30);
-
-
+        background.setBounds(0,0,900,950);
     }
 
     public void addComponentsToContainer() {
@@ -61,6 +62,7 @@ public class Register extends JFrame implements ActionListener {
         container.add(loginButton);
         container.add(resetButton);
         container.add(signUp);
+        container.add(background);
     }
 
     public void addActionEvent() {
@@ -70,10 +72,9 @@ public class Register extends JFrame implements ActionListener {
         signUp.addActionListener(this);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Coding Part of LOGIN button
+        // Coding Part of LOGIN button
         if (e.getSource() == loginButton) {
             boolean loginSuccess = false;
             try {
@@ -92,7 +93,7 @@ public class Register extends JFrame implements ActionListener {
             }
         }
 
-        //Coding Part of RESET button
+        // Coding Part of RESET button
         if (e.getSource() == resetButton) {
             userTextField.setText("");
             passwordField.setText("");
@@ -119,5 +120,3 @@ public class Register extends JFrame implements ActionListener {
         }
     }
 }
-
-
