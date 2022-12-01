@@ -1,12 +1,11 @@
 package Backend;
 
+import UI.Board;
 import UI.Register;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class GameManager {
-    private static boolean loggedIn = false;
 
     public static void login() {
         Register frame = new Register();
@@ -18,11 +17,8 @@ public class GameManager {
     }
 
     public static void startGame() {
-        JFrame frame = new JFrame("Game");
-        frame.setTitle("Game will be started here");
-        frame.setVisible(true);
-        frame.setBounds(20, 10, 900, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Board board = new Board();
+        board.setVisible(true);
     }
 
     public static void main(String[] a) {

@@ -9,35 +9,37 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
 
-
 public class ButtonResponders {
-    private static File file = new File("src/main/java/Backend/NamesPasswords.txt");
+    private static File file = new File("EscapeFromKoc/src/main/java/Backend/NamesPasswords.txt");
+
     public static boolean LoginButton(String username, String password) throws IOException {
-            BufferedReader br = null;
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+        String line = null;
+        while (true) {
             try {
-                br = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException ex) {
+                if ((line = br.readLine()) == null)
+                    break;
+            } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            String line = null;
-            while (true) {
-                try {
-                    if ((line = br.readLine()) == null) break;
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                String[] info = null;
-                String rgx = "thisissplitter";
-                info = line.split(rgx);
-                if (username.equals(info[0]) && password.equals(info[1])) {
-                    GameManager.startGame();
-                    br.close();
-                    return true;
-                }
+            String[] info = null;
+            String rgx = "thisissplitter";
+            info = line.split(rgx);
+            if (username.equals(info[0]) && password.equals(info[1])) {
+                GameManager.startGame();
+                br.close();
+                return true;
+            }
         }
         br.close();
         return false;
     }
+
     public static boolean SignUpButton(String username, String password) throws IOException {
         BufferedReader br = null;
         boolean valid = true;
@@ -50,7 +52,8 @@ public class ButtonResponders {
         String line = null;
         while (true) {
             try {
-                if ((line = br.readLine()) == null) break;
+                if ((line = br.readLine()) == null)
+                    break;
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -61,11 +64,11 @@ public class ButtonResponders {
                 valid = false;
             }
         }
-        if(valid) {
+        if (valid) {
             namePw += username;
             namePw += "thisissplitter";
             namePw += password;
-            PrintWriter out = new PrintWriter(new FileOutputStream(file,true));
+            PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
             out.append(namePw);
             out.append(System.lineSeparator());
             out.close();
