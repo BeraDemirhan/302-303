@@ -31,7 +31,6 @@ public class ButtonResponders {
             String rgx = "thisissplitter";
             info = line.split(rgx);
             if (username.equals(info[0]) && password.equals(info[1])) {
-                GameManager.startGame();
                 br.close();
                 return true;
             }
