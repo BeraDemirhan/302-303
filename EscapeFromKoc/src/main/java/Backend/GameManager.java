@@ -17,11 +17,17 @@ public class GameManager {
     }
 
     public static void startGame() {
-        Board board = new Board();
-        board.setVisible(true);
+        Board frame = new Board();
+        frame.setTitle("Escape From Koc");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(960, 540);
+        frame.setResizable(false);
+        frame.setVisible(true);
     }
 
     public static void main(String[] a) {
-        login();
+        // login();
+        startGame();
     }
+
 }

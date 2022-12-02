@@ -12,22 +12,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-
-
 public class Register extends JFrame implements ActionListener {
 
-    Container container = getContentPane();
-    JLabel userLabel = new JLabel("USERNAME");
-    JLabel passwordLabel = new JLabel("PASSWORD");
-    JTextField userTextField = new JTextField();
-    JPasswordField passwordField = new JPasswordField();
-    JButton loginButton = new JButton("LOGIN");
-    JButton resetButton = new JButton("RESET");
-    JButton signUp = new JButton("SIGN UP");
-    JCheckBox showPassword = new JCheckBox("Show Password");
+    private Container container = getContentPane();
+    private JLabel userLabel = new JLabel("USERNAME");
+    private JLabel passwordLabel = new JLabel("PASSWORD");
+    private JTextField userTextField = new JTextField();
+    private JPasswordField passwordField = new JPasswordField();
+    private JButton loginButton = new JButton("LOGIN");
+    private JButton resetButton = new JButton("RESET");
+    private JButton signUp = new JButton("SIGN UP");
+    private JCheckBox showPassword = new JCheckBox("Show Password");
 
-    JLabel background =new JLabel(new ImageIcon("EscapeFromKoc/resources/EscapeFomKoc.png"));
-
+    private JLabel background = new JLabel(new ImageIcon("EscapeFromKoc/resources/EscapeFomKoc.png"));
 
     public Register() {
         setLayoutManager();
@@ -50,7 +47,7 @@ public class Register extends JFrame implements ActionListener {
         showPassword.setBounds(150, 250, 150, 30);
         loginButton.setBounds(30, 300, 100, 30);
         resetButton.setBounds(220, 300, 100, 30);
-        background.setBounds(0,0,900,950);
+        background.setBounds(0, 0, 900, 950);
     }
 
     public void addComponentsToContainer() {
