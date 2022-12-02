@@ -26,8 +26,7 @@ public class GameManager {
     }
 
     public static void main(String[] a) {
-        // login();
-        startGame();
+        login();
     }
 
 }
