@@ -1,13 +1,9 @@
 package UI;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.*;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Board extends JFrame {
     Container container = getContentPane();
@@ -75,7 +71,8 @@ public class Board extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
+
                     playerBack.setVisible(true);
                     playerFront.setVisible(false);
                     playerLeft.setVisible(false);
@@ -86,7 +83,7 @@ public class Board extends JFrame {
                     playerLeft.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
                     playerRight.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
                 }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (e.getKeyCode() == KeyEvent.VK_DOWN && playerFront.getY() + playerFront.getHeight() <= background.getHeight()) {
                     playerBack.setVisible(false);
                     playerFront.setVisible(true);
                     playerLeft.setVisible(false);
@@ -97,7 +94,7 @@ public class Board extends JFrame {
                     playerLeft.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
                     playerRight.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
                 }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                if (e.getKeyCode() == KeyEvent.VK_LEFT && playerLeft.getX() >= 0) {
                     playerBack.setVisible(false);
                     playerFront.setVisible(false);
                     playerLeft.setVisible(true);
@@ -108,7 +105,7 @@ public class Board extends JFrame {
                     playerLeft.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
                     playerRight.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
                 }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT && playerRight.getX() + playerRight.getWidth() <= background.getWidth()) {
                     playerBack.setVisible(false);
                     playerFront.setVisible(false);
                     playerLeft.setVisible(false);
@@ -122,5 +119,6 @@ public class Board extends JFrame {
             }
         });
     }
+
 
 }
