@@ -34,6 +34,10 @@ public class ScreenCoordinator {
 
     }
 
+    public static void exit() {
+        System.exit(0);
+    }
+
     public static void main(String[] a) {
         login();
     }

@@ -3,6 +3,8 @@ package Backend;
 import Backend.Player.Player;
 
 import java.awt.*;
+import UI.ScreenCoordinator;
+
 
 public class GameControler {
     public static int PAUSED = 0;
@@ -12,6 +14,7 @@ public class GameControler {
 
 
     private static Player p = Player.getPlayer();
+    public static int EXIT = 3;
     /*
      * BackendManager singleton = null;
      * public BackendManager(){
@@ -50,6 +53,10 @@ public class GameControler {
         return coords;
     }
 
+
+    public static void exit() {
+        ScreenCoordinator.exit();
+    }
 
 
 }

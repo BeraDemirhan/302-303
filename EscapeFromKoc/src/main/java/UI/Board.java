@@ -86,32 +86,31 @@ public class Board extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
-
-                    if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
+                    int[] oldCoords = GameControler.getPlayerCoords();
+                    if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= 0) {
                         Image newImg = singleImageResize(GameControler.movePlayer("back"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
-                            && playerFront.getY() + playerFront.getHeight() <= background.getHeight()) {
+                            && oldCoords[1] + playerFront.getHeight() <= background.getHeight()) {
                         Image newImg = singleImageResize(GameControler.movePlayer("front"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_LEFT && playerLeft.getX() >= 0) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT && oldCoords[0]>= 0) {
                         Image newImg = singleImageResize(GameControler.movePlayer("left"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
-                            && playerRight.getX() + playerRight.getWidth() <= background.getWidth()) {
+                            && oldCoords[0] + playerRight.getWidth() <= background.getWidth()) {
                         Image newImg = singleImageResize(GameControler.movePlayer("right"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
@@ -131,6 +130,8 @@ public class Board extends JFrame {
                         GameControler.setGameStatus(GameControler.PAUSED);
                         System.out.println(GameControler.getGameStatus());
                         System.out.println("P Pressed");
+                        GameControler.setGameStatus(GameControler.PAUSED);
+
                         ScreenCoordinator.pauseGame();
                     }
                 }
