@@ -1,9 +1,12 @@
 package Backend;
 
+import UI.ScreenCoordinator;
+
 public class GameControler {
     public static int PAUSED = 0;
     public static int RUNNING = 1;
     private static int GAMEOVER = 2;
+    public static int EXIT = 3;
     private static int gameStatus;
 
     /*
@@ -23,6 +26,10 @@ public class GameControler {
 
     public static void setGameStatus(int gameStatus) {
         GameControler.gameStatus = gameStatus;
+    }
+
+    public static void exit() {
+        ScreenCoordinator.exit();
     }
 
 }
