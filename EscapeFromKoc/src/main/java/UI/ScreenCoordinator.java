@@ -2,9 +2,9 @@ package UI;
 
 import javax.swing.*;
 
-import Backend.BackendManager;
+import Backend.GameControler;
 
-public class GameManager {
+public class ScreenCoordinator {
 
     public static void login() {
         Register frame = new Register();
@@ -22,7 +22,7 @@ public class GameManager {
         frame.setSize(960, 540);
         frame.setResizable(false);
         frame.setVisible(true);
-        BackendManager.setGameStatus(BackendManager.RUNNING);
+        GameControler.setGameStatus(GameControler.RUNNING);
     }
 
     public static void pauseGame() {

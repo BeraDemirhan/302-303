@@ -2,7 +2,7 @@ package UI;
 
 import javax.swing.*;
 
-import Backend.BackendManager;
+import Backend.GameControler;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -73,9 +73,8 @@ public class Board extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("ANAN");
                 super.keyPressed(e);
-                if (BackendManager.getGameStatus() == BackendManager.RUNNING) {
+                if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
                         playerBack.setVisible(true);
                         playerFront.setVisible(false);
@@ -126,17 +125,14 @@ public class Board extends JFrame {
                         System.exit(0);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_P) {
-                        System.out.println(BackendManager.getGameStatus());
-                        BackendManager.setGameStatus(BackendManager.PAUSED);
-                        System.out.println(BackendManager.getGameStatus());
-                        System.out.println("P Pressed");
-                        GameManager.pauseGame();
+                        GameControler.setGameStatus(GameControler.PAUSED);
+                        ScreenCoordinator.pauseGame();
                     }
                 }
-                if (BackendManager.getGameStatus() == BackendManager.PAUSED) {
+                if (GameControler.getGameStatus() == GameControler.PAUSED) {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                        BackendManager.setGameStatus(BackendManager.RUNNING);
-                        GameManager.pauseGame();
+                        GameControler.setGameStatus(GameControler.RUNNING);
+                        ScreenCoordinator.pauseGame();
                     }
                 }
             }

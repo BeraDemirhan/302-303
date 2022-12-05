@@ -1,6 +1,6 @@
 package UI;
 
-import Backend.BackendManager;
+import Backend.GameControler;
 import Backend.ButtonResponders;
 
 import javax.swing.*;
@@ -78,7 +78,7 @@ public class Register extends JFrame implements ActionListener {
             }
             if (loginSuccess) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
-                GameManager.startGame();
+                ScreenCoordinator.startGame();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");

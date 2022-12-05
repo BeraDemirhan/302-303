@@ -1,6 +1,6 @@
 package Backend;
 
-public class BackendManager {
+public class GameControler {
     public static int PAUSED = 0;
     public static int RUNNING = 1;
     private static int GAMEOVER = 2;
@@ -22,7 +22,7 @@ public class BackendManager {
     }
 
     public static void setGameStatus(int gameStatus) {
-        BackendManager.gameStatus = gameStatus;
+        GameControler.gameStatus = gameStatus;
     }
 
 }
