@@ -4,7 +4,7 @@ import Backend.Player.Player;
 
 import java.awt.*;
 
-public class GameController {
+public class GameControler {
     public static int PAUSED = 0;
     public static int RUNNING = 1;
     private static int GAMEOVER = 2;
@@ -28,7 +28,7 @@ public class GameController {
     }
 
     public static void setGameStatus(int gameStatus) {
-        GameController.gameStatus = gameStatus;
+        GameControler.gameStatus = gameStatus;
     }
 
     public static Image movePlayer(String trajectory){

@@ -2,7 +2,7 @@ package UI;
 
 import javax.swing.*;
 
-import Backend.GameController;
+import Backend.GameControler;
 
 public class GameManager {
 
@@ -22,7 +22,7 @@ public class GameManager {
         frame.setSize(960, 540);
         frame.setResizable(false);
         frame.setVisible(true);
-        GameController.setGameStatus(GameController.RUNNING);
+        GameControler.setGameStatus(GameControler.RUNNING);
     }
 
     public static void pauseGame() {

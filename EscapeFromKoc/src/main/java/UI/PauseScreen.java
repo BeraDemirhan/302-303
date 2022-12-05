@@ -2,7 +2,7 @@ package UI;
 
 import javax.swing.*;
 
-import Backend.GameController;
+import Backend.GameControler;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +40,7 @@ public class PauseScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == resumeButton) {
-            GameController.setGameStatus(GameController.RUNNING);
+            GameControler.setGameStatus(GameControler.RUNNING);
             this.dispose();
         }
     }
