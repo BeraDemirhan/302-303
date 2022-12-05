@@ -1,6 +1,5 @@
 package UI;
 
-import Backend.BackendManager;
 import Backend.ButtonResponders;
 
 import javax.swing.*;

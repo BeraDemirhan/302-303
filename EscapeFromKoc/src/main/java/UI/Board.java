@@ -2,7 +2,7 @@ package UI;
 
 import javax.swing.*;
 
-import Backend.BackendManager;
+import Backend.GameController;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -26,7 +26,7 @@ public class Board extends JFrame {
 
 
 
-    private Image playerAbsImage = new ImageIcon(BackendManager.movePlayer("front")).getImage();
+    private Image playerAbsImage = new ImageIcon(GameController.movePlayer("front")).getImage();
     private JLabel playerAbs;
 
     private Container pCont = getContentPane();
@@ -89,31 +89,31 @@ public class Board extends JFrame {
 
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
-                if (BackendManager.getGameStatus() == BackendManager.RUNNING) {
+                if (GameController.getGameStatus() == GameController.RUNNING) {
 
                     if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
-                        Image newImg = singleImageResize(BackendManager.movePlayer("back"));
-                        int[] newCoords = BackendManager.getPlayerCoords();
+                        Image newImg = singleImageResize(GameController.movePlayer("back"));
+                        int[] newCoords = GameController.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && playerFront.getY() + playerFront.getHeight() <= background.getHeight()) {
-                        Image newImg = singleImageResize(BackendManager.movePlayer("front"));
-                        int[] newCoords = BackendManager.getPlayerCoords();
+                        Image newImg = singleImageResize(GameController.movePlayer("front"));
+                        int[] newCoords = GameController.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT && playerLeft.getX() >= 0) {
-                        Image newImg = singleImageResize(BackendManager.movePlayer("left"));
-                        int[] newCoords = BackendManager.getPlayerCoords();
+                        Image newImg = singleImageResize(GameController.movePlayer("left"));
+                        int[] newCoords = GameController.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && playerRight.getX() + playerRight.getWidth() <= background.getWidth()) {
-                        Image newImg = singleImageResize(BackendManager.movePlayer("right"));
-                        int[] newCoords = BackendManager.getPlayerCoords();
+                        Image newImg = singleImageResize(GameController.movePlayer("right"));
+                        int[] newCoords = GameController.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
@@ -127,16 +127,16 @@ public class Board extends JFrame {
                         System.exit(0);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_P) {
-                        System.out.println(BackendManager.getGameStatus());
-                        BackendManager.setGameStatus(BackendManager.PAUSED);
-                        System.out.println(BackendManager.getGameStatus());
+                        System.out.println(GameController.getGameStatus());
+                        GameController.setGameStatus(GameController.PAUSED);
+                        System.out.println(GameController.getGameStatus());
                         System.out.println("P Pressed");
                         GameManager.pauseGame();
                     }
                 }
-                if (BackendManager.getGameStatus() == BackendManager.PAUSED) {
+                if (GameController.getGameStatus() == GameController.PAUSED) {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                        BackendManager.setGameStatus(BackendManager.RUNNING);
+                        GameController.setGameStatus(GameController.RUNNING);
                         GameManager.pauseGame();
                     }
                 }
