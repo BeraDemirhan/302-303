@@ -13,17 +13,23 @@ public class Player {
     private Inventory inventory = null;
     private int health = 5;
 
+    private int xCoord = 100;
+    private int yCoord = 100;
 
-    private Player p = null;
+
+    private static Player p = null;
     public Player(){
         if (p == null){
             Inventory inventory = new Inventory();
             p = this;
         }
-
     }
-    public Player getPlayer(){
-        return p;
+    public static Player getPlayer(){
+        if(p == null){
+            return new Player();
+        }else{
+            return p;
+        }
     }
 
     public void usePowerUp(PowerUp pu){
@@ -46,5 +52,20 @@ public class Player {
             img = playerrightimage;
         }
         return img;
+    }
+    public void setX(int newx){
+        this.xCoord = newx;
+    }
+    public void setY(int newy){
+        this.yCoord = newy;
+    }
+    public int getX(){
+        return this.xCoord;
+    }
+    public int getY(){
+        return this.yCoord;
+    }
+    public int getVelocity(){
+        return 10;
     }
 }
