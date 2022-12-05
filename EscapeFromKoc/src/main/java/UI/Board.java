@@ -131,13 +131,13 @@ public class Board extends JFrame {
                         GameControler.setGameStatus(GameControler.PAUSED);
                         System.out.println(GameControler.getGameStatus());
                         System.out.println("P Pressed");
-                        GameManager.pauseGame();
+                        ScreenCoordinator.pauseGame();
                     }
                 }
                 if (GameControler.getGameStatus() == GameControler.PAUSED) {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         GameControler.setGameStatus(GameControler.RUNNING);
-                        GameManager.pauseGame();
+                        ScreenCoordinator.pauseGame();
                     }
                 }
 

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import Backend.GameControler;
 
-public class GameManager {
+public class ScreenCoordinator {
 
     public static void login() {
         Register frame = new Register();
