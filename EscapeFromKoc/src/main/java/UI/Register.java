@@ -1,5 +1,6 @@
 package UI;
 
+import Backend.BackendManager;
 import Backend.ButtonResponders;
 
 import javax.swing.*;
@@ -7,13 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 public class Register extends JFrame implements ActionListener {
 
-    private Container container = getContentPane();
+    Container container = getContentPane();
     private JLabel userLabel = new JLabel("USERNAME");
     private JLabel passwordLabel = new JLabel("PASSWORD");
     private JTextField userTextField = new JTextField();

@@ -1,6 +1,9 @@
 package UI;
 
 import javax.swing.*;
+
+import Backend.BackendManager;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -70,55 +73,73 @@ public class Board extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                System.out.println("ANAN");
                 super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
+                if (BackendManager.getGameStatus() == BackendManager.RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP && playerBack.getY() >= 0) {
+                        playerBack.setVisible(true);
+                        playerFront.setVisible(false);
+                        playerLeft.setVisible(false);
+                        playerRight.setVisible(false);
 
-                    playerBack.setVisible(true);
-                    playerFront.setVisible(false);
-                    playerLeft.setVisible(false);
-                    playerRight.setVisible(false);
+                        playerBack.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
+                        playerFront.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
+                        playerLeft.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
+                        playerRight.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_DOWN
+                            && playerFront.getY() + playerFront.getHeight() <= background.getHeight()) {
+                        playerBack.setVisible(false);
+                        playerFront.setVisible(true);
+                        playerLeft.setVisible(false);
+                        playerRight.setVisible(false);
 
-                    playerBack.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
-                    playerFront.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
-                    playerLeft.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
-                    playerRight.setBounds(playerBack.getX(), playerBack.getY() - 10, 100, 100);
+                        playerBack.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
+                        playerFront.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
+                        playerLeft.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
+                        playerRight.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT && playerLeft.getX() >= 0) {
+                        playerBack.setVisible(false);
+                        playerFront.setVisible(false);
+                        playerLeft.setVisible(true);
+                        playerRight.setVisible(false);
+
+                        playerBack.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
+                        playerFront.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
+                        playerLeft.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
+                        playerRight.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_RIGHT
+                            && playerRight.getX() + playerRight.getWidth() <= background.getWidth()) {
+                        playerBack.setVisible(false);
+                        playerFront.setVisible(false);
+                        playerLeft.setVisible(false);
+                        playerRight.setVisible(true);
+
+                        playerBack.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
+                        playerFront.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
+                        playerLeft.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
+                        playerRight.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                        System.exit(0);
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_P) {
+                        System.out.println(BackendManager.getGameStatus());
+                        BackendManager.setGameStatus(BackendManager.PAUSED);
+                        System.out.println(BackendManager.getGameStatus());
+                        System.out.println("P Pressed");
+                        GameManager.pauseGame();
+                    }
                 }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN && playerFront.getY() + playerFront.getHeight() <= background.getHeight()) {
-                    playerBack.setVisible(false);
-                    playerFront.setVisible(true);
-                    playerLeft.setVisible(false);
-                    playerRight.setVisible(false);
-
-                    playerBack.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
-                    playerFront.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
-                    playerLeft.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
-                    playerRight.setBounds(playerBack.getX(), playerBack.getY() + 10, 100, 100);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT && playerLeft.getX() >= 0) {
-                    playerBack.setVisible(false);
-                    playerFront.setVisible(false);
-                    playerLeft.setVisible(true);
-                    playerRight.setVisible(false);
-
-                    playerBack.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
-                    playerFront.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
-                    playerLeft.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
-                    playerRight.setBounds(playerBack.getX() - 10, playerBack.getY(), 100, 100);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT && playerRight.getX() + playerRight.getWidth() <= background.getWidth()) {
-                    playerBack.setVisible(false);
-                    playerFront.setVisible(false);
-                    playerLeft.setVisible(false);
-                    playerRight.setVisible(true);
-
-                    playerBack.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
-                    playerFront.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
-                    playerLeft.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
-                    playerRight.setBounds(playerBack.getX() + 10, playerBack.getY(), 100, 100);
+                if (BackendManager.getGameStatus() == BackendManager.PAUSED) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        BackendManager.setGameStatus(BackendManager.RUNNING);
+                        GameManager.pauseGame();
+                    }
                 }
             }
         });
     }
-
-
 }

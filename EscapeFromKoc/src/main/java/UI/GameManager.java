@@ -2,6 +2,8 @@ package UI;
 
 import javax.swing.*;
 
+import Backend.BackendManager;
+
 public class GameManager {
 
     public static void login() {
@@ -20,6 +22,16 @@ public class GameManager {
         frame.setSize(960, 540);
         frame.setResizable(false);
         frame.setVisible(true);
+        BackendManager.setGameStatus(BackendManager.RUNNING);
+    }
+
+    public static void pauseGame() {
+        PauseScreen pauseScreen = new PauseScreen();
+        pauseScreen.setTitle("Paused");
+        pauseScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pauseScreen.setSize(960, 540);
+        pauseScreen.setVisible(true);
+
     }
 
     public static void main(String[] a) {
