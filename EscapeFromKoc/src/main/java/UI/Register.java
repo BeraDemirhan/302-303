@@ -1,7 +1,6 @@
 package UI;
 
 import Backend.ButtonResponders;
-import Backend.GameManager;
 
 import javax.swing.*;
 import java.awt.*;

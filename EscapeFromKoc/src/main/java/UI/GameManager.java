@@ -1,7 +1,4 @@
-package Backend;
-
-import UI.Board;
-import UI.Register;
+package UI;
 
 import javax.swing.*;
 
