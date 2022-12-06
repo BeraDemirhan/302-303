@@ -7,7 +7,6 @@ import Backend.GameControler;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 
 public class PauseScreen extends JFrame implements ActionListener {
 
