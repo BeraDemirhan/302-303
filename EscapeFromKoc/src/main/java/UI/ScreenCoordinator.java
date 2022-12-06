@@ -22,6 +22,7 @@ public class ScreenCoordinator {
         frame.setSize(960, 540);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setFocusable(true);
         GameControler.setGameStatus(GameControler.RUNNING);
     }
 

@@ -3,6 +3,8 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
+import Backend.GameObjects.Chair;
+import Backend.GameObjects.Key;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -11,12 +13,12 @@ import java.awt.event.KeyEvent;
 public class Board extends JFrame {
     Container container = getContentPane();
 
-    private Dimension d;
     private JLabel background;
     private JLabel playerFront;
     private JLabel playerBack;
     private JLabel playerLeft;
     private JLabel playerRight;
+    private JLabel chair;
 
     private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
     private Image playerfrontimage = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
@@ -24,19 +26,18 @@ public class Board extends JFrame {
     private Image playerleftimage = new ImageIcon("EscapeFromKoc/resources/rabbit-left-angled.png").getImage();
     private Image playerrightimage = new ImageIcon("EscapeFromKoc/resources/rabbit-right-angled.png").getImage();
 
-
-
     private Image playerAbsImage = new ImageIcon(GameControler.movePlayer("front")).getImage();
     private JLabel playerAbs;
 
     private Container pCont = getContentPane();
-
+    private Key key = new Key();
 
     public Board() {
         imageResize();
         setLayoutManager();
         loadImages();
         setLocationAndSize();
+        createFurniture();
         addComponentsToContainer();
         addActionEvent();
     }
@@ -48,12 +49,12 @@ public class Board extends JFrame {
         playerleftimage = playerleftimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerrightimage = playerrightimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerAbsImage = singleImageResize(playerAbsImage);
-
     }
 
-    private Image singleImageResize(Image img){
-        return img.getScaledInstance(54,96, Image.SCALE_SMOOTH);
+    private Image singleImageResize(Image img) {
+        return img.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
     }
+
     public void setLayoutManager() {
         container.setLayout(null);
     }
@@ -73,19 +74,26 @@ public class Board extends JFrame {
         playerBack.setBounds(100, 100, 100, 100);
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
-        playerAbs.setBounds(100,100,100,100);
+        playerAbs.setBounds(100, 100, 100, 100);
 
     }
 
     public void addComponentsToContainer() {
         pCont.add(playerAbs);
+        pCont.add(chair);
         pCont.add(background);
+    }
+
+    public void createFurniture() {
+        chair = new Chair(300, 300).getChair();
+        key.spawnKey(300, 300);
     }
 
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
@@ -94,27 +102,27 @@ public class Board extends JFrame {
                         Image newImg = singleImageResize(GameControler.movePlayer("back"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
+                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight()) {
                         Image newImg = singleImageResize(GameControler.movePlayer("front"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
+                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_LEFT && oldCoords[0]>= 0) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT && oldCoords[0] >= 0) {
                         Image newImg = singleImageResize(GameControler.movePlayer("left"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
+                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && oldCoords[0] + playerRight.getWidth() <= background.getWidth()) {
                         Image newImg = singleImageResize(GameControler.movePlayer("right"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
+                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
 
                     pCont.removeAll();
