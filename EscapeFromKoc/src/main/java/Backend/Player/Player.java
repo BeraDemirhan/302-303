@@ -10,7 +10,7 @@ public class Player {
     private Image playerbackimage = new ImageIcon("EscapeFromKoc/resources/rabbit-back-angled.png").getImage();
     private Image playerleftimage = new ImageIcon("EscapeFromKoc/resources/rabbit-left-angled.png").getImage();
     private Image playerrightimage = new ImageIcon("EscapeFromKoc/resources/rabbit-right-angled.png").getImage();
-    private Inventory inventory = null;
+    private Inventory inventory = new Inventory();
     private int health = 5;
 
     private int xCoord = 100;
@@ -18,9 +18,8 @@ public class Player {
 
 
     private static Player p = null;
-    public Player(){
+    private Player(){
         if (p == null){
-            Inventory inventory = new Inventory();
             p = this;
         }
     }
@@ -38,6 +37,7 @@ public class Player {
     }
     public void addHealth(int amount){
         p.health += amount;
+        System.out.println(p.health);
     }
 
     public Image getPlayerImg(String position){
@@ -67,5 +67,9 @@ public class Player {
     }
     public int getVelocity(){
         return 10;
+    }
+
+    public void addToInventory(Object obj){
+        inventory.addItem(obj);
     }
 }

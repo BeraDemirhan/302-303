@@ -3,14 +3,13 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
+import Backend.GameObjects.PowerUps.AddHealthImpl;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Board extends JFrame {
-    Container container = getContentPane();
-
     private Dimension d;
     private JLabel background;
     private JLabel playerFront;
@@ -26,8 +25,15 @@ public class Board extends JFrame {
 
 
 
+
     private Image playerAbsImage = new ImageIcon(GameControler.movePlayer("front")).getImage();
     private JLabel playerAbs;
+
+
+    private AddHealthImpl healthPowerUp = new AddHealthImpl(150, 150);
+    private Image healthImage = new ImageIcon(healthPowerUp.getImg()).getImage();
+    private JLabel healthLabel;
+    // add this to gamecontroller later on !! for demo only
 
     private Container pCont = getContentPane();
 
@@ -47,7 +53,10 @@ public class Board extends JFrame {
         playerbackimage = playerbackimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerleftimage = playerleftimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerrightimage = playerrightimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
+
+        // changed
         playerAbsImage = singleImageResize(playerAbsImage);
+        healthImage = healthImage.getScaledInstance(50,50, Image.SCALE_SMOOTH);
 
     }
 
@@ -55,7 +64,7 @@ public class Board extends JFrame {
         return img.getScaledInstance(54,96, Image.SCALE_SMOOTH);
     }
     public void setLayoutManager() {
-        container.setLayout(null);
+        pCont.setLayout(null);
     }
 
     private void loadImages() {
@@ -64,7 +73,9 @@ public class Board extends JFrame {
         playerBack = new JLabel(new ImageIcon(playerbackimage));
         playerLeft = new JLabel(new ImageIcon(playerleftimage));
         playerRight = new JLabel(new ImageIcon(playerrightimage));
+
         playerAbs = new JLabel(new ImageIcon(playerAbsImage));
+        healthLabel = new JLabel(new ImageIcon(healthImage));
     }
 
     public void setLocationAndSize() {
@@ -73,12 +84,16 @@ public class Board extends JFrame {
         playerBack.setBounds(100, 100, 100, 100);
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
+
+
         playerAbs.setBounds(100,100,100,100);
+        healthLabel.setBounds(healthPowerUp.getX(), healthLabel.getY(),100,100);
 
     }
 
     public void addComponentsToContainer() {
         pCont.add(playerAbs);
+        pCont.add(healthLabel);
         pCont.add(background);
     }
 
@@ -88,6 +103,8 @@ public class Board extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
+                pCont.removeAll();
+
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= 0) {
@@ -116,10 +133,16 @@ public class Board extends JFrame {
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100,100);
                     }
+                    if (e.getKeyCode() == KeyEvent.VK_K){
+                        System.out.println("K pressed");
+                        GameControler.pickItem(healthPowerUp);
 
-                    pCont.removeAll();
+                    }
+
                     pCont.add(playerAbs);
+                    pCont.add(healthLabel);
                     pCont.add(background);
+
                     playerAbs.setVisible(true);
 
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
