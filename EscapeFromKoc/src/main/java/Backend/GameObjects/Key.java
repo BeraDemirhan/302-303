@@ -3,7 +3,7 @@ package Backend.GameObjects;
 import javax.swing.*;
 import java.awt.*;
 
-public class Key {
+public class Key extends JLabel {
     private int x;
     private int y;
     private boolean revealed = false;
@@ -24,6 +24,10 @@ public class Key {
     public void spawnKey(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void setRevealed(boolean revealed) {
+        this.revealed = revealed;
     }
 
 }

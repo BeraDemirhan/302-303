@@ -13,8 +13,8 @@ public class Player {
     private Inventory inventory = null;
     private int health = 5;
 
-    private int xCoord = 240;
-    private int yCoord = 140;
+    private int xCoord = 100;
+    private int yCoord = 100;
 
 
     private static Player p = null;
