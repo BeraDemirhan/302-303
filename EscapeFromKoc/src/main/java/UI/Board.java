@@ -126,8 +126,7 @@ public class Board extends JFrame {
                     }
 
                     pCont.removeAll();
-                    pCont.add(playerAbs);
-                    pCont.add(background);
+                    addComponentsToContainer();
                     playerAbs.setVisible(true);
 
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
