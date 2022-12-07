@@ -164,7 +164,7 @@ public class Board extends JFrame {
         });
         chair.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (GameControler.getGameStatus() == GameControler.RUNNING) {
                         int[] playerCoords = GameControler.getPlayerCoords();
@@ -176,7 +176,6 @@ public class Board extends JFrame {
                                 && Math.abs(playerCoords[1] - chairCoords[1]) < 50) {
                             System.out.println("Player is on chair");
                             key.setRevealed(true);
-
                         }
                     }
                 }
@@ -200,7 +199,7 @@ public class Board extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
             }
 
             @Override
