@@ -36,9 +36,16 @@ public class GameControler {
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
         if (trajectory.equalsIgnoreCase("Front")) {
+            //
+            //p.setY((int) (p.getY() +  p.getVelocity()*Math.cos(Math.atan((float) 5/24))));
+            //p.setX((int) (p.getX() -  p.getVelocity()*Math.sin(Math.atan((float) 5/24))));
             p.setY(p.getY() + p.getVelocity());
+            p.setX((int) (p.getX() - p.getVelocity()*((float) (430 - p.getX())/(p.getY() + 772))));
+
         } else if (trajectory.equalsIgnoreCase("back")) {
             p.setY(p.getY() - p.getVelocity());
+            p.setX((int) (p.getX() + p.getVelocity()*((float) (430 - p.getX())/(p.getY() + 772))));
+
         } else if (trajectory.equalsIgnoreCase("Left")) {
             p.setX(p.getX() - p.getVelocity());
         } else if (trajectory.equalsIgnoreCase("right")) {
