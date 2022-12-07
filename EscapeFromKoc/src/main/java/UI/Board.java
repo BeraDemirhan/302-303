@@ -30,7 +30,7 @@ public class Board extends JFrame {
     private Image playerleftimage = new ImageIcon("EscapeFromKoc/resources/rabbit-left-angled.png").getImage();
     private Image playerrightimage = new ImageIcon("EscapeFromKoc/resources/rabbit-right-angled.png").getImage();
 
-    private Image playerAbsImage = new ImageIcon(GameControler.movePlayer("front")).getImage();
+    private Image playerAbsImage = new ImageIcon(GameControler.movePlayer("back")).getImage();
     private JLabel playerAbs;
 
     private Container pCont = getContentPane();
@@ -78,7 +78,7 @@ public class Board extends JFrame {
         playerBack.setBounds(100, 100, 100, 100);
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
-        playerAbs.setBounds(100, 100, 100, 100);
+        playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
 
     }
 
@@ -106,27 +106,30 @@ public class Board extends JFrame {
                 playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
-                    if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= 0) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
                         Image newImg = singleImageResize(GameControler.movePlayer("back"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
-                            && oldCoords[1] + playerFront.getHeight() <= background.getHeight()) {
+                            && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
+                                    + playerAbs.getHeight()) {
                         Image newImg = singleImageResize(GameControler.movePlayer("front"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_LEFT && oldCoords[0] >= 0) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT
+                            && oldCoords[0] >= (background.getX() + 240) - ((float) 5 / 24) * (oldCoords[1] - 140)) {
                         Image newImg = singleImageResize(GameControler.movePlayer("left"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
-                            && oldCoords[0] + playerRight.getWidth() <= background.getWidth()) {
+                            && oldCoords[0] + playerRight.getWidth() <= (background.getWidth() - 240)
+                                    + ((float) 5 / 24) * (oldCoords[1] - 140)) {
                         Image newImg = singleImageResize(GameControler.movePlayer("right"));
                         int[] newCoords = GameControler.getPlayerCoords();
                         playerAbs = new JLabel(new ImageIcon(newImg));
