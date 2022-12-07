@@ -2,12 +2,7 @@ package Backend.GameObjects;
 
 import javax.swing.*;
 
-import Backend.GameControler;
-
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class Chair extends JLabel {
     private int x;
@@ -17,8 +12,6 @@ public class Chair extends JLabel {
 
     public Chair(int x, int y) {
         spawnChair(x, y);
-
-        addActionEvent();
     }
 
     public void spawnChair(int x, int y) {
@@ -40,44 +33,6 @@ public class Chair extends JLabel {
 
     public int getY() {
         return y;
-    }
-
-    public void addActionEvent() {
-        chairLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Chair clicked");
-                if (GameControler.getGameStatus() == GameControler.RUNNING) {
-                    int[] playerCoords = GameControler.getPlayerCoords();
-                    int[] chairCoords = { x, y };
-
-                    System.out.println("0 -> " + playerCoords[0] + " " + chairCoords[0]);
-                    System.out.println("1 -> " + playerCoords[1] + " " + chairCoords[1]);
-                    /*
-                     * chair.setVisible(false);
-                     * pCont.remove(background);
-                     * pCont.add(key.reveal());
-                     * pCont.add(background);
-                     */
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
     }
 
 }

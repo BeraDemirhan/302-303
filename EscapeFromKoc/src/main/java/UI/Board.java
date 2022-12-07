@@ -5,10 +5,14 @@ import javax.swing.*;
 import Backend.GameControler;
 import Backend.GameObjects.Chair;
 import Backend.GameObjects.Key;
+import Backend.Player.Inventory;
+import Backend.Player.Player;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Board extends JFrame {
     Container container = getContentPane();
@@ -79,6 +83,10 @@ public class Board extends JFrame {
     }
 
     public void addComponentsToContainer() {
+        if (key.getRevealed()) {
+            System.out.println("Key revealed");
+            pCont.add(key.reveal());
+        }
         pCont.add(playerAbs);
         pCont.add(chair);
         pCont.add(background);
@@ -86,7 +94,7 @@ public class Board extends JFrame {
 
     public void createFurniture() {
         chair = new Chair(300, 300).getChair();
-        key.spawnKey(300, 300);
+        key.spawnKey(chair.getX(), chair.getY());
     }
 
     public void addActionEvent() {
@@ -151,5 +159,60 @@ public class Board extends JFrame {
 
             }
         });
+        chair.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] chairCoords = { chair.getX(), chair.getY() };
+
+                        System.out.println("0 -> " + playerCoords[0] + " " + chairCoords[0]);
+                        System.out.println("1 -> " + playerCoords[1] + " " + chairCoords[1]);
+                        if (Math.abs(playerCoords[0] - chairCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - chairCoords[1]) < 50) {
+                            System.out.println("Player is on chair");
+                            key.setRevealed(true);
+
+                        }
+                    }
+                }
+
+                if (e.getButton() == MouseEvent.BUTTON3) {
+
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] chairCoords = { chair.getX(), chair.getY() };
+
+                        System.out.println("Key clicked");
+                        if (Math.abs(playerCoords[0] - chairCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - chairCoords[1]) < 50 && key.getRevealed()) {
+                            Inventory.addItem(key);
+                            key.setRevealed(false);
+                            System.out.println("Key collected");
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
     }
+
 }
