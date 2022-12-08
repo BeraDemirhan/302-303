@@ -6,6 +6,7 @@ import Backend.GameControler;
 import Backend.GameObjects.Chair;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
 
@@ -38,6 +39,8 @@ public class Board extends JFrame {
 
     private Container pCont = getContentPane();
     private Key key = new Key();
+
+    private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
 
     public Board() {
         imageResize();
@@ -94,6 +97,7 @@ public class Board extends JFrame {
         pCont.add(playerAbs);
         pCont.add(chair);
         pCont.add(health);
+        pCont.add(bottle.getBottle());
         pCont.add(background);
     }
 
@@ -143,6 +147,23 @@ public class Board extends JFrame {
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
+                    if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)){
+                        bottle.setTrajectory("west");
+                        GameControler.usePowerUp(bottle);
+
+                    }if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)){
+                        bottle.setTrajectory("east");
+                        GameControler.usePowerUp(bottle);
+
+                    }if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)){
+                        bottle.setTrajectory("north");
+                        GameControler.usePowerUp(bottle);
+
+                    }if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)){
+                        bottle.setTrajectory("south");
+                        GameControler.usePowerUp(bottle);
+
+                    }
 
                     pCont.removeAll();
                     addComponentsToContainer();
@@ -167,6 +188,48 @@ public class Board extends JFrame {
                         ScreenCoordinator.pauseGame();
                     }
                 }
+
+            }
+        });
+
+        bottle.getBottle().addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] bottleCoords = {bottle.getX(), bottle.getY()};
+                        System.out.println("0 -> " + playerCoords[0] + " " + bottleCoords[0]);
+                        System.out.println("1 -> " + playerCoords[1] + " " + bottleCoords[1]);
+                        if (Math.abs(playerCoords[0] - bottleCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - bottleCoords[1]) < 50) {
+                            System.out.println("Picked bottle up");
+                            GameControler.pickObject(bottle);
+                            bottle.getBottle().setVisible(false);
+                        }
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
 
             }
         });
