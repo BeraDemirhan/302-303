@@ -17,7 +17,7 @@ public class ScreenCoordinator {
 
     public static void startGame() {
         Board frame = new Board();
-        frame.setTitle("Escape From Koc");
+        frame.setTitle("Escape From Koç");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(960, 540);
         frame.setResizable(false);

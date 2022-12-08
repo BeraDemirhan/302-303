@@ -46,7 +46,7 @@ public class Player {
         Image img = null;
         if (position.equalsIgnoreCase("Front")) {
             img = playerfrontimage;
-        } else if (position.equalsIgnoreCase("back")) {
+        } else if (position.equalsIgnoreCase("Back")) {
             img = playerbackimage;
         } else if (position.equalsIgnoreCase("Left")) {
             img = playerleftimage;
