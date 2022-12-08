@@ -81,9 +81,12 @@ public class PauseScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == helpButton) {
             System.out.println("yes");
-            container.remove(background);
-            container.add(helpText);
-            container.add(background);
+            JFrame helpFrame = new Hint();
+            helpFrame.setTitle("Help");
+            helpFrame.setSize(1440, 810);
+            helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            helpFrame.setResizable(false);
+            helpFrame.setVisible(true);
         }
     }
 }
