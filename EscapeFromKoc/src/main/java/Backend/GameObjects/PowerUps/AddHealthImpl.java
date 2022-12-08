@@ -22,7 +22,7 @@ public class AddHealthImpl implements PowerUp {
         this.x = x;
         this.y = y;
 
-        healthImg = healthImg.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
+        healthImg = healthImg.getScaledInstance(54, 54, Image.SCALE_SMOOTH);
         healthLabel = new JLabel(new ImageIcon(healthImg));
         healthLabel.setBounds(x, y, 100, 100);
     }

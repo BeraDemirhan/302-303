@@ -1,6 +1,7 @@
 package Backend.Player;
 
 import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.PowerUp;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,10 @@ public class Inventory {
 
     public static void addItem(Object obj) {
         items.add(obj);
+    }
+
+    public static boolean contains(Object obj){
+        return items.contains(obj);
     }
 
     public void removeItem(Object obj) {
