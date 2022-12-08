@@ -20,7 +20,7 @@ public class Player {
 
     public Player() {
         if (p == null) {
-            Inventory inventory = new Inventory();
+            this.inventory = new Inventory();
             p = this;
         }
     }
@@ -34,8 +34,11 @@ public class Player {
     }
 
     public void usePowerUp(PowerUp pu) {
+        System.out.println(p.health);
         pu.activatePowerUp(p);
         inventory.removeItem(pu);
+        System.out.println(p.health);
+
     }
 
     public void addHealth(int amount) {
@@ -74,5 +77,9 @@ public class Player {
 
     public int getVelocity() {
         return 10;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

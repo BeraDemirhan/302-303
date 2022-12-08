@@ -5,6 +5,7 @@ import javax.swing.*;
 import Backend.GameControler;
 import Backend.GameObjects.Chair;
 import Backend.GameObjects.Key;
+import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
 
@@ -24,6 +25,8 @@ public class Board extends JFrame {
     private JLabel playerRight;
     private JLabel chair;
 
+    private JLabel health;
+
     private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
     private Image playerfrontimage = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
     private Image playerbackimage = new ImageIcon("EscapeFromKoc/resources/rabbit-back-angled.png").getImage();
@@ -42,6 +45,7 @@ public class Board extends JFrame {
         loadImages();
         setLocationAndSize();
         createFurniture();
+        createHealth();
         addComponentsToContainer();
         addActionEvent();
     }
@@ -89,12 +93,16 @@ public class Board extends JFrame {
         }
         pCont.add(playerAbs);
         pCont.add(chair);
+        pCont.add(health);
         pCont.add(background);
     }
 
     public void createFurniture() {
         chair = new Chair(300, 300).getChair();
         key.spawnKey(chair.getX(), chair.getY());
+    }
+    public void createHealth() {
+        health = new AddHealthImpl( 400,400).getHealth();
     }
 
     public void addActionEvent() {
@@ -162,6 +170,52 @@ public class Board extends JFrame {
 
             }
         });
+        health.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] healthCoords = {health.getX(), health.getY()};
+                        System.out.println("0 -> " + playerCoords[0] + " " + healthCoords[0]);
+                        System.out.println("1 -> " + playerCoords[1] + " " + healthCoords[1]);
+                        if (Math.abs(playerCoords[0] - healthCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - healthCoords[1]) < 50) {
+                            System.out.println("Picked power up");
+                            GameControler.pickObject(new AddHealthImpl(0, 0));
+
+                            health.setVisible(false);
+
+                        }
+
+                    }
+                }
+            }
+
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         chair.addMouseListener(new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -177,6 +231,8 @@ public class Board extends JFrame {
                             System.out.println("Player is on chair");
                             key.setRevealed(true);
                         }
+
+
                     }
                 }
 
@@ -189,10 +245,11 @@ public class Board extends JFrame {
                         System.out.println("Key clicked");
                         if (Math.abs(playerCoords[0] - chairCoords[0]) < 50
                                 && Math.abs(playerCoords[1] - chairCoords[1]) < 50 && key.getRevealed()) {
-                            Inventory.addItem(key);
+                            GameControler.pickObject(key);
                             key.setRevealed(false);
                             System.out.println("Key collected");
                         }
+
                     }
                 }
 

@@ -1,5 +1,7 @@
 package Backend;
 
+import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.Player.Player;
 
 import java.awt.*;
@@ -54,6 +56,12 @@ public class GameControler {
         }
         return trajectoryImg;
 
+    }
+    public static void pickObject(Object obj){
+        p.getInventory().addItem(obj);
+        if(obj instanceof AddHealthImpl){
+            p.usePowerUp( (AddHealthImpl) obj);
+        }
     }
 
     public static int[] getPlayerCoords() {
