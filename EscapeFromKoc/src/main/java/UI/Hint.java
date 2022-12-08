@@ -22,7 +22,6 @@ public class Hint extends JFrame {
         imageResize();
         addActionEvent();
         setVisible(true);
-
     }
 
     public void imageResize() {
