@@ -3,6 +3,7 @@ package Backend;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
+import Backend.Player.Inventory;
 import Backend.Player.Player;
 
 import java.awt.*;
@@ -58,30 +59,36 @@ public class GameControler {
         return trajectoryImg;
 
     }
-    /*public static void moveObject(String trajectory, ThrowBottleImpl bottle){
-        if (trajectory.equalsIgnoreCase("Front")) {
-            bottle.setY(bottle.getY() + bottle.getVelocity());
-            bottle.setX((int) (bottle.getX() - bottle.getVelocity() * ((float) (430 - bottle.getX()) / (bottle.getY() + 772))));
+    /*
+     * public static void moveObject(String trajectory, ThrowBottleImpl bottle){
+     * if (trajectory.equalsIgnoreCase("Front")) {
+     * bottle.setY(bottle.getY() + bottle.getVelocity());
+     * bottle.setX((int) (bottle.getX() - bottle.getVelocity() * ((float) (430 -
+     * bottle.getX()) / (bottle.getY() + 772))));
+     * 
+     * } else if (trajectory.equalsIgnoreCase("back")) {
+     * bottle.setY(bottle.getY() - bottle.getVelocity());
+     * bottle.setX((int) (bottle.getX() + bottle.getVelocity() * ((float) (430 -
+     * bottle.getX()) / (bottle.getY() + 772))));
+     * 
+     * } else if (trajectory.equalsIgnoreCase("Left")) {
+     * bottle.setX(bottle.getX() - bottle.getVelocity());
+     * } else if (trajectory.equalsIgnoreCase("right")) {
+     * bottle.setX(bottle.getX() + bottle.getVelocity());
+     * }
+     * 
+     * }
+     */
 
-        } else if (trajectory.equalsIgnoreCase("back")) {
-            bottle.setY(bottle.getY() - bottle.getVelocity());
-            bottle.setX((int) (bottle.getX() + bottle.getVelocity() * ((float) (430 - bottle.getX()) / (bottle.getY() + 772))));
-
-        } else if (trajectory.equalsIgnoreCase("Left")) {
-            bottle.setX(bottle.getX() - bottle.getVelocity());
-        } else if (trajectory.equalsIgnoreCase("right")) {
-            bottle.setX(bottle.getX() + bottle.getVelocity());
-        }
-
-    }*/
-
-    public static void usePowerUp(PowerUp pu){
+    public static void usePowerUp(PowerUp pu) {
         p.usePowerUp(pu);
     }
-    public static void pickObject(Object obj){
-        p.getInventory().addItem(obj);
-        if(obj instanceof AddHealthImpl){
-            p.usePowerUp( (AddHealthImpl) obj);
+
+    public static void pickObject(Object obj) {
+        p.getInventory();
+        Inventory.addItem(obj);
+        if (obj instanceof AddHealthImpl) {
+            p.usePowerUp((AddHealthImpl) obj);
         }
     }
 

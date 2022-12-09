@@ -105,8 +105,9 @@ public class Board extends JFrame {
         chair = new Chair(300, 300).getChair();
         key.spawnKey(chair.getX(), chair.getY());
     }
+
     public void createHealth() {
-        health = new AddHealthImpl( 400,400).getHealth();
+        health = new AddHealthImpl(400, 400).getHealth();
     }
 
     public void addActionEvent() {
@@ -147,19 +148,22 @@ public class Board extends JFrame {
                         playerAbs = new JLabel(new ImageIcon(newImg));
                         playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
                     }
-                    if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)){
+                    if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
                         bottle.setTrajectory("west");
                         GameControler.usePowerUp(bottle);
 
-                    }if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)){
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)) {
                         bottle.setTrajectory("east");
                         GameControler.usePowerUp(bottle);
 
-                    }if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)){
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)) {
                         bottle.setTrajectory("north");
                         GameControler.usePowerUp(bottle);
 
-                    }if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)){
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)) {
                         bottle.setTrajectory("south");
                         GameControler.usePowerUp(bottle);
 
@@ -177,18 +181,39 @@ public class Board extends JFrame {
                         GameControler.setGameStatus(GameControler.PAUSED);
                         System.out.println(GameControler.getGameStatus());
                         System.out.println("P Pressed");
-                        GameControler.setGameStatus(GameControler.PAUSED);
 
                         ScreenCoordinator.pauseGame();
                     }
+
                 }
                 if (GameControler.getGameStatus() == GameControler.PAUSED) {
+                    System.out.println("Here");
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        System.out.println("Space Pressed");
+                        System.out.println(Inventory.isOpen());
+
+                        System.out.println(Inventory.isOpen());
                         GameControler.setGameStatus(GameControler.RUNNING);
                         ScreenCoordinator.pauseGame();
                     }
                 }
 
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_I) {
+                        System.out.println("I Pressed");
+                        if (Inventory.isOpen()) {
+                            Inventory.closeFrame();
+                        } else {
+                            Inventory.setFrame();
+
+                        }
+                    }
+                }
             }
         });
 
@@ -203,7 +228,7 @@ public class Board extends JFrame {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     if (GameControler.getGameStatus() == GameControler.RUNNING) {
                         int[] playerCoords = GameControler.getPlayerCoords();
-                        int[] bottleCoords = {bottle.getX(), bottle.getY()};
+                        int[] bottleCoords = { bottle.getX(), bottle.getY() };
                         System.out.println("0 -> " + playerCoords[0] + " " + bottleCoords[0]);
                         System.out.println("1 -> " + playerCoords[1] + " " + bottleCoords[1]);
                         if (Math.abs(playerCoords[0] - bottleCoords[0]) < 50
@@ -237,8 +262,6 @@ public class Board extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-
-
             }
 
             @Override
@@ -247,7 +270,7 @@ public class Board extends JFrame {
                     if (GameControler.getGameStatus() == GameControler.RUNNING) {
 
                         int[] playerCoords = GameControler.getPlayerCoords();
-                        int[] healthCoords = {health.getX(), health.getY()};
+                        int[] healthCoords = { health.getX(), health.getY() };
                         System.out.println("0 -> " + playerCoords[0] + " " + healthCoords[0]);
                         System.out.println("1 -> " + playerCoords[1] + " " + healthCoords[1]);
                         if (Math.abs(playerCoords[0] - healthCoords[0]) < 50
@@ -262,7 +285,6 @@ public class Board extends JFrame {
                     }
                 }
             }
-
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -295,7 +317,6 @@ public class Board extends JFrame {
                             key.setRevealed(true);
                         }
 
-
                     }
                 }
 
@@ -310,6 +331,7 @@ public class Board extends JFrame {
                                 && Math.abs(playerCoords[1] - chairCoords[1]) < 50 && key.getRevealed()) {
                             GameControler.pickObject(key);
                             key.setRevealed(false);
+                            key.setRevealable(false);
                             System.out.println("Key collected");
                         }
 

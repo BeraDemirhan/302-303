@@ -36,15 +36,11 @@ public class Player {
     public void usePowerUp(PowerUp pu) {
         pu.activatePowerUp(p);
         inventory.removeItem(pu);
-
-
     }
 
     public void addHealth(int amount) {
         p.health += amount;
     }
-
-
 
     public Image getPlayerImg(String position) {
         Image img = null;
