@@ -38,4 +38,7 @@ public class Key extends JLabel {
         this.revealed = revealed;
     }
 
+    public boolean getRevealable() {
+        return isrevealable;
+    }
 }

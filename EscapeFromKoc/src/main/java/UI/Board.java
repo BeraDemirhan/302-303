@@ -322,7 +322,7 @@ public class Board extends JFrame {
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
 
-                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING && key.getRevealable()) {
                         int[] playerCoords = GameControler.getPlayerCoords();
                         int[] chairCoords = { chair.getX(), chair.getY() };
 
