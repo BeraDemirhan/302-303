@@ -4,7 +4,9 @@ import javax.swing.*;
 
 import Backend.GameControler;
 import Backend.GameObjects.Chair;
+import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
+import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
@@ -102,7 +104,7 @@ public class Board extends JFrame {
     }
 
     public void createFurniture() {
-        chair = new Chair(300, 300).getChair();
+        chair = ObjectFactory.createObject("chair", 300, 300).getObjectLabel();
         key.spawnKey(chair.getX(), chair.getY());
     }
 

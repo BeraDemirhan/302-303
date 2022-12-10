@@ -4,17 +4,18 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class Chair extends JLabel {
+public class Chair extends JLabel implements GameObjectIntterface {
     private int x;
     private int y;
     private Image chairImg = new ImageIcon("EscapeFromKoc/resources/chair.png").getImage();
     private JLabel chairLabel;
 
     public Chair(int x, int y) {
-        spawnChair(x, y);
+        spawnObject(x, y);
     }
 
-    public void spawnChair(int x, int y) {
+    @Override
+    public void spawnObject(int x, int y) {
         this.x = x;
         this.y = y;
 
@@ -23,14 +24,17 @@ public class Chair extends JLabel {
         chairLabel.setBounds(x, y, 100, 100);
     }
 
-    public JLabel getChair() {
+    @Override
+    public JLabel getObjectLabel() {
         return chairLabel;
     }
 
+    @Override
     public int getX() {
         return x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
