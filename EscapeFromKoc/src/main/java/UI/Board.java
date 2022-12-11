@@ -4,19 +4,20 @@ import javax.swing.*;
 
 import Backend.GameControler;
 import Backend.GameObjects.Chair;
-import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
-import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
-
+import Backend.GameObjects.GameObjectIntterface;
+import Backend.GameObjects.ObjectFactory;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Board extends JFrame {
     Container container = getContentPane();
@@ -37,12 +38,17 @@ public class Board extends JFrame {
     private Image playerrightimage = new ImageIcon("EscapeFromKoc/resources/rabbit-right-angled.png").getImage();
 
     private Image playerAbsImage = new ImageIcon(GameControler.movePlayer("back")).getImage();
+    private Image newImgPlayer ;
     private JLabel playerAbs;
 
     private Container pCont = getContentPane();
     private Key key = new Key();
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
+    private boolean bottleThrown = false;
+
+    private int oldBottleCords[] = new int[2];
+    private int newBottleCords[] = new int[2];
 
     public Board() {
         imageResize();
@@ -53,6 +59,7 @@ public class Board extends JFrame {
         createHealth();
         addComponentsToContainer();
         addActionEvent();
+        updateFrame();
     }
 
     private void imageResize() {
@@ -62,6 +69,7 @@ public class Board extends JFrame {
         playerleftimage = playerleftimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerrightimage = playerrightimage.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         playerAbsImage = singleImageResize(playerAbsImage);
+        newImgPlayer = playerAbsImage;
     }
 
     private Image singleImageResize(Image img) {
@@ -112,6 +120,46 @@ public class Board extends JFrame {
         health = new AddHealthImpl(400, 400).getHealth();
     }
 
+    public void updateFrame() {
+        new javax.swing.Timer(25, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                    playerAbs.setIcon(new ImageIcon(newImgPlayer));
+                    playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
+                            100);
+                    playerAbs.setVisible(true);
+                    if (bottleThrown) {
+                        bottleThrowAnimation(oldBottleCords, newBottleCords);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void bottleThrowAnimation(int[] oldCoords, int[] newCoords) {
+        int x = oldCoords[0];
+        int y = oldCoords[1];
+        int x2 = newCoords[0];
+        int y2 = newCoords[1];
+        int dx = x2 - x;
+        int dy = y2 - y;
+        int steps = 100000000;
+        double xIncr = (double) dx / (double) steps;
+        double yIncr = (double) dy / (double) steps;
+        for (int i = 0; i < steps; i++) {
+            x += xIncr;
+            y += yIncr;
+            bottle.getBottle().setBounds((int) x, (int) y, 100, 100);
+            try {
+                Thread.sleep(100000000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        bottleThrown = false;
+    }
+
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
@@ -122,53 +170,56 @@ public class Board extends JFrame {
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
-                        Image newImg = singleImageResize(GameControler.movePlayer("back"));
-                        int[] newCoords = GameControler.getPlayerCoords();
-                        playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
+                        newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
-                                    + playerAbs.getHeight()) {
-                        Image newImg = singleImageResize(GameControler.movePlayer("front"));
-                        int[] newCoords = GameControler.getPlayerCoords();
-                        playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
+                            + playerAbs.getHeight()) {
+
+                        newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
+
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
                             && oldCoords[0] >= (background.getX() + 240) - ((float) 5 / 24) * (oldCoords[1] - 140)) {
-                        Image newImg = singleImageResize(GameControler.movePlayer("left"));
-                        int[] newCoords = GameControler.getPlayerCoords();
-                        playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
+                        newImgPlayer = singleImageResize(GameControler.movePlayer("left"));
+
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && oldCoords[0] + playerRight.getWidth() <= (background.getWidth() - 240)
-                                    + ((float) 5 / 24) * (oldCoords[1] - 140)) {
-                        Image newImg = singleImageResize(GameControler.movePlayer("right"));
-                        int[] newCoords = GameControler.getPlayerCoords();
-                        playerAbs = new JLabel(new ImageIcon(newImg));
-                        playerAbs.setBounds(newCoords[0], newCoords[1], 100, 100);
+                            + ((float) 5 / 24) * (oldCoords[1] - 140)) {
+                        newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
+
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
+                        bottleThrown = true;
                         bottle.setTrajectory("west");
+                        oldBottleCords[0] = bottle.getX();
+                        oldBottleCords[1] = bottle.getY();
                         GameControler.usePowerUp(bottle);
+                        newBottleCords[0] = bottle.getX();
+                        newBottleCords[1] = bottle.getY();
+                        bottleThrown = false;
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)) {
+                        bottleThrown = true;
                         bottle.setTrajectory("east");
                         GameControler.usePowerUp(bottle);
+                        bottleThrown = false;
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)) {
+                        bottleThrown = true;
                         bottle.setTrajectory("north");
                         GameControler.usePowerUp(bottle);
+                        bottleThrown = false;
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)) {
+                        bottleThrown = true;
                         bottle.setTrajectory("south");
                         GameControler.usePowerUp(bottle);
-
+                        bottleThrown = false;
                     }
 
                     pCont.removeAll();
