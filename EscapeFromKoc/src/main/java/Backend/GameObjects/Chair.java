@@ -7,6 +7,8 @@ import java.awt.*;
 public class Chair extends JLabel implements GameObjectIntterface {
     private int x;
     private int y;
+
+    private boolean haskey = true;
     private Image chairImg = new ImageIcon("EscapeFromKoc/resources/chair.png").getImage();
     private JLabel chairLabel;
 
