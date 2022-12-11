@@ -8,7 +8,7 @@ public class Chair extends JLabel implements GameObjectIntterface {
     private int x;
     private int y;
 
-    private boolean haskey = true;
+    private boolean hasKey = true;
     private Image chairImg = new ImageIcon("EscapeFromKoc/resources/chair.png").getImage();
     private JLabel chairLabel;
 
@@ -25,6 +25,13 @@ public class Chair extends JLabel implements GameObjectIntterface {
         chairLabel = new JLabel(new ImageIcon(chairImg));
         chairLabel.setBounds(x, y, 100, 100);
     }
+
+    @Override
+    public boolean objectHasKey() {
+        return this.hasKey;
+    }
+
+
 
     @Override
     public JLabel getObjectLabel() {

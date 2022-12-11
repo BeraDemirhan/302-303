@@ -10,4 +10,6 @@ public interface GameObjectIntterface {
     int getY();
 
     void spawnObject(int x, int y);
+
+    boolean objectHasKey();
 }
