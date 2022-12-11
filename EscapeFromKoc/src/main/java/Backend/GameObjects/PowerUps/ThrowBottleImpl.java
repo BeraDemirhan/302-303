@@ -43,8 +43,7 @@ public class ThrowBottleImpl implements PowerUp {
     public void activatePowerUp(Player player) {
         this.x = player.getX() + 10;
         this.y = player.getY() + 25;
-        bottleLabel.setBounds(this.x, this.y, 100, 100);
-        bottleLabel.setVisible(true);
+        B
         for (int i = 0; i < 7; i++) {
             if (trajectory.equalsIgnoreCase("south")) {
                 this.setY(this.getY() + this.getVelocity());
