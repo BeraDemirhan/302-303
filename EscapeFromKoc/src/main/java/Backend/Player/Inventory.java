@@ -1,8 +1,7 @@
 package Backend.Player;
 
-import Backend.GameControler;
 import Backend.GameObjects.Key;
-import Backend.GameObjects.PowerUps.AddHealthImpl;
+
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 
 import java.awt.Container;

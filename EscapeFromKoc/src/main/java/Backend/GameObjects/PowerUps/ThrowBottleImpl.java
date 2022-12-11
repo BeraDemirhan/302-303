@@ -12,7 +12,7 @@ public class ThrowBottleImpl implements PowerUp {
     private int y;
 
     private int velocity = 20;
-    private Image bottleImg = new ImageIcon("EscapeFromKoc/resources/bottle.png").getImage();
+    private int coords[] = { this.getX(), this.getY() };
 
     private JLabel bottleLabel;
 
@@ -24,9 +24,6 @@ public class ThrowBottleImpl implements PowerUp {
         this.x = x;
         this.y = y;
 
-        bottleImg = bottleImg.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-        bottleLabel = new JLabel(new ImageIcon(bottleImg));
-        bottleLabel.setBounds(x, y, 100, 100);
     }
 
     public JLabel getBottle() {
@@ -43,7 +40,6 @@ public class ThrowBottleImpl implements PowerUp {
     public void activatePowerUp(Player player) {
         this.x = player.getX() + 10;
         this.y = player.getY() + 25;
-        B
         for (int i = 0; i < 7; i++) {
             if (trajectory.equalsIgnoreCase("south")) {
                 this.setY(this.getY() + this.getVelocity());
@@ -60,9 +56,13 @@ public class ThrowBottleImpl implements PowerUp {
             } else if (trajectory.equalsIgnoreCase("east")) {
                 this.setX(this.getX() + this.getVelocity());
             }
-
         }
+        coords = new int[] { this.getX(), this.getY() };
+    }
 
+    public int[] getCoords() {
+        System.out.println("coords: " + coords[0] + " " + coords[1]);
+        return coords;
     }
 
     public int getX() {
@@ -78,12 +78,12 @@ public class ThrowBottleImpl implements PowerUp {
     }
 
     public void setX(int x) {
-        bottleLabel.setBounds(x, this.y, 100, 100);
+        // bottleLabel.setBounds(x, this.y, 100, 100);
         this.x = x;
     }
 
     public void setY(int y) {
-        bottleLabel.setBounds(this.x, y, 100, 100);
+        // bottleLabel.setBounds(this.x, y, 100, 100);
         this.y = y;
     }
 }
