@@ -67,7 +67,7 @@ public class BlindAlienImpl implements Alien{
         if (x > p.getX()) {
             this.setX(x - velocity);
         } else if (x < p.getX()) {
-            p.setX(x + velocity);
+            this.setX(x + velocity);
         }
 
     }
