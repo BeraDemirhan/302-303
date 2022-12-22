@@ -5,7 +5,7 @@ import Backend.Player.Player;
 
 import javax.swing.*;
 
-public interface Alien {
+public interface Alien extends GameObjectIntterface{
     void spawnObject(int x, int y);
 
     JLabel getObjectLabel();

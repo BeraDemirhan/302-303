@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BlindAlienImpl implements Alien{
+
+    private boolean ALERT = false;
     private int velocity = 5;
     private int damage = 1;
     private int x;
@@ -21,9 +23,15 @@ public class BlindAlienImpl implements Alien{
         this.x = x;
         this.y = y;
 
-        blindAlienImg = blindAlienImg.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
+        blindAlienImg = blindAlienImg.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
         blindAlienLabel = new JLabel(new ImageIcon(blindAlienImg));
         blindAlienLabel.setBounds(x, y, 100, 100);
+    }
+
+
+
+    public Image getBlindAlienImg() {
+        return blindAlienImg;
     }
 
     @Override
@@ -72,12 +80,21 @@ public class BlindAlienImpl implements Alien{
     }
 
     public void applyAlienGoal(Player p){
+        // alien goals are intended to be defined for all aliens,
+        // eg: blind alien will try to move towards player on movement events
+        // (applying the goal is only the end result not the conditions that it has to have to apply it)
         if(Math.abs(p.getX() - x) < 50
                 && Math.abs(p.getY() - y) < 50){
             attackPlayer(p);
         }else{
             moveAlienToPlayer(p);
         }
+    }
+
+    @Override
+    public boolean objectHasKey() {
+        // Placeholder code
+        return false;
     }
 
 

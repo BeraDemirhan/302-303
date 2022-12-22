@@ -43,8 +43,11 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
+
     private Container pCont = getContentPane();
     private Key key = new Key();
+
+    private JLabel blindAlien;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
@@ -56,6 +59,7 @@ public class Board extends JFrame {
         setLocationAndSize();
         createFurniture();
         createHealth();
+        createAlien();
         addComponentsToContainer();
         addActionEvent();
         updateFrame();
@@ -109,6 +113,7 @@ public class Board extends JFrame {
         pCont.add(playerAbs);
         pCont.add(chair);
         pCont.add(health);
+        pCont.add(blindAlien);
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -120,6 +125,12 @@ public class Board extends JFrame {
 
     public void createHealth() {
         health = new AddHealthImpl(400, 400).getHealth();
+    }
+
+    public void createAlien(){
+        // possibly to access alien in the back end, try to interact game controller
+        // with object factory to log objects?
+        blindAlien = ObjectFactory.createObject("blind-alien", 400 , 400).getObjectLabel();
     }
 
     public void bottleThrowAnimation(int[] playerCoords, int[] newCoords) {
