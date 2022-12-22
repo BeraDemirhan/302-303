@@ -52,10 +52,6 @@ public class BlindAlienImpl implements Alien{
 
     public void moveAlienToPlayer(Player p){
         if (y < p.getY()) {
-            //
-            // p.setY((int) (p.getY() + p.getVelocity()*Math.cos(Math.atan((float) 5/24))));
-            // p.setX((int) (p.getX() - p.getVelocity()*Math.sin(Math.atan((float) 5/24))));
-
             this.setY(y + velocity);
             this.setX((int) (y - velocity * ((float) (430 - x) / (y + 772))));
 
