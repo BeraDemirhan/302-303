@@ -34,7 +34,6 @@ public class BuildMode extends JFrame implements ActionListener {
 
     private Container container = getContentPane();
 
-    final Component t;
 
     public BuildMode() {
 
@@ -60,7 +59,7 @@ public class BuildMode extends JFrame implements ActionListener {
     }
 
     private void loadImages() {
-        background = new JLabel(new ImageIcon(backimage));
+        background = new JLabel(new ImageIcon(room));
         chairLabel = new JLabel(new ImageIcon(chair));
         sofaLabel = new JLabel(new ImageIcon(sofa));
         pianoLabel = new JLabel(new ImageIcon(piano));
