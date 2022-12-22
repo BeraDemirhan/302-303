@@ -9,7 +9,7 @@ public class Chair extends JLabel implements GameObjectIntterface {
     private int y;
 
     private boolean hasKey = true;
-    private Image chairImg = new ImageIcon("EscapeFromKoc/resources/chair.png").getImage();
+    private Image chairImg = new ImageIcon("EscapeFromKoc/resources/RoomObjects/chair.png").getImage();
     private JLabel chairLabel;
 
     public Chair(int x, int y) {
@@ -30,8 +30,6 @@ public class Chair extends JLabel implements GameObjectIntterface {
     public boolean objectHasKey() {
         return this.hasKey;
     }
-
-
 
     @Override
     public JLabel getObjectLabel() {
