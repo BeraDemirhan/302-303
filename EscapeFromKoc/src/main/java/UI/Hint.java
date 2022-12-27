@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Hint extends JFrame {
 
-    Container container = getContentPane();
+    private Container container = getContentPane();
 
     private Image hintImage = new ImageIcon("EscapeFromKoc/resources/HelpScreen.png").getImage();
     private JLabel hintLabel;

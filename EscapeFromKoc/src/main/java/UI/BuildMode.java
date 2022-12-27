@@ -35,19 +35,19 @@ public class BuildMode extends JFrame implements ActionListener {
     private Container container = getContentPane();
 
     public BuildMode() {
-
         setLayoutManager();
+        imageResize();
         loadImages();
-        setSize();
-        setInitLocation();
+        setSizeandLocation();
+        alignLabels();
         addComponentsToContainer();
         addActionEvent();
-        imageResize();
+
     }
 
     private void imageResize() {
         chair = chair.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-        sofa = sofa.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
+        sofa = sofa.getScaledInstance(96 * 3, 54 * 3, Image.SCALE_SMOOTH);
         piano = piano.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
         table = table.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
         room = room.getScaledInstance(960, 540, Image.SCALE_SMOOTH);
@@ -65,12 +65,12 @@ public class BuildMode extends JFrame implements ActionListener {
         tableLabel = new JLabel(new ImageIcon(table));
     }
 
-    private void setSize() {
-        chairLabel.setSize(100, 100);
-        sofaLabel.setSize(100, 100);
-        pianoLabel.setSize(100, 100);
-        tableLabel.setSize(100, 100);
-        background.setSize(960, 540);
+    private void setSizeandLocation() {
+        chairLabel.setBounds(0, 0, 192, 108);
+        sofaLabel.setBounds(200, 0, 192, 108);
+        pianoLabel.setBounds(400, 0, 192, 108);
+        tableLabel.setBounds(600, 0, 192, 108);
+        background.setBounds(0, 0, 960, 540);
     }
 
     private void addComponentsToContainer() {
@@ -81,14 +81,27 @@ public class BuildMode extends JFrame implements ActionListener {
         container.add(background);
     }
 
-    private void setInitLocation() {
-        chairLabel.setLocation(0, 0);
-        sofaLabel.setLocation(150, 0);
-        pianoLabel.setLocation(300, 0);
-        tableLabel.setLocation(450, 0);
+    private void alignLabels() {
+        chairLabel.setAlignmentX(LEFT_ALIGNMENT);
+        chairLabel.setAlignmentY(TOP_ALIGNMENT);
+        sofaLabel.setAlignmentX(CENTER_ALIGNMENT);
+        sofaLabel.setAlignmentY(CENTER_ALIGNMENT);
+        pianoLabel.setAlignmentX(CENTER_ALIGNMENT);
+        pianoLabel.setAlignmentY(CENTER_ALIGNMENT);
+        tableLabel.setAlignmentX(CENTER_ALIGNMENT);
+        tableLabel.setAlignmentY(CENTER_ALIGNMENT);
     }
 
     private void addActionEvent() {
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    dispose();
+                    ScreenCoordinator.startGame();
+                }
+            }
+        });
         chairLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -101,7 +114,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                chairLabel.setLocation(getMousePosition().x, getMousePosition().y);
+                chairLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
             }
 
             @Override
@@ -128,7 +141,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                sofaLabel.setLocation(getMousePosition().x, getMousePosition().y);
+                sofaLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
             }
 
             @Override
@@ -154,7 +167,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                pianoLabel.setLocation(getMousePosition().x, getMousePosition().y);
+                pianoLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
             }
 
             @Override
@@ -180,7 +193,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                tableLabel.setLocation(getMousePosition().x, getMousePosition().y);
+                tableLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
             }
 
             @Override
@@ -201,4 +214,5 @@ public class BuildMode extends JFrame implements ActionListener {
         // TODO Auto-generated method stub
 
     }
+
 }
