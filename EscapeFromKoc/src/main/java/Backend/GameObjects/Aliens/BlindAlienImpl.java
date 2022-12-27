@@ -49,20 +49,23 @@ public class BlindAlienImpl implements Alien {
     }
 
     public void moveAlienToPlayer(Player p) {
-        if (y < p.getY()) {
-            this.setY(y + velocity);
-            this.setX((int) (y - velocity * ((float) (430 - x) / (y + 772))));
+        System.out.println(this.x + " " + this.y);
+        if (this.y < p.getY()) {
+            this.setY(this.y + velocity);
+            this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
 
-        } else if (y > p.getY()) {
-            this.setY(y - velocity);
-            this.setX((int) (x + velocity * ((float) (430 - x) / (y + 772))));
+        } else if (this.y > p.getY()) {
+            this.setY(this.y - velocity);
+            this.setX((int) (this.x + velocity * ((float) (430 - this.x) / (this.y + 772))));
 
         }
-        if (x > p.getX()) {
-            this.setX(x - velocity);
-        } else if (x < p.getX()) {
-            this.setX(x + velocity);
+        if (this.x > p.getX()) {
+            this.setX(this.x - velocity);
+        } else if (this.x < p.getX()) {
+            this.setX(this.x + velocity);
         }
+        System.out.println(this.x + " " + this.y);
+
 
     }
 
@@ -75,8 +78,9 @@ public class BlindAlienImpl implements Alien {
         // eg: blind alien will try to move towards player on movement events
         // (applying the goal is only the end result not the conditions that it has to
         // have to apply it)
-        if (Math.abs(p.getX() - x) < 50
-                && Math.abs(p.getY() - y) < 50) {
+        if (Math.abs(p.getX() - this.x) < 50
+                && Math.abs(p.getY() - this.y) < 50) {
+            System.out.println("Attacking");
             attackPlayer(p);
         } else {
             moveAlienToPlayer(p);

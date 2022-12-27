@@ -207,9 +207,7 @@ public class Board extends JFrame {
                                     + playerAbs.getHeight()) {
 
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
-                        System.out.println(blindAlien.getX() + " "+ blindAlien.getY()) ;
                         GameControler.applyAlienGoal(blindAlien);
-                        System.out.println(blindAlien.getX() + " "+ blindAlien.getY()) ;
 
 
                     }
