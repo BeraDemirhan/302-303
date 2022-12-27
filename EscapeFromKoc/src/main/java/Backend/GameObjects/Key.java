@@ -1,6 +1,9 @@
 package Backend.GameObjects;
 
 import javax.swing.*;
+
+import UI.UIUtils;
+
 import java.awt.*;
 
 public class Key extends JLabel {
@@ -8,7 +11,6 @@ public class Key extends JLabel {
     private int y;
     private boolean revealed = false;
     private boolean isrevealable = true;
-    private Image keyImg = new ImageIcon("EscapeFromKoc/resources/key.png").getImage();
 
     public boolean getRevealed() {
         return revealed;
@@ -19,10 +21,8 @@ public class Key extends JLabel {
             return new JLabel();
         }
         revealed = true;
-        keyImg = keyImg.getScaledInstance(48, 27, Image.SCALE_SMOOTH);
-        JLabel keyFrame = new JLabel(new ImageIcon(keyImg));
-        keyFrame.setBounds(x, y, 100, 100);
-        return keyFrame;
+
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/key.png", x, y, 50, 50);
     }
 
     public void setRevealable(boolean revealable) {

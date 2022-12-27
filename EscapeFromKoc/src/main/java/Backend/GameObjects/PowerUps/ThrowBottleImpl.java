@@ -1,10 +1,9 @@
 package Backend.GameObjects.PowerUps;
 
 import Backend.Player.Player;
+import UI.UIUtils;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class ThrowBottleImpl implements PowerUp {
     private int x;
@@ -27,7 +26,7 @@ public class ThrowBottleImpl implements PowerUp {
     }
 
     public JLabel getBottle() {
-        return bottleLabel;
+        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
     }
 
     private String trajectory = "";
