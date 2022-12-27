@@ -33,4 +33,9 @@ public class UIUtils {
         return frame;
     }
 
+    public static void setLabelImage(JLabel label,String path,int width, int height){
+        Image img = new ImageIcon(path).getImage();
+        img = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(img));
+    }
 }

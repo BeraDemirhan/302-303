@@ -13,6 +13,8 @@ public class BlindAlienImpl implements Alien {
     private int damage = 1;
     private int x;
     private int y;
+    private String dir = "Front";
+    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien" ;// General path does not change but dir does
 
 
     public BlindAlienImpl(int x, int y) {
@@ -27,7 +29,7 @@ public class BlindAlienImpl implements Alien {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/BlindAlien/BlindAlienFront.png", x, y, 96, 54);
+        return UIUtils.createLabel(generalPath+dir+".png", x, y, 96, 54);
     }
 
     @Override
@@ -53,16 +55,20 @@ public class BlindAlienImpl implements Alien {
         if (this.y < p.getY()) {
             this.setY(this.y + velocity);
             this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Front";
 
         } else if (this.y > p.getY()) {
             this.setY(this.y - velocity);
             this.setX((int) (this.x + velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Back";
 
         }
         if (this.x > p.getX()) {
             this.setX(this.x - velocity);
+            this.dir = "Left";
         } else if (this.x < p.getX()) {
             this.setX(this.x + velocity);
+            this.dir = "Right";
         }
         System.out.println(this.x + " " + this.y);
 
