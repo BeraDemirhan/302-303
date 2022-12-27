@@ -18,7 +18,7 @@ public class Player {
 
     private static Player p = null;
 
-    public Player() {
+    private Player() {
         if (p == null) {
             this.inventory = new Inventory();
             p = this;

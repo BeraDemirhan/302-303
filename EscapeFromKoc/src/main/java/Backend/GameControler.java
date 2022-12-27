@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.GameObjects.Aliens.Alien;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
@@ -7,6 +8,9 @@ import Backend.Player.Inventory;
 import Backend.Player.Player;
 
 import java.awt.*;
+
+import javax.swing.UIDefaults.ProxyLazyValue;
+
 import UI.ScreenCoordinator;
 
 public class GameControler {
@@ -99,6 +103,12 @@ public class GameControler {
 
     public static void exit() {
         ScreenCoordinator.exit();
+    }
+
+
+
+    public static void applyAlienGoal(Alien a){
+        a.applyAlienGoal(p);
     }
 
 }
