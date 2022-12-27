@@ -6,7 +6,7 @@ import UI.UIUtils;
 
 import java.awt.*;
 
-public class Key extends JLabel {
+public class Key {
     private int x;
     private int y;
     private boolean revealed = false;

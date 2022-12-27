@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import UI.UIUtils;
 
-public class Chair extends JLabel implements GameObjectIntterface {
+public class Chair implements GameObjectIntterface {
     private int x;
     private int y;
 
