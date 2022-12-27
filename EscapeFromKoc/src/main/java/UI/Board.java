@@ -11,6 +11,8 @@ import Backend.Player.Inventory;
 import Backend.Player.Player;
 import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.ObjectFactory;
+import Backend.GameObjects.Aliens.BlindAlienImpl;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -43,8 +45,13 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
+
     private Container pCont = getContentPane();
     private Key key = new Key();
+
+
+    private BlindAlienImpl blindAlien;
+    private JLabel blindAlienLabel;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
@@ -53,6 +60,7 @@ public class Board extends JFrame {
         imageResize();
         setLayoutManager();
         loadImages();
+        createAlien();
         setLocationAndSize();
         createFurniture();
         createHealth();
@@ -97,6 +105,7 @@ public class Board extends JFrame {
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
+        blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -109,6 +118,7 @@ public class Board extends JFrame {
         pCont.add(playerAbs);
         pCont.add(chair);
         pCont.add(health);
+        pCont.add(blindAlienLabel);
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -120,6 +130,13 @@ public class Board extends JFrame {
 
     public void createHealth() {
         health = new AddHealthImpl(400, 400).getHealth();
+    }
+
+    public void createAlien(){
+        // possibly to access alien in the back end, try to interact game controller
+        // with object factory to log objects?
+        blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", 400 , 400);
+        blindAlienLabel = blindAlien.getObjectLabel();
     }
 
     public void bottleThrowAnimation(int[] playerCoords, int[] newCoords) {
@@ -161,6 +178,7 @@ public class Board extends JFrame {
                     playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
                             100);
                     playerAbs.setVisible(true);
+                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
                     if (bottleThrown) {
                         bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
                     }
@@ -180,23 +198,32 @@ public class Board extends JFrame {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
                         newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
+                        GameControler.applyAlienGoal(blindAlien);
+
+
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
                                     + playerAbs.getHeight()) {
 
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
+                        System.out.println(blindAlien.getX() + " "+ blindAlien.getY()) ;
+                        GameControler.applyAlienGoal(blindAlien);
+                        System.out.println(blindAlien.getX() + " "+ blindAlien.getY()) ;
+
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
                             && oldCoords[0] >= (background.getX() + 240) - ((float) 5 / 24) * (oldCoords[1] - 140)) {
                         newImgPlayer = singleImageResize(GameControler.movePlayer("left"));
+                        GameControler.applyAlienGoal(blindAlien);
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && oldCoords[0] + playerRight.getWidth() <= (background.getWidth() - 240)
                                     + ((float) 5 / 24) * (oldCoords[1] - 140)) {
                         newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
+                        GameControler.applyAlienGoal(blindAlien);
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {

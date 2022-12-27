@@ -3,14 +3,13 @@ package Backend.Player;
 import Backend.GameObjects.Key;
 
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
+import UI.UIUtils;
 
 import java.awt.Container;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -39,22 +38,12 @@ public class Inventory {
             for (int i = 0; i < items.size(); i++) {
                 Object item = items.get(i);
                 if (item.getClass().equals(ThrowBottleImpl.class)) {
-                    Image bottleImg = new ImageIcon("EscapeFromKoc/resources/bottle.png").getImage();
-                    bottleImg = bottleImg.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-                    JLabel bottleLabel = new JLabel(new ImageIcon(bottleImg));
-                    System.out.println("x: " + x + " y: " + y);
-                    bottleLabel.setBounds(x, y, 100, 100);
-                    container.add(bottleLabel);
+                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/bottle.png", x, y, 96, 54));
                     x += placer;
                     placer = 100;
                 }
                 if (item.getClass().equals(Key.class)) {
-                    Image keyImg = new ImageIcon("EscapeFromKoc/resources/key.png").getImage();
-                    keyImg = keyImg.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-                    JLabel keyLabel = new JLabel(new ImageIcon(keyImg));
-                    System.out.println("x: " + x + " y: " + y);
-                    keyLabel.setBounds(x, y, 100, 100);
-                    container.add(keyLabel);
+                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/key.png", x, y, 96, 54));
                     x += placer;
                     placer = 100;
                 }
@@ -63,13 +52,7 @@ public class Inventory {
     }
 
     public static void setFrame() {
-        inventoryFrame.setLayout(null);
-        inventoryFrame.setBounds(0, 380, 960, 200);
-        inventoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventoryFrame.setResizable(false);
-        inventoryFrame.setUndecorated(true);
-        inventoryFrame.setVisible(true);
-        inventoryFrame.setFocusable(true);
+        inventoryFrame = UIUtils.createFrame("Inventory");
         InventoryOpen = true;
         addActionEvent();
     }
