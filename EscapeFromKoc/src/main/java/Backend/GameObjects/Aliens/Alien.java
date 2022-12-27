@@ -14,7 +14,7 @@ public interface Alien extends GameObjectIntterface{
 
     int getY();
 
-    void applyAlienGoal(Player p);
+    void applyAlienGoal(Object o);
 
     void attackPlayer(Player p);
 }

@@ -56,6 +56,8 @@ public class Board extends JFrame {
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
+    private static final int TIMER_DELAY = 35;
+
     public Board() {
         imageResize();
         setLayoutManager();
@@ -65,7 +67,9 @@ public class Board extends JFrame {
         createFurniture();
         createHealth();
         addComponentsToContainer();
+
         addActionEvent();
+    
         updateFrame();
     }
 
@@ -147,23 +151,23 @@ public class Board extends JFrame {
         int y2 = newCoords[1];
         int dx = x2 - x;
         int dy = y2 - y;
-        int steps = 10;
+        int steps = 7;
         double xIncr = (double) dx / (double) steps;
         double yIncr = (double) dy / (double) steps;
         for (int i = 0; i < steps; i++) {
             x += xIncr;
             y += yIncr;
             try {
-                Thread.sleep(10);
+
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println("Bottle Label coords: " + bottleLabel.getX() + " " + bottleLabel.getY());
             bottleLabel.setBounds((int) x, (int) y, 100, 100);
-            pCont.remove(background);
-            pCont.add(bottleLabel);
+            GameControler.applyAlienGoal(blindAlien, bottle);
             bottleLabel.setVisible(true);
-            pCont.add(background);
+            pCont.repaint();
         }
         bottleThrown = false;
 
@@ -182,7 +186,11 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     if (bottleThrown) {
-                        bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
+                        new Thread() {
+                            public void run() {
+                                bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
+                            }
+                        }.start();;
                     }
                 }
             }
