@@ -178,7 +178,9 @@ public class Board extends JFrame {
                     playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
                             100);
                     playerAbs.setVisible(true);
-                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
+                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
+                    blindAlien.setDirection(blindAlienLabel);
+
                     if (bottleThrown) {
                         bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
                     }

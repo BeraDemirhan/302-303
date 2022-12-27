@@ -99,4 +99,9 @@ public class BlindAlienImpl implements Alien {
         return false;
     }
 
+
+    public void setDirection(JLabel label){
+        UIUtils.setLabelImage(label, generalPath+dir+".png", 96, 54);
+    }
+
 }
