@@ -1,52 +1,44 @@
 package Backend.GameObjects.Aliens;
 
 import Backend.Player.Player;
+import UI.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BlindAlienImpl implements Alien{
+public class BlindAlienImpl implements Alien {
 
     private boolean ALERT = false;
     private int velocity = 5;
     private int damage = 1;
     private int x;
     private int y;
-    private Image blindAlienImg = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
-    private JLabel blindAlienLabel;
-    public BlindAlienImpl(int x , int y ){
+    private String dir = "Front";
+    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien" ;// General path does not change but dir does
+
+
+    public BlindAlienImpl(int x, int y) {
         spawnObject(x, y);
     }
 
     @Override
-    public void spawnObject(int x, int y){
+    public void spawnObject(int x, int y) {
         this.x = x;
         this.y = y;
-
-        blindAlienImg = blindAlienImg.getScaledInstance(54, 96, Image.SCALE_SMOOTH);
-        blindAlienLabel = new JLabel(new ImageIcon(blindAlienImg));
-        blindAlienLabel.setBounds(x, y, 100, 100);
-    }
-
-
-
-    public Image getBlindAlienImg() {
-        return blindAlienImg;
     }
 
     @Override
-    public JLabel getObjectLabel(){
-        return blindAlienLabel;
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel(generalPath+dir+".png", x, y, 96, 54);
     }
 
-
     @Override
-    public int getX(){
+    public int getX() {
         return this.x;
     }
 
     @Override
-    public int getY(){
+    public int getY() {
         return this.y;
     }
 
@@ -58,35 +50,45 @@ public class BlindAlienImpl implements Alien{
         this.y = y;
     }
 
-    public void moveAlienToPlayer(Player p){
-        if (y < p.getY()) {
-            this.setY(y + velocity);
-            this.setX((int) (y - velocity * ((float) (430 - x) / (y + 772))));
+    public void moveAlienToPlayer(Player p) {
+        System.out.println(this.x + " " + this.y);
+        if (this.y < p.getY()) {
+            this.setY(this.y + velocity);
+            this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Front";
 
-        } else if (y > p.getY()) {
-            this.setY(y - velocity);
-            this.setX((int) (x + velocity * ((float) (430 - x) / (y + 772))));
+        } else if (this.y > p.getY()) {
+            this.setY(this.y - velocity);
+            this.setX((int) (this.x + velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Back";
 
         }
-        if (x > p.getX()) {
-            this.setX(x - velocity);
-        } else if (x < p.getX()) {
-            this.setX(x + velocity);
+        if (this.x > p.getX()) {
+            this.setX(this.x - velocity);
+            this.dir = "Left";
+        } else if (this.x < p.getX()) {
+            this.setX(this.x + velocity);
+            this.dir = "Right";
         }
+        System.out.println(this.x + " " + this.y);
+
 
     }
-    public void attackPlayer(Player p){
+
+    public void attackPlayer(Player p) {
         p.addHealth(-damage);
     }
 
-    public void applyAlienGoal(Player p){
+    public void applyAlienGoal(Player p) {
         // alien goals are intended to be defined for all aliens,
         // eg: blind alien will try to move towards player on movement events
-        // (applying the goal is only the end result not the conditions that it has to have to apply it)
-        if(Math.abs(p.getX() - x) < 50
-                && Math.abs(p.getY() - y) < 50){
+        // (applying the goal is only the end result not the conditions that it has to
+        // have to apply it)
+        if (Math.abs(p.getX() - this.x) < 50
+                && Math.abs(p.getY() - this.y) < 50) {
+            System.out.println("Attacking");
             attackPlayer(p);
-        }else{
+        } else {
             moveAlienToPlayer(p);
         }
     }
@@ -97,5 +99,9 @@ public class BlindAlienImpl implements Alien{
         return false;
     }
 
+
+    public void setDirection(JLabel label){
+        UIUtils.setLabelImage(label, generalPath+dir+".png", 96, 54);
+    }
 
 }
