@@ -7,31 +7,9 @@ class ButtonRespondersTest {
 
     @Test
     void login() {
-        ButtonResponders.login();
-        assertEquals(GameControler.getGameStatus(), GameControler.LOGIN);
+        ButtonResponders buttonResponders = new ButtonResponders();
+        buttonResponders.SignUpButton("username", "password");
+        assertTrue(buttonResponders.LoginButton("username", "password"), true);
     }
 
-    @Test
-    void startGame() {
-        ButtonResponders.startGame();
-        assertEquals(GameControler.getGameStatus(), GameControler.RUNNING);
-    }
-
-    @Test
-    void pauseGame() {
-        ButtonResponders.pauseGame();
-        assertEquals(GameControler.getGameStatus(), GameControler.PAUSED);
-    }
-
-    @Test
-    void buildGame() {
-        ButtonResponders.buildGame();
-        assertEquals(GameControler.getGameStatus(), GameControler.BUILDING);
-    }
-
-    @Test
-    void exit() {
-        ButtonResponders.exit();
-        assertEquals(GameControler.getGameStatus(), GameControler.EXIT);
-    }
 }
