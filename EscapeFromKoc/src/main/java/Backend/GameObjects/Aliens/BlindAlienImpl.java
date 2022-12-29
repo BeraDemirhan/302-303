@@ -51,7 +51,7 @@ public class BlindAlienImpl implements Alien {
         this.y = y;
     }
 
-    private void moveAlienToPlayer(Player p) {
+    public void moveAlienToPlayer(Player p) {
         if (this.y < p.getY()) {
             this.setY(this.y + velocity);
             this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
