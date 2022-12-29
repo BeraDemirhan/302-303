@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.*;
 
 public class ButtonResponders {
-    private static File file = new File("EscapeFromKoc/src/main/java/Backend/NamesPasswords.txt");
+    private static File file = new File("EscapeFromKoc/resources/NamesPasswords.txt");
 
     public static boolean LoginButton(String username, String password) throws IOException {
         BufferedReader br = null;
