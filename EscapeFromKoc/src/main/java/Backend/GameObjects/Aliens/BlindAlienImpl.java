@@ -1,5 +1,6 @@
 package Backend.GameObjects.Aliens;
 
+import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Player;
 import UI.UIUtils;
 
@@ -14,8 +15,8 @@ public class BlindAlienImpl implements Alien {
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien" ;// General path does not change but dir does
-
+    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";// General path does not change but dir
+                                                                                 // does
 
     public BlindAlienImpl(int x, int y) {
         spawnObject(x, y);
@@ -29,7 +30,7 @@ public class BlindAlienImpl implements Alien {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel(generalPath+dir+".png", x, y, 96, 54);
+        return UIUtils.createLabel(generalPath + dir + ".png", x, y, 96, 54);
     }
 
     @Override
@@ -51,7 +52,6 @@ public class BlindAlienImpl implements Alien {
     }
 
     public void moveAlienToPlayer(Player p) {
-        System.out.println(this.x + " " + this.y);
         if (this.y < p.getY()) {
             this.setY(this.y + velocity);
             this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
@@ -70,8 +70,30 @@ public class BlindAlienImpl implements Alien {
             this.setX(this.x + velocity);
             this.dir = "Right";
         }
-        System.out.println(this.x + " " + this.y);
 
+    }
+    private void moveAlienToObject(ThrowBottleImpl bottle) {
+        this.velocity = 10;
+        if (this.y < bottle.getY()) {
+            this.setY(this.y + velocity);
+            this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Front";
+
+        } else if (this.y > bottle.getY()) {
+            this.setY(this.y - velocity);
+            this.setX((int) (this.x + velocity * ((float) (430 - this.x) / (this.y + 772))));
+            this.dir = "Back";
+
+        }
+        if (this.x > bottle.getX()) {
+            this.setX(this.x - velocity);
+            this.dir = "Left";
+        } else if (this.x < bottle.getX()) {
+            this.setX(this.x + velocity);
+            this.dir = "Right";
+        }
+        System.out.println("Blind alien Coords: "+this.x + " " + this.y);
+        this.velocity = 5;
 
     }
 
@@ -79,18 +101,25 @@ public class BlindAlienImpl implements Alien {
         p.addHealth(-damage);
     }
 
-    public void applyAlienGoal(Player p) {
+    public void applyAlienGoal(Object o) {
         // alien goals are intended to be defined for all aliens,
         // eg: blind alien will try to move towards player on movement events
         // (applying the goal is only the end result not the conditions that it has to
         // have to apply it)
-        if (Math.abs(p.getX() - this.x) < 50
-                && Math.abs(p.getY() - this.y) < 50) {
-            System.out.println("Attacking");
-            attackPlayer(p);
-        } else {
-            moveAlienToPlayer(p);
+        if (o instanceof ThrowBottleImpl) {
+            ThrowBottleImpl obj = (ThrowBottleImpl) o;
+            moveAlienToObject(obj);
+        } else if (o instanceof Player) {
+            Player p = (Player) o;
+            if (Math.abs(p.getX() - this.x) < 50
+                    && Math.abs(p.getY() - this.y) < 50) {
+                System.out.println("Attacking");
+                attackPlayer(p);
+            } else {
+                moveAlienToPlayer(p);
+            }
         }
+
     }
 
     @Override
@@ -99,9 +128,8 @@ public class BlindAlienImpl implements Alien {
         return false;
     }
 
-
-    public void setDirection(JLabel label){
-        UIUtils.setLabelImage(label, generalPath+dir+".png", 96, 54);
+    public void setDirection(JLabel label) {
+        UIUtils.setLabelImage(label, generalPath + dir + ".png", 96, 54);
     }
 
 }

@@ -35,6 +35,14 @@ public class ScreenCoordinator {
 
     }
 
+    public static void buildGame() {
+        BuildMode buildMode = new BuildMode();
+        buildMode.setTitle("Build Mode");
+        buildMode.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        buildMode.setSize(960, 540);
+        buildMode.setVisible(true);
+    }
+
     public static void exit() {
         System.exit(0);
     }

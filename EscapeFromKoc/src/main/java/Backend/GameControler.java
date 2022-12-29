@@ -110,5 +110,8 @@ public class GameControler {
     public static void applyAlienGoal(Alien a){
         a.applyAlienGoal(p);
     }
+    public static void applyAlienGoal(Alien a, ThrowBottleImpl bottle){
+        a.applyAlienGoal(bottle);
+    }
 
 }
