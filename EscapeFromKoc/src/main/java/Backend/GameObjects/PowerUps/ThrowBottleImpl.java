@@ -20,6 +20,9 @@ public class ThrowBottleImpl implements PowerUp {
     }
 
     private void spawnBottle(int x, int y) {
+        // REQUIRES: Bottle x , y = 0
+        // Modifies: ?
+        // Effects: The bottle appears a place on the room
         this.x = x;
         this.y = y;
 
@@ -37,6 +40,9 @@ public class ThrowBottleImpl implements PowerUp {
 
     @Override
     public void activatePowerUp(Player player) {
+        // REQUIRES: Bottle x and y equals player x +10  and player y + 25
+        // Modifies: coordinates of the bottle
+        // Effects: with arrow key the bottle moves
         this.x = player.getX() + 10;
         this.y = player.getY() + 25;
         for (int i = 0; i < 7; i++) {

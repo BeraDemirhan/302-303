@@ -39,6 +39,9 @@ public class Player {
     }
 
     public void addHealth(int amount) {
+        // REQUIRES: Player
+        // Modifies: the number of health also known as extra life
+        // Effects: when player get the health the number of heath will increase
         p.health += amount;
     }
 
