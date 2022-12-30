@@ -71,18 +71,6 @@ public class ThrowBottleImplTest {
 	}
 	
 	@org.junit.jupiter.api.Test
-	void getCoordsTest() throws IOException {
-		/***
-		 * getCoords method is tested here.
-		 * assertEquals is used to show that coordinations
-		 * are get correctly.
-		 */
-		ThrowBottleImpl throwBottle = new ThrowBottleImpl(100,20);
-		int[] coords = throwBottle.getCoords();
-		assertArrayEquals(new int[]{10,20}, coords);
-	}
-	
-	@org.junit.jupiter.api.Test
 	void getXTest() throws IOException {
 		/***
 		 * getX method is tested here.
