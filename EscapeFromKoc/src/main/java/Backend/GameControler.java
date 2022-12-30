@@ -1,6 +1,10 @@
 package Backend;
 
+import Backend.GameObjects.Chair;
+import Backend.GameObjects.Key;
+import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
+import Backend.GameObjects.Aliens.BlindAlienImpl;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
@@ -122,6 +126,32 @@ public class GameControler {
 
     public static void setLabelImage(JLabel label, String path, String dir,int width,int height){
         UIUtils.setLabelImage(label, path + dir + ".png", 96, 54);
+
+    }
+
+
+    public static Chair createFurniture() {
+        Chair chair = (Chair) ObjectFactory.createObject("chair", 300, 300);
+        Key key = new Key(); 
+        key.spawnKey(chair.getX(), chair.getY());
+        return chair;
+    }
+
+    public static PowerUp createPowerUp(String type, int x, int y) {
+        if(type.equals("health")){
+            AddHealthImpl health = new AddHealthImpl(x,y);
+            return health;
+        }else return null;
+
+    }
+
+    public static Alien createAlien(String type, int x , int y){
+        // possibly to access alien in the back end, try to interact game controller
+        // with object factory to log objects?
+        if(type.equals("blind")){
+            BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x , y);
+            return blindAlien;
+        }else return null;
 
     }
 }

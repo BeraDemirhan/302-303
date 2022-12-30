@@ -128,18 +128,16 @@ public class Board extends JFrame {
     }
 
     public void createFurniture() {
-        chair = ObjectFactory.createObject("chair", 300, 300).getObjectLabel();
-        key.spawnKey(chair.getX(), chair.getY());
+        chair = GameControler.createFurniture().getObjectLabel();
     }
 
     public void createHealth() {
-        health = new AddHealthImpl(400, 400).getHealth();
+        //health = GameControler.createPowerUp("health", 400, 400);
+        health = new AddHealthImpl(100, 100).getHealth();
     }
 
     public void createAlien(){
-        // possibly to access alien in the back end, try to interact game controller
-        // with object factory to log objects?
-        blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", 400 , 400);
+        blindAlien = (BlindAlienImpl) GameControler.createAlien("blind",200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
     }
 
