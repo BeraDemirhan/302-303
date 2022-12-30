@@ -7,42 +7,41 @@ import javax.swing.*;
 
 public class ThrowBottleImpl implements PowerUp {
     private int x;
-
     private int y;
-
+    private String trajectory = "";
     private int velocity = 20;
     private int coords[] = { this.getX(), this.getY() };
-
     private JLabel bottleLabel;
 
     public ThrowBottleImpl(int x, int y) {
+		/***
+		 * @REQUIRES: X and Y coordinates of the bottle
+		 * @MODIFIES: Creates and modifies the coordinate of the bottle
+		 * @EFFECTS: Bottle is spawned.
+		 */
         spawnBottle(x, y);
     }
 
     private void spawnBottle(int x, int y) {
-        // REQUIRES: Bottle x , y = 0
-        // Modifies: ?
-        // Effects: The bottle appears a place on the room
+		/***
+		 * @REQUIRES: X and Y coordinates of the bottle
+		 * @MODIFIES: Creates and modifies the coordinate of the bottle
+		 */
         this.x = x;
         this.y = y;
-
     }
 
     public JLabel getBottle() {
         return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
     }
 
-    private String trajectory = "";
-
-    public void setTrajectory(String trajectory) {
-        this.trajectory = trajectory;
-    }
-
     @Override
     public void activatePowerUp(Player player) {
-        // REQUIRES: Bottle x and y equals player x +10  and player y + 25
-        // Modifies: coordinates of the bottle
-        // Effects: with arrow key the bottle moves
+		/***
+		 * @REQUIRES: Player
+		 * @MODIFIES: Coordinate of the bottle
+		 * @EFFECTS: The coordinate of the bottle changes accordingly
+		 */
         this.x = player.getX() + 10;
         this.y = player.getY() + 25;
         for (int i = 0; i < 7; i++) {
@@ -62,33 +61,39 @@ public class ThrowBottleImpl implements PowerUp {
                 this.setX(this.getX() + this.getVelocity());
             }
         }
-        coords = new int[] { this.getX(), this.getY() };
+        this.coords = new int[] { this.getX(), this.getY() };
     }
 
     public int[] getCoords() {
-        System.out.println("coords: " + coords[0] + " " + coords[1]);
-        return coords;
+        System.out.println("coords: " + this.coords[0] + " " + this.coords[1]);
+        return this.coords;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public int getVelocity() {
-        return velocity;
+        return this.velocity;
     }
 
     public void setX(int x) {
-        // bottleLabel.setBounds(x, this.y, 100, 100);
         this.x = x;
     }
 
     public void setY(int y) {
-        // bottleLabel.setBounds(this.x, y, 100, 100);
         this.y = y;
+    }
+
+    public String getTrajectory() {
+        return this.trajectory;
+    }
+    
+    public void setTrajectory(String trajectory) {
+        this.trajectory = trajectory;
     }
 }
