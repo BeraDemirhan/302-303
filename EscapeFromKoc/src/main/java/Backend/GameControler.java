@@ -9,9 +9,11 @@ import Backend.Player.Player;
 
 import java.awt.*;
 
+import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
 
 import UI.ScreenCoordinator;
+import UI.UIUtils;
 
 public class GameControler {
     public static int PAUSED = 0;
@@ -114,4 +116,12 @@ public class GameControler {
         a.applyAlienGoal(bottle);
     }
 
+    public static JLabel getObjectLabel(String path, String dir,int x, int y,int width, int height){
+        return UIUtils.createLabel(path + dir + ".png", x, y, width, height);
+    }
+
+    public static void setLabelImage(JLabel label, String path, String dir,int width,int height){
+        UIUtils.setLabelImage(label, path + dir + ".png", 96, 54);
+
+    }
 }

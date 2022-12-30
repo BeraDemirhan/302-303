@@ -1,5 +1,5 @@
 package Backend.GameObjects.Aliens;
-
+import Backend.GameControler;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Player;
 import UI.UIUtils;
@@ -30,7 +30,7 @@ public class BlindAlienImpl implements Alien {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel(generalPath + dir + ".png", x, y, 96, 54);
+        return GameControler.getObjectLabel(generalPath, dir, x, y, 96, 54);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class BlindAlienImpl implements Alien {
     }
 
     public void setDirection(JLabel label) {
-        UIUtils.setLabelImage(label, generalPath + dir + ".png", 96, 54);
+        GameControler.setLabelImage(label, generalPath, dir, 96, 54);
     }
 
 }
