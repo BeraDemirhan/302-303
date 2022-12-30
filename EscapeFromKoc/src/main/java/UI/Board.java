@@ -173,7 +173,6 @@ public class Board extends JFrame {
     }
 
     public boolean getBottleThrown() {
-        bottleThrown = true;
         return bottleThrown;
     }
 
