@@ -48,6 +48,7 @@ public class PlayerMovementCheck {
         double y2 = p.getY();
         assertTrue(y1 < y2);
     }
+    @Test
     void playerMovesDown(){
         // REQUIRES: Player x , y != null
         // Modifies: The location of the player, x and y
