@@ -82,6 +82,7 @@ public class Player {
     public Inventory getInventory() {
         return inventory;
     }
+
     public int getHealth(){
         return this.health;
     }
