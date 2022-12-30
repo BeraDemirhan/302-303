@@ -41,6 +41,7 @@ public class GameControler {
      * return singleton;
      * }
      */
+
     public static int getGameStatus() {
         return gameStatus;
     }
@@ -131,16 +132,25 @@ public class GameControler {
 
     }
 
-    public void updateFrame() {
+    public static void updateFrame(Board board) {
         new javax.swing.Timer(25, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ScreenCoordinator.updateFrame();
+                board.playerAbs();
+                board.blindAlienAbs();
+                if(board.getBottleThrown()){
+                    System.out.println("bottle thrown");
+                    new Thread() {
+                        public void run() {
+                            bottleThrowAnimation(getPlayerCoords(), Board.getCoords("bottle"), board);
+                        }
+                    }.start();
+                }
             }
         }).start();
     }
 
-    public void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
+    public static void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
         System.out.println("animating bottle throw");
         int x = playerCoords[0];
         int y = playerCoords[1];
@@ -166,6 +176,6 @@ public class GameControler {
             board.repaint();
         }
         board.setBottleThrown(false);
-
+        System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
     }
 }

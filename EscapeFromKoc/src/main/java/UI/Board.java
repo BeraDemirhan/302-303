@@ -48,10 +48,10 @@ public class Board extends JFrame {
     private Container pCont = getContentPane();
     private Key key = new Key();
 
-    private BlindAlienImpl blindAlien;
+    private static BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
 
-    private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
+    private static ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
     
@@ -66,6 +66,7 @@ public class Board extends JFrame {
         createHealth();
         addComponentsToContainer();
         addActionEvent();
+        GameControler.updateFrame(this);
     }
 
     private void imageResize() {
@@ -160,7 +161,34 @@ public class Board extends JFrame {
         }
     }
 
-    
+    public void playerAbs(){
+        playerAbs.setIcon(new ImageIcon(newImgPlayer));
+        playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
+        playerAbs.setVisible(true);
+    }
+
+    public void blindAlienAbs(){
+        blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
+        blindAlien.setDirection(blindAlienLabel);
+    }
+
+    public boolean getBottleThrown() {
+        bottleThrown = true;
+        return bottleThrown;
+    }
+
+    public static int[] getCoords(String str){
+        if(str.equals("player")){
+            return GameControler.getPlayerCoords();
+        }
+        else if(str.equals("bottle")){
+            return bottle.getCoords();
+        }
+        else{
+            return null;
+        }
+    }
+
 
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
