@@ -53,20 +53,32 @@ public class BlindAlienImpl implements Alien {
 
     public void moveAlienToPlayer(Player p) {
         if (this.y < p.getY()) {
+            // REQUIRES: Alien and Player x , y != null
+            // Modifies: The location of the alien, x and y
+            // Effects: The Alien and the player are now Closer (in terms of euclidean distance)
             this.setY(this.y + velocity);
             this.setX((int) (this.x - velocity * ((float) (430 - this.x) / (this.y + 772))));
             this.dir = "Front";
 
         } else if (this.y > p.getY()) {
+            // REQUIRES: Alien and Player x , y != null
+            // Modifies: The location of the alien, x and y
+            // Effects: The Alien and the player are now closer (in terms of euclidean distance)
             this.setY(this.y - velocity);
             this.setX((int) (this.x + velocity * ((float) (430 - this.x) / (this.y + 772))));
             this.dir = "Back";
 
         }
         if (this.x > p.getX()) {
+            // REQUIRES: Alien and Player x , y != null
+            // Modifies: The location of the alien, x and y
+            // Effects: The Alien and the player are now closer (in terms of euclidean distance)
             this.setX(this.x - velocity);
             this.dir = "Left";
         } else if (this.x < p.getX()) {
+            // REQUIRES: Alien and Player x , y != null
+            // Modifies: The location of the alien, x and y
+            // Effects: The Alien and the player are now closer (in terms of euclidean distance)
             this.setX(this.x + velocity);
             this.dir = "Right";
         }
