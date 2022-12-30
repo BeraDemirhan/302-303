@@ -12,6 +12,14 @@ import Backend.Player.Inventory;
 import Backend.Player.Player;
 
 import java.awt.*;
+<<<<<<< Updated upstream
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+>>>>>>> Stashed changes
 
 import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
@@ -24,6 +32,8 @@ public class GameControler {
     public static int RUNNING = 1;
     private static int GAMEOVER = 2;
     private static int gameStatus;
+    private static int level = 1;
+    private static Board activeBoard = new Board();
 
     private static Player p = Player.getPlayer();
     public static int EXIT = 3;
@@ -46,6 +56,19 @@ public class GameControler {
     public static void setGameStatus(int gameStatus) {
         GameControler.gameStatus = gameStatus;
     }
+
+    public static int getPlayerHealth() {
+        return p.getHealth();
+    }
+
+    public static ArrayList<String> getObjects(){
+        return activeBoard.getObjects();
+    }
+
+    public static int[] getObjectCoords(String object){
+        return activeBoard.getObjectCoords(object);
+    }
+
 
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
@@ -137,6 +160,7 @@ public class GameControler {
         return chair;
     }
 
+<<<<<<< Updated upstream
     public static PowerUp createPowerUp(String type, int x, int y) {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
@@ -151,5 +175,43 @@ public class GameControler {
             return blindAlien;
         }else return null;
 
+=======
+    public static String getPlayerInventory(){
+        return p.getInventory().toString();
+    }
+
+    public static int getCurrentLevel(){
+        return level;
+    }
+    
+
+    public static void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
+        System.out.println("animating bottle throw");
+        int x = playerCoords[0];
+        int y = playerCoords[1];
+        int x2 = newCoords[0];
+        int y2 = newCoords[1];
+        int dx = x2 - x;
+        int dy = y2 - y;
+        int steps = 7;
+        double xIncr = (double) dx / (double) steps;
+        double yIncr = (double) dy / (double) steps;
+        for (int i = 0; i < steps; i++) {
+            x += xIncr;
+            y += yIncr;
+            try {
+
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            board.moveObject("bottle", (int) x, (int) y);
+            board.applyBottledAlienGoal();
+            board.setBottleLabelVisiable(true);
+            board.repaint();
+        }
+        board.setBottleThrown(false);
+        System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
+>>>>>>> Stashed changes
     }
 }

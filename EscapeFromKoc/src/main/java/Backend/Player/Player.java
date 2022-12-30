@@ -79,6 +79,11 @@ public class Player {
     public Inventory getInventory() {
         return inventory;
     }
+
+    public String getInventoryStr(){
+        return inventory.toString();
+    }
+    
     public int getHealth(){
         return this.health;
     }
