@@ -146,8 +146,6 @@ public class GameControler {
     }
 
     public static Alien createAlien(String type, int x , int y){
-        // possibly to access alien in the back end, try to interact game controller
-        // with object factory to log objects?
         if(type.equals("blind")){
             BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x , y);
             return blindAlien;
