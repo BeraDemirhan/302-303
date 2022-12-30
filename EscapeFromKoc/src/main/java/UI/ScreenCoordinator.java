@@ -43,6 +43,18 @@ public class ScreenCoordinator {
         buildMode.setVisible(true);
     }
 
+    public static void updateFrame() {
+        Board frame = new Board();
+        frame.setTitle("Escape From Koç");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(960, 540);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setFocusable(true);
+        GameControler.setGameStatus(GameControler.RUNNING);
+    }
+    
+
     public static void exit() {
         System.exit(0);
     }

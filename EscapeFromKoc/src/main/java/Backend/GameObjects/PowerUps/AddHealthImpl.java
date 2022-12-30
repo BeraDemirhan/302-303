@@ -17,7 +17,6 @@ public class AddHealthImpl implements PowerUp {
     public void spawnHealth(int x, int y) {
         this.x = x;
         this.y = y;
-
     }
 
     public JLabel getHealth() {
