@@ -12,18 +12,18 @@ import Backend.Player.Inventory;
 import Backend.Player.Player;
 
 import java.awt.*;
-<<<<<<< Updated upstream
-=======
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
->>>>>>> Stashed changes
+
 
 import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
 
+import UI.Board;
 import UI.ScreenCoordinator;
 import UI.UIUtils;
 
@@ -160,7 +160,7 @@ public class GameControler {
         return chair;
     }
 
-<<<<<<< Updated upstream
+
     public static PowerUp createPowerUp(String type, int x, int y) {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
@@ -169,13 +169,13 @@ public class GameControler {
 
     }
 
-    public static Alien createAlien(String type, int x , int y){
-        if(type.equals("blind")){
-            BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x , y);
+    public static Alien createAlien(String type, int x , int y) {
+        if (type.equals("blind")) {
+            BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x, y);
             return blindAlien;
-        }else return null;
+        } else return null;
+    }
 
-=======
     public static String getPlayerInventory(){
         return p.getInventory().toString();
     }
@@ -212,6 +212,5 @@ public class GameControler {
         }
         board.setBottleThrown(false);
         System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
->>>>>>> Stashed changes
     }
 }
