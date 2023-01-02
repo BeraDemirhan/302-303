@@ -140,8 +140,7 @@ public class Board extends JFrame {
     }
 
     public void createHealth() {
-<<<<<<< Updated upstream
-        //health = GameControler.createPowerUp("health", 400, 400);
+ //health = GameControler.createPowerUp("health", 400, 400);
         /*
                                   Abstraction function is
                                        add health implementation is used
@@ -151,9 +150,7 @@ public class Board extends JFrame {
                                     @effects health object is created
 
        */
-=======
         //health = GameController.createPowerUp("health", 400, 400);
->>>>>>> Stashed changes
         health = new AddHealthImpl(100, 100).getHealth();
     }
 
