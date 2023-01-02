@@ -60,5 +60,6 @@ public class PlayerMovementCheck {
         movePlayer("Back");
         double y2 = p.getY();
         assertTrue(y1 > y2);
+
     }
 }
