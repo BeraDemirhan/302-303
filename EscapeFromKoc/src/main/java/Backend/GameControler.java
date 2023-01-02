@@ -48,7 +48,14 @@ public class GameControler {
     }
 
     public static Image movePlayer(String trajectory) {
+        //Requires: Player and it's x y coordinates, trajectory of player
+        //Effects: Moves player in the indicated direction. It does not check whether player can move that direction or not.
+        //We call this function after we check whether player can move or not. If it can move we call this function. Player moves.
+        //Returns updated trajectory of player.
+        //Modifies: Player's x and y coordinates
         Image trajectoryImg = p.getPlayerImg(trajectory);
+
+
         if (trajectory.equalsIgnoreCase("Front")) {
             //
             // p.setY((int) (p.getY() + p.getVelocity()*Math.cos(Math.atan((float) 5/24))));
