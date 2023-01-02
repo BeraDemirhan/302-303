@@ -12,10 +12,15 @@ import Backend.Player.Inventory;
 import Backend.Player.Player;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
 
+import UI.Board;
 import UI.ScreenCoordinator;
 import UI.UIUtils;
 
@@ -27,6 +32,7 @@ public class GameControler {
 
     private static Player p = Player.getPlayer();
     public static int EXIT = 3;
+    private static final int TIMER_DELAY = 35;
 
     /*
      * BackendManager singleton = null;
@@ -39,6 +45,7 @@ public class GameControler {
      * return singleton;
      * }
      */
+
     public static int getGameStatus() {
         return gameStatus;
     }
@@ -129,6 +136,52 @@ public class GameControler {
 
     }
 
+    public static void updateFrame(Board board) {
+        new javax.swing.Timer(25, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.playerAbs();
+                board.blindAlienAbs();
+                if(board.getBottleThrown()){
+                    System.out.println("bottle thrown");
+                    new Thread() {
+                        public void run() {
+                            bottleThrowAnimation(getPlayerCoords(), Board.getCoords("bottle"), board);
+                        }
+                    }.start();
+                }
+            }
+        }).start();
+    }
+
+    public static void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
+        System.out.println("animating bottle throw");
+        int x = playerCoords[0];
+        int y = playerCoords[1];
+        int x2 = newCoords[0];
+        int y2 = newCoords[1];
+        int dx = x2 - x;
+        int dy = y2 - y;
+        int steps = 7;
+        double xIncr = (double) dx / (double) steps;
+        double yIncr = (double) dy / (double) steps;
+        for (int i = 0; i < steps; i++) {
+            x += xIncr;
+            y += yIncr;
+            try {
+
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            board.moveObject("bottle", (int) x, (int) y);
+            board.applyBottledAlienGoal();
+            board.setBottleLabelVisiable(true);
+            board.repaint();
+        }
+        board.setBottleThrown(false);
+        System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
+    }
 
     public static Chair createFurniture() {
         Chair chair = (Chair) ObjectFactory.createObject("chair", 300, 300);

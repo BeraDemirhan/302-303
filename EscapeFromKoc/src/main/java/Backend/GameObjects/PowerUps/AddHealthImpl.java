@@ -20,7 +20,6 @@ public class AddHealthImpl implements PowerUp {
         // Effects: the health appears on the room
         this.x = x;
         this.y = y;
-
     }
 
     public JLabel getHealth() {

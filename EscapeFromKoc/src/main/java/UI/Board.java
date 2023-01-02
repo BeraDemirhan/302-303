@@ -45,18 +45,16 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
-
     private Container pCont = getContentPane();
     private Key key = new Key();
 
-
-    private BlindAlienImpl blindAlien;
+    private static BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
 
-    private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
+    private static ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
-    private static final int TIMER_DELAY = 35;
+    
 
     public Board() {
         imageResize();
@@ -67,10 +65,8 @@ public class Board extends JFrame {
         createFurniture();
         createHealth();
         addComponentsToContainer();
-
         addActionEvent();
-    
-        updateFrame();
+        GameControler.updateFrame(this);
     }
 
     private void imageResize() {
@@ -109,7 +105,7 @@ public class Board extends JFrame {
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
-        blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
+        blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -141,59 +137,55 @@ public class Board extends JFrame {
         blindAlienLabel = blindAlien.getObjectLabel();
     }
 
-    public void bottleThrowAnimation(int[] playerCoords, int[] newCoords) {
-        System.out.println("animating bottle throw");
-        int x = playerCoords[0];
-        int y = playerCoords[1];
-        int x2 = newCoords[0];
-        int y2 = newCoords[1];
-        int dx = x2 - x;
-        int dy = y2 - y;
-        int steps = 7;
-        double xIncr = (double) dx / (double) steps;
-        double yIncr = (double) dy / (double) steps;
-        for (int i = 0; i < steps; i++) {
-            x += xIncr;
-            y += yIncr;
-            try {
+    public void repaint(){
+        pCont.repaint();
+    }
+   
+    public void setBottleLabelVisiable(boolean visible) {
+        bottleLabel.setVisible(visible);
+    }
 
-                Thread.sleep(25);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Bottle Label coords: " + bottleLabel.getX() + " " + bottleLabel.getY());
-            bottleLabel.setBounds((int) x, (int) y, 100, 100);
-            GameControler.applyAlienGoal(blindAlien, bottle);
-            bottleLabel.setVisible(true);
-            pCont.repaint();
+    public void setBottleThrown(boolean thrown) {
+        bottleThrown = thrown;
+    }
+
+    public void applyBottledAlienGoal() {
+         GameControler.applyAlienGoal(blindAlien,bottle);
+    }
+
+    public void moveObject(String type, int x, int y) {
+        if (type.equals("bottle")) {
+            bottleLabel.setBounds(x, y, 100, 100);
         }
-        bottleThrown = false;
-
     }
 
-    public void updateFrame() {
-        new javax.swing.Timer(25, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (GameControler.getGameStatus() == GameControler.RUNNING) {
-                    playerAbs.setIcon(new ImageIcon(newImgPlayer));
-                    playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
-                            100);
-                    playerAbs.setVisible(true);
-                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
-                    blindAlien.setDirection(blindAlienLabel);
-
-                    if (bottleThrown) {
-                        new Thread() {
-                            public void run() {
-                                bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
-                            }
-                        }.start();;
-                    }
-                }
-            }
-        }).start();
+    public void playerAbs(){
+        playerAbs.setIcon(new ImageIcon(newImgPlayer));
+        playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
+        playerAbs.setVisible(true);
     }
+
+    public void blindAlienAbs(){
+        blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
+        blindAlien.setDirection(blindAlienLabel);
+    }
+
+    public boolean getBottleThrown() {
+        return bottleThrown;
+    }
+
+    public static int[] getCoords(String str){
+        if(str.equals("player")){
+            return GameControler.getPlayerCoords();
+        }
+        else if(str.equals("bottle")){
+            return bottle.getCoords();
+        }
+        else{
+            return null;
+        }
+    }
+
 
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
@@ -208,7 +200,6 @@ public class Board extends JFrame {
                         newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
                         GameControler.applyAlienGoal(blindAlien);
 
-
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
@@ -216,7 +207,6 @@ public class Board extends JFrame {
 
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
                         GameControler.applyAlienGoal(blindAlien);
-
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
