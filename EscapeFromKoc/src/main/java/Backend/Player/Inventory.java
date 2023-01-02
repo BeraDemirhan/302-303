@@ -14,20 +14,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Inventory {
-    private static ArrayList<Object> items = new ArrayList<Object>();
+    protected static ArrayList<Object> items = new ArrayList<Object>();
     private static JFrame inventoryFrame = new JFrame();
     private static boolean InventoryOpen = false;
-    private static Container container = inventoryFrame.getContentPane();
-    private static JLabel empty = new JLabel("Inventory is empty");
-    private static int placer = 0;
+    protected static Container container = inventoryFrame.getContentPane();
+    protected static JLabel empty = new JLabel("Inventory is empty");
+    protected static int placer = 0;
 
     public static void addItem(Object obj) {
+        // REQUIRES: object an inventory list
+        // Modifies: the inventory size
+        // Effects: the inventory size increases
         items.add(obj);
         System.out.println("items size: " + items.size());
         openInventory();
     }
 
     public static void openInventory() {
+        // REQUIRES: container and label
+        // Modifies: the label x
+        // Effects: the x cord of label increases with placer
         int x = 0;
         int y = 0;
         container.removeAll();
@@ -71,7 +77,10 @@ public class Inventory {
         return items.contains(obj);
     }
 
-    public void removeItem(Object obj) {
+    public static void removeItem(Object obj) {
+        // REQUIRES: object and inventory list
+        // Modifies: inventory list
+        // Effects: the size of inventory decreases
         for (int i = 0; i < items.size(); i++) {
             Object item = items.get(i);
             if (item.getClass().equals(obj.getClass())) {
