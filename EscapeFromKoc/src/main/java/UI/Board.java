@@ -3,14 +3,10 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
-import Backend.GameObjects.Chair;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
-import Backend.Player.Player;
-import Backend.GameObjects.GameObjectIntterface;
-import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
 
 import java.awt.*;
@@ -56,6 +52,9 @@ public class Board extends JFrame {
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
+    public boolean getBottleThrown(){
+        return bottleThrown;
+    }
     private static final int TIMER_DELAY = 35;
 
     public Board() {
@@ -113,7 +112,16 @@ public class Board extends JFrame {
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
+    public int[] getBottleLabelCoords(){
+        int[] coords = new int[2];
+        coords[0] = bottleLabel.getX();
+        coords[1] = bottleLabel.getY();
 
+        return  coords;
+    }
+    public void setBottleLabelCoords(int x, int y){
+        bottleLabel.setBounds(x,y,100,100);
+    }
     public void addComponentsToContainer() {
         if (key.getRevealed()) {
             System.out.println("Key revealed");
@@ -132,6 +140,7 @@ public class Board extends JFrame {
     }
 
     public void createHealth() {
+<<<<<<< Updated upstream
         //health = GameControler.createPowerUp("health", 400, 400);
         /*
                                   Abstraction function is
@@ -142,7 +151,17 @@ public class Board extends JFrame {
                                     @effects health object is created
 
        */
+=======
+        //health = GameController.createPowerUp("health", 400, 400);
+>>>>>>> Stashed changes
         health = new AddHealthImpl(100, 100).getHealth();
+    }
+
+    public boolean getHealth(){
+        if( !(health == null)){
+            return true;
+        }
+        return false;
     }
 
     public void createAlien(){
@@ -181,16 +200,21 @@ public class Board extends JFrame {
             @effects bottleThrown becomes false, x any coordinates of bottle changes
         */
         System.out.println("animating bottle throw");
+
+
         int x = playerCoords[0];
         int y = playerCoords[1];
         int x2 = newCoords[0];
         int y2 = newCoords[1];
+
         int dx = x2 - x;
         int dy = y2 - y;
         int steps = 7;
         double xIncr = (double) dx / (double) steps;
         double yIncr = (double) dy / (double) steps;
         for (int i = 0; i < steps; i++) {
+            System.out.println(x);
+            System.out.println(y);
             x += xIncr;
             y += yIncr;
             try {
