@@ -133,10 +133,28 @@ public class Board extends JFrame {
 
     public void createHealth() {
         //health = GameControler.createPowerUp("health", 400, 400);
+        /*
+                                  Abstraction function is
+                                       add health implementation is used
+
+                                    @requires add health
+                                    @modifies health
+                                    @effects health object is created
+
+       */
         health = new AddHealthImpl(100, 100).getHealth();
     }
 
     public void createAlien(){
+        /*
+                   Abstraction function is
+                   blind alien implemented is used
+
+                   @requires blind alien
+                   @modifies alien
+                   @effects alien object is created
+
+       */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind",200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
     }
@@ -419,7 +437,7 @@ public class Board extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         /*
                            Abstraction function is
-                                if 'Space' key pressed and the game
+                                if 'Space' key pressed and the game status is pause
                                     inventory is opened
                                     resume is activated
 
@@ -443,6 +461,15 @@ public class Board extends JFrame {
                 super.keyReleased(e);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     if (e.getKeyCode() == KeyEvent.VK_I) {
+                         /*
+                           Abstraction function is
+                                if 'I' key pressed
+                                    inventory is opened
+
+                            @requires Space key
+                            @modifies game status
+                            @effects inventory is opened
+                         */
                         System.out.println("I Pressed");
                         if (Inventory.isOpen()) {
                             Inventory.closeFrame();
