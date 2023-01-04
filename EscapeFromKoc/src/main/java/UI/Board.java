@@ -139,18 +139,20 @@ public class Board extends JFrame {
         chair = GameControler.createFurniture().getObjectLabel();
     }
 
+    // Overview: this function creates health which is a power up
     public void createHealth() {
- //health = GameControler.createPowerUp("health", 400, 400);
-        /*
-                                  Abstraction function is
-                                       add health implementation is used
 
-                                    @requires add health
-                                    @modifies health
-                                    @effects health object is created
+     /*
+             AF = new AddHealthImpl(coordinates).get()
+
+             rep invariant
+                x != null && y != null
+
+             @requires get Health function from add health implementation class
+             @modifies health existence
+             @effects health object is created
 
        */
-        //health = GameController.createPowerUp("health", 400, 400);
         health = new AddHealthImpl(100, 100).getHealth();
     }
 
@@ -161,12 +163,17 @@ public class Board extends JFrame {
         return false;
     }
 
+    // Overview: this function creates Alien according to given type
+
     public void createAlien(){
         /*
-                   Abstraction function is
-                   blind alien implemented is used
 
-                   @requires blind alien
+                   AF = createAlien(type, coordinates)
+
+                   rep invariant
+                    type != null && x != null && y != null
+
+                   @requires create alien function from game controller
                    @modifies alien
                    @effects alien object is created
 
@@ -180,21 +187,24 @@ public class Board extends JFrame {
      */
     public void bottleThrowAnimation(int[] playerCoords, int[] newCoords) {
         /*
-        Abstraction function is
-            x coord = (bootle.x - player.x)/7
-            y coord = (bootle.y - player.y)/7
-            for i to steps
-                player x incrmenets with x coord
-                player y incemenets with y coord
-                bootle.setBounds(player x , player y,width, height)
-                applyAlienGoal
-            bottleThrown = false
+            AF(playerCoords, bottleCoords) =
+                for (
+                    p.x += (b.x - p.x)/7
+                    p.y += (b.y - p.y)/7
+                    bottleLabel.setBounds(p.x, p.y, w, h)
+                    applyAlienGoal()
+                )
+                bottleThrown = false
+
+            rep invariant
+                player != null && bottle != null
+
 
             @playerCoords *Coordinator of the player (x,y)
-            @newCoords *Coordinator of bootle*
+            @newCoords *Coordinator of bottle (x,y)*
 
             @modifies bottle bounds and state of the bottleThrown
-            @effects bottleThrown becomes false, x any coordinates of bottle changes
+            @effects bottleThrown becomes false, x and y coordinates of bottle changes
         */
         System.out.println("animating bottle throw");
 
@@ -210,8 +220,6 @@ public class Board extends JFrame {
         double xIncr = (double) dx / (double) steps;
         double yIncr = (double) dy / (double) steps;
         for (int i = 0; i < steps; i++) {
-            System.out.println(x);
-            System.out.println(y);
             x += xIncr;
             y += yIncr;
             try {
@@ -254,7 +262,9 @@ public class Board extends JFrame {
             }
         }).start();
     }
+    /*Overview: all key operations for game is implemented with addActionEvent
 
+     */
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
@@ -265,10 +275,6 @@ public class Board extends JFrame {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
                         /*
-                            Abstraction function is
-                                if up arrow key pressed
-                                    player moves to back
-                                    alien follows player
 
                             @requires arrow key and status should be running mode
                             @modifies player direction and movement also alien movement
@@ -279,17 +285,12 @@ public class Board extends JFrame {
                          */
                         newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
                         GameControler.applyAlienGoal(blindAlien);
-
-
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
                                     + playerAbs.getHeight()) {
                         /*
-                            Abstraction function is
-                                if down arrow key pressed
-                                    player moves to front
-                                    alien follows player
+
 
                             @requires arrow key and status should be running mode
                             @modifies player direction and movement also alien movement
@@ -307,10 +308,7 @@ public class Board extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
                             && oldCoords[0] >= (background.getX() + 240) - ((float) 5 / 24) * (oldCoords[1] - 140)) {
                         /*
-                            Abstraction function is
-                                if left arrow key pressed
-                                    player moves left
-                                    alien follows player
+
 
                             @requires arrow key and status should be running mode
                             @modifies player direction and movement also alien movement
@@ -327,11 +325,7 @@ public class Board extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && oldCoords[0] + playerRight.getWidth() <= (background.getWidth() - 240)
                                     + ((float) 5 / 24) * (oldCoords[1] - 140)) {
-                        /*
-                            Abstraction function is
-                                if right arrow key pressed
-                                    player moves to right
-                                    alien follows player
+                       /*
 
                             @requires arrow key and status should be running mode
                             @modifies player direction and movement also alien movement
@@ -346,10 +340,6 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
                         /*
-                            Abstraction function is
-                                if 'A' key pressed
-                                    bottle moves to west
-                                    power up is used
 
                             @requires A key and bottle
                             @modifies bottle trajectory, status of bottleThrown
@@ -363,10 +353,7 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)) {
                         /*
-                            Abstraction function is
-                                if 'D' key pressed
-                                    bottle moves to east
-                                    power up is used
+
 
                             @requires D key and bottle
                             @modifies bottle trajectory, status of bottleThrown
@@ -381,10 +368,6 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)) {
                         /*
-                            Abstraction function is
-                                if 'W' key pressed
-                                    bottle moves to north
-                                    power up is used
 
                             @requires W key and bottle
                             @modifies bottle trajectory, status of bottleThrown
@@ -399,10 +382,7 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)) {
                         /*
-                            Abstraction function is
-                                if 'X' key pressed
-                                    bottle moves to south
-                                    power up is used
+
 
                             @requires X key and bottle
                             @modifies bottle trajectory, status of bottleThrown
@@ -421,10 +401,6 @@ public class Board extends JFrame {
 
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         /*
-                            Abstraction function is
-                                if 'Esc' key pressed
-                                    tha game finished with exit code
-                                    game status become 0
 
                             @requires Esc key and game status should be running
                             @modifies game status
@@ -435,10 +411,7 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_P) {
                         /*
-                            Abstraction function is
-                                if key 'P'
-                                the game status will be pause
-                                pause screen is shown
+
 
                             @modifies: game status
                             @effects game status becomes pause
@@ -457,10 +430,7 @@ public class Board extends JFrame {
                     System.out.println("Here");
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         /*
-                           Abstraction function is
-                                if 'Space' key pressed and the game status is pause
-                                    inventory is opened
-                                    resume is activated
+
 
                             @requires Space key
                             @modifies game status
@@ -483,9 +453,7 @@ public class Board extends JFrame {
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     if (e.getKeyCode() == KeyEvent.VK_I) {
                          /*
-                           Abstraction function is
-                                if 'I' key pressed
-                                    inventory is opened
+
 
                             @requires Space key
                             @modifies game status
