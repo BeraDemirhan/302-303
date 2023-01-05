@@ -48,10 +48,10 @@ public class PauseScreen extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         background.setBounds(0, 0, 960, 540);
         pauseLabel.setBounds(0, 0, 960, 540);
-        resumeButton.setBounds(400, 200, 150, 50);
-        exitButton.setBounds(400, 300, 150, 50);
-        helpButton.setBounds(400, 400, 150, 50);
-        saveButton.setBounds(400, 500, 150, 50);
+        resumeButton.setBounds(400, 100, 150, 50);
+        exitButton.setBounds(400, 200, 150, 50);
+        helpButton.setBounds(400, 300, 150, 50);
+        saveButton.setBounds(400, 400, 150, 50);
     }
 
     public void addComponentsToContainer() {

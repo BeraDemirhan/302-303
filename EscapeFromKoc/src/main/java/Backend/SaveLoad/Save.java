@@ -1,8 +1,11 @@
 package Backend.SaveLoad;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,14 +46,16 @@ public class Save {
     }
 
     public static void write(String text){
-        PrintWriter pw = null;
+        BufferedWriter bw;
         try {
-            pw = new PrintWriter(saveFile);
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
+            bw = new BufferedWriter(new FileWriter(saveFile, true));
+            bw.write(text);
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        pw.println(text);
-
     }
     public static void saveLevel(){
         //Save the current level
