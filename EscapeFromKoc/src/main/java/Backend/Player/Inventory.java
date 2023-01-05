@@ -30,6 +30,15 @@ public class Inventory {
         openInventory();
     }
 
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < items.size(); i++) {
+            str += items.get(i).toString() + " ";
+        }
+        return str;
+    }
+
+
     public static void openInventory() {
         // REQUIRES: container and label
         // Modifies: the label x

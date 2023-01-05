@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -134,6 +135,29 @@ public class Board extends JFrame {
         pCont.add(bottleLabel);
         pCont.add(background);
     }
+
+    public ArrayList<String> getObjects(){
+        ArrayList<String> objects = new ArrayList<String>();
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().contains("JLabel")) {
+                objects.add(pCont.getComponent(i).toString());
+            }
+        }
+        return objects;
+    }
+
+    public int[] getObjectCoords(String object){
+        int[] coords = new int[2];
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().equals(object)) {
+                coords[0] = pCont.getComponent(i).getX();
+                coords[1] = pCont.getComponent(i).getY();
+                return coords;
+            }
+        }
+        return coords;
+    }
+
 
     public void createFurniture() {
         chair = GameControler.createFurniture().getObjectLabel();
