@@ -262,6 +262,26 @@ public class Board extends JFrame {
 
     }
 
+    public void moveObject(String object, int x, int y){
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().equals(object)) {
+                pCont.getComponent(i).setBounds(x,y,100,100);
+            }
+        }
+    }
+
+    public void applyBottledAlienGoal(){
+        GameControler.applyAlienGoal(blindAlien, bottle);
+    }
+
+    public void setBottleThrown(boolean bottleThrown) {
+        this.bottleThrown = bottleThrown;
+    }
+
+    public void setBottleLabelVisiable(boolean bottleLabelVisiable) {
+        bottleLabel.setVisible(bottleLabelVisiable);
+    }
+
     public void updateFrame() {
 
         new javax.swing.Timer(25, new ActionListener() {
