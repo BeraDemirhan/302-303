@@ -10,6 +10,7 @@ import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
+import Backend.SaveLoad.Save;
 
 import java.awt.*;
 
@@ -38,6 +39,7 @@ public class GameControler {
     private static Player p = Player.getPlayer();
     public static int EXIT = 3;
 
+
     /*
      * BackendManager singleton = null;
      * public BackendManager(){
@@ -55,6 +57,11 @@ public class GameControler {
 
     public static void setGameStatus(int gameStatus) {
         GameControler.gameStatus = gameStatus;
+    }
+
+    public static void saveGame() {
+        Save.setSaveNum();
+        Save.saveGame();
     }
 
     public static int getPlayerHealth() {

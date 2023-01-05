@@ -17,12 +17,29 @@ public class Save {
     private static File NamesandPasswords = new File("EscapeFromKoc/resources/NamesPasswords.txt");
 
     //Save the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
-    public Save(){
+
+
+    public static void saveGame(){
+        //Save the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
         System.out.println("Saving game...");
         saveLevel();
         savePlayer();
         saveObjects();
         System.out.println("Game saved!");
+    }
+
+    public static void setSaveNum(){
+        //Set the save number to the next available save slot
+        int i = 1;
+        while(true){
+            saveFile = new File("EscapeFromKoc/resources/Save" + i + ".txt");
+            if(saveFile.exists()){
+                i++;
+            }else{
+                saveNumber = i;
+                break;
+            }
+        }
     }
 
     public static void write(String text){
@@ -35,13 +52,13 @@ public class Save {
         pw.println(text);
 
     }
-    public void saveLevel(){
+    public static void saveLevel(){
         //Save the current level
         int level = GameControler.getCurrentLevel();
         write("Level: " + level);
     }
 
-    public void savePlayer(){
+    public static void savePlayer(){
         //Save the player's current position, inventory, health, etc.
         int[] coords = GameControler.getPlayerCoords();
         write("Player's coordinates: " + coords[0] + ", " + coords[1]);
@@ -51,7 +68,7 @@ public class Save {
         write("Player's health: " + health);
     }
 
-    public void saveObjects(){
+    public static void saveObjects(){
         //Save the location of the objects in the level
         write("Objects:");
         for(String i : GameControler.getObjects()){
