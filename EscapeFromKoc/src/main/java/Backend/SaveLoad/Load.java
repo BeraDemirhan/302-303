@@ -25,12 +25,24 @@ public class Load {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if (br.readLine().equals("Level: ")) {
-                GameControler.setCurrentLevel(Integer.parseInt(br.readLine()));
+            String newLine = br.readLine();
+            if(newLine.contains("Level")){
+                GameControler.setCurrentLevel(Integer.parseInt(newLine.substring(6)));
+            }
+            if(newLine.contains("Player")){
+                GameControler.getPlayer().setX(Integer.parseInt(newLine.substring(7, 10)));
+                GameControler.getPlayer().setY(Integer.parseInt(newLine.substring(11, 14)));
+                GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(15, 18)));
+                GameControler.getPlayer().setInventory(newLine.substring(19));
+            }
+            if(newLine.contains("Object")){
+                //GameControler.getObjects().get(Integer.parseInt(newLine.substring(7, 10))).setX(Integer.parseInt(newLine.substring(11, 14)));
+                //GameControler.getObjects().get(Integer.parseInt(newLine.substring(7, 10))).setY(Integer.parseInt(newLine.substring(15, 18)));
+            }
 
         }
         
     }
     
 }
-}
+

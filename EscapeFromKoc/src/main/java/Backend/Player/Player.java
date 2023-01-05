@@ -1,6 +1,9 @@
 package Backend.Player;
 
+import Backend.GameObjects.Key;
+import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.PowerUps.PowerUp;
+import Backend.GameObjects.PowerUps.PowerUpFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +33,25 @@ public class Player {
             return new Player();
         } else {
             return p;
+        }
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setInventory(String items){
+        for (String s: items.split(" ")) {
+            if (s.equalsIgnoreCase("Key")) {
+                Key key = new Key();
+                Inventory.addItem(key);
+            }
+            else if (s.contains("bottle")){
+                Inventory.addItem(PowerUpFactory.createPowerUp("throw-bottle", 0, 0));
+            }
+            else if (s.contains("health")){
+                Inventory.addItem(PowerUpFactory.createPowerUp("add-health", 0, 0));
+            }
         }
     }
 

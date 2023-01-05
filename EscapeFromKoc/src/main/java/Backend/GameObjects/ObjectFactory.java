@@ -13,6 +13,7 @@ public class ObjectFactory {
         else if(mark.equals("blind-alien")){
             gameObject = new BlindAlienImpl(x,y);
         }
+        
         else{
             throw new RuntimeException(mark+" is not a game object.");
         }

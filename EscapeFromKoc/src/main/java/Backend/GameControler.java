@@ -77,6 +77,7 @@ public class GameControler {
     }
 
 
+
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
         if (trajectory.equalsIgnoreCase("Front")) {
@@ -122,6 +123,14 @@ public class GameControler {
 
     public static void usePowerUp(PowerUp pu) {
         p.usePowerUp(pu);
+    }
+
+    public static void setPlayerHealth(int health) {
+        p.setHealth(health);
+    }
+
+    public static Player getPlayer() {
+        return Player.getPlayer();
     }
 
     public static void setCurrentLevel(int level) {
