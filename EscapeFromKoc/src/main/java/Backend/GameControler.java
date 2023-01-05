@@ -124,6 +124,10 @@ public class GameControler {
         p.usePowerUp(pu);
     }
 
+    public static void setCurrentLevel(int level) {
+        GameControler.level = level;
+    }
+
     public static void pickObject(Object obj) {
         p.getInventory();
         Inventory.addItem(obj);
