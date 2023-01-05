@@ -34,9 +34,9 @@ public class GameControler {
     private static int GAMEOVER = 2;
     private static int gameStatus;
     private static int level = 1;
+    private static Player p = Player.getPlayer();
     private static Board activeBoard = new Board();
 
-    private static Player p = Player.getPlayer();
     public static int EXIT = 3;
 
 
