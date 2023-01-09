@@ -10,12 +10,21 @@ import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
+import Backend.SaveLoad.Save;
 
 import java.awt.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
 
 import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
 
+import UI.Board;
 import UI.ScreenCoordinator;
 import UI.UIUtils;
 
@@ -24,9 +33,12 @@ public class GameControler {
     public static int RUNNING = 1;
     private static int GAMEOVER = 2;
     private static int gameStatus;
-
+    private static int level = 1;
     private static Player p = Player.getPlayer();
+    private static Board activeBoard = new Board();
+
     public static int EXIT = 3;
+
 
     /*
      * BackendManager singleton = null;
@@ -46,6 +58,25 @@ public class GameControler {
     public static void setGameStatus(int gameStatus) {
         GameControler.gameStatus = gameStatus;
     }
+
+    public static void saveGame() {
+        Save.setSaveNum();
+        Save.saveGame();
+    }
+
+    public static int getPlayerHealth() {
+        return p.getHealth();
+    }
+
+    public static ArrayList<String> getObjects(){
+        return activeBoard.getObjects();
+    }
+
+    public static int[] getObjectCoords(String object){
+        return activeBoard.getObjectCoords(object);
+    }
+
+
 
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
@@ -94,6 +125,18 @@ public class GameControler {
         p.usePowerUp(pu);
     }
 
+    public static void setPlayerHealth(int health) {
+        p.setHealth(health);
+    }
+
+    public static Player getPlayer() {
+        return Player.getPlayer();
+    }
+
+    public static void setCurrentLevel(int level) {
+        GameControler.level = level;
+    }
+
     public static void pickObject(Object obj) {
         p.getInventory();
         Inventory.addItem(obj);
@@ -137,6 +180,7 @@ public class GameControler {
         return chair;
     }
 
+
     public static PowerUp createPowerUp(String type, int x, int y) {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
@@ -145,11 +189,48 @@ public class GameControler {
 
     }
 
-    public static Alien createAlien(String type, int x , int y){
-        if(type.equals("blind")){
-            BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x , y);
+    public static Alien createAlien(String type, int x , int y) {
+        if (type.equals("blind")) {
+            BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x, y);
             return blindAlien;
-        }else return null;
+        } else return null;
+    }
 
+    public static String getPlayerInventory(){
+        return p.getInventory().toString();
+    }
+
+    public static int getCurrentLevel(){
+        return level;
+    }
+    
+
+    public static void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
+        System.out.println("animating bottle throw");
+        int x = playerCoords[0];
+        int y = playerCoords[1];
+        int x2 = newCoords[0];
+        int y2 = newCoords[1];
+        int dx = x2 - x;
+        int dy = y2 - y;
+        int steps = 7;
+        double xIncr = (double) dx / (double) steps;
+        double yIncr = (double) dy / (double) steps;
+        for (int i = 0; i < steps; i++) {
+            x += xIncr;
+            y += yIncr;
+            try {
+
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            board.moveObject("bottle", (int) x, (int) y);
+            board.applyBottledAlienGoal();
+            board.setBottleLabelVisiable(true);
+            board.repaint();
+        }
+        board.setBottleThrown(false);
+        System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
     }
 }

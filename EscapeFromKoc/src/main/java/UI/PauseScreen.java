@@ -17,6 +17,7 @@ public class PauseScreen extends JFrame implements ActionListener {
     private JButton resumeButton = new JButton("RESUME");
     private JButton exitButton = new JButton("EXIT");
     private JButton helpButton = new JButton("HELP");
+    private JButton saveButton = new JButton("SAVE");
 
     private JLabel background;
     private JLabel pauseLabel;
@@ -47,23 +48,27 @@ public class PauseScreen extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         background.setBounds(0, 0, 960, 540);
         pauseLabel.setBounds(0, 0, 960, 540);
-        resumeButton.setBounds(400, 200, 150, 50);
-        exitButton.setBounds(400, 300, 150, 50);
-        helpButton.setBounds(400, 400, 150, 50);
+        resumeButton.setBounds(400, 100, 150, 50);
+        exitButton.setBounds(400, 200, 150, 50);
+        helpButton.setBounds(400, 300, 150, 50);
+        saveButton.setBounds(400, 400, 150, 50);
     }
 
     public void addComponentsToContainer() {
         container.add(resumeButton);
         container.add(exitButton);
+        container.add(saveButton);
         container.add(helpButton);
         container.add(background);
         container.add(pauseLabel);
+        
     }
 
     public void addActionEvent() {
         resumeButton.addActionListener(this);
         exitButton.addActionListener(this);
         helpButton.addActionListener(this);
+        saveButton.addActionListener(this);
     }
 
     @Override
@@ -85,6 +90,9 @@ public class PauseScreen extends JFrame implements ActionListener {
             helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             helpFrame.setResizable(false);
             helpFrame.setVisible(true);
+        }
+        if (e.getSource() == saveButton) {
+            GameControler.saveGame();
         }
     }
 }

@@ -3,14 +3,10 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
-import Backend.GameObjects.Chair;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
-import Backend.Player.Player;
-import Backend.GameObjects.GameObjectIntterface;
-import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
 
 import java.awt.*;
@@ -18,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -56,6 +53,9 @@ public class Board extends JFrame {
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
+    public boolean getBottleThrown(){
+        return bottleThrown;
+    }
     private static final int TIMER_DELAY = 35;
 
     public Board() {
@@ -113,7 +113,16 @@ public class Board extends JFrame {
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
+    public int[] getBottleLabelCoords(){
+        int[] coords = new int[2];
+        coords[0] = bottleLabel.getX();
+        coords[1] = bottleLabel.getY();
 
+        return  coords;
+    }
+    public void setBottleLabelCoords(int x, int y){
+        bottleLabel.setBounds(x,y,100,100);
+    }
     public void addComponentsToContainer() {
         if (key.getRevealed()) {
             System.out.println("Key revealed");
@@ -127,26 +136,108 @@ public class Board extends JFrame {
         pCont.add(background);
     }
 
+    public ArrayList<String> getObjects(){
+        ArrayList<String> objects = new ArrayList<String>();
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().contains("JLabel")) {
+                objects.add(pCont.getComponent(i).toString());
+            }
+        }
+        return objects;
+    }
+
+    public int[] getObjectCoords(String object){
+        int[] coords = new int[2];
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().equals(object)) {
+                coords[0] = pCont.getComponent(i).getX();
+                coords[1] = pCont.getComponent(i).getY();
+                return coords;
+            }
+        }
+        return coords;
+    }
+
+
     public void createFurniture() {
         chair = GameControler.createFurniture().getObjectLabel();
     }
 
+    // Overview: this function creates health which is a power up
     public void createHealth() {
-        //health = GameControler.createPowerUp("health", 400, 400);
+
+     /*
+             AF = new AddHealthImpl(coordinates).get()
+
+             rep invariant
+                x != null && y != null
+
+             @requires get Health function from add health implementation class
+             @modifies health existence
+             @effects health object is created
+
+       */
         health = new AddHealthImpl(100, 100).getHealth();
     }
 
+    public boolean getHealth(){
+        if( !(health == null)){
+            return true;
+        }
+        return false;
+    }
+
+    // Overview: this function creates Alien according to given type
+
     public void createAlien(){
+        /*
+
+                   AF = createAlien(type, coordinates)
+
+                   rep invariant
+                    type != null && x != null && y != null
+
+                   @requires create alien function from game controller
+                   @modifies alien
+                   @effects alien object is created
+
+       */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind",200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
     }
 
+    /*
+        Overview= With this function the bottle is thrown by changing the coordinates of the bottle label
+     */
     public void bottleThrowAnimation(int[] playerCoords, int[] newCoords) {
+        /*
+            AF(playerCoords, bottleCoords) =
+                for (
+                    p.x += (b.x - p.x)/7
+                    p.y += (b.y - p.y)/7
+                    bottleLabel.setBounds(p.x, p.y, w, h)
+                    applyAlienGoal()
+                )
+                bottleThrown = false
+
+            rep invariant
+                player != null && bottle != null
+
+
+            @playerCoords *Coordinator of the player (x,y)
+            @newCoords *Coordinator of bottle (x,y)*
+
+            @modifies bottle bounds and state of the bottleThrown
+            @effects bottleThrown becomes false, x and y coordinates of bottle changes
+        */
         System.out.println("animating bottle throw");
+
+
         int x = playerCoords[0];
         int y = playerCoords[1];
         int x2 = newCoords[0];
         int y2 = newCoords[1];
+
         int dx = x2 - x;
         int dy = y2 - y;
         int steps = 7;
@@ -171,7 +262,28 @@ public class Board extends JFrame {
 
     }
 
+    public void moveObject(String object, int x, int y){
+        for(int i = 0; i < pCont.getComponentCount(); i++){
+            if (pCont.getComponent(i).toString().equals(object)) {
+                pCont.getComponent(i).setBounds(x,y,100,100);
+            }
+        }
+    }
+
+    public void applyBottledAlienGoal(){
+        GameControler.applyAlienGoal(blindAlien, bottle);
+    }
+
+    public void setBottleThrown(boolean bottleThrown) {
+        this.bottleThrown = bottleThrown;
+    }
+
+    public void setBottleLabelVisiable(boolean bottleLabelVisiable) {
+        bottleLabel.setVisible(bottleLabelVisiable);
+    }
+
     public void updateFrame() {
+
         new javax.swing.Timer(25, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -194,25 +306,43 @@ public class Board extends JFrame {
             }
         }).start();
     }
+    /*Overview: all key operations for game is implemented with addActionEvent
 
+     */
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
+                        /*
+
+                            @requires arrow key and status should be running mode
+                            @modifies player direction and movement also alien movement
+                            @effects player direction become beck
+                                     player moves
+                                     blind aliens follows the player
+
+                         */
                         newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
                         GameControler.applyAlienGoal(blindAlien);
-
-
                     }
                     if (e.getKeyCode() == KeyEvent.VK_DOWN
                             && oldCoords[1] + playerFront.getHeight() <= background.getHeight() - 170
                                     + playerAbs.getHeight()) {
+                        /*
+
+
+                            @requires arrow key and status should be running mode
+                            @modifies player direction and movement also alien movement
+                            @effects player direction become front
+                                     player moves
+                                     blind aliens follows the player
+
+                         */
 
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
                         GameControler.applyAlienGoal(blindAlien);
@@ -221,6 +351,17 @@ public class Board extends JFrame {
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
                             && oldCoords[0] >= (background.getX() + 240) - ((float) 5 / 24) * (oldCoords[1] - 140)) {
+                        /*
+
+
+                            @requires arrow key and status should be running mode
+                            @modifies player direction and movement also alien movement
+                            @effects player direction become left
+                                     player moves
+                                     blind aliens follows the player
+
+                         */
+
                         newImgPlayer = singleImageResize(GameControler.movePlayer("left"));
                         GameControler.applyAlienGoal(blindAlien);
 
@@ -228,17 +369,41 @@ public class Board extends JFrame {
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT
                             && oldCoords[0] + playerRight.getWidth() <= (background.getWidth() - 240)
                                     + ((float) 5 / 24) * (oldCoords[1] - 140)) {
+                       /*
+
+                            @requires arrow key and status should be running mode
+                            @modifies player direction and movement also alien movement
+                            @effects player direction become beck
+                                     player moves
+                                     blind aliens follows the player
+
+                         */
                         newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
                         GameControler.applyAlienGoal(blindAlien);
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
+                        /*
+
+                            @requires A key and bottle
+                            @modifies bottle trajectory, status of bottleThrown
+                            @effects bottle moves to west, bottleThrown = true
+
+                         */
                         bottle.setTrajectory("west");
                         bottleThrown = true;
                         GameControler.usePowerUp(bottle);
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_D && Inventory.contains(bottle)) {
+                        /*
+
+
+                            @requires D key and bottle
+                            @modifies bottle trajectory, status of bottleThrown
+                            @effects bottle moves to east, bottleThrown = true
+
+                         */
                         bottle.setTrajectory("east");
                         bottleThrown = true;
 
@@ -246,6 +411,13 @@ public class Board extends JFrame {
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_W && Inventory.contains(bottle)) {
+                        /*
+
+                            @requires W key and bottle
+                            @modifies bottle trajectory, status of bottleThrown
+                            @effects bottle moves to north, bottleThrown = true
+
+                         */
                         bottle.setTrajectory("north");
                         bottleThrown = true;
 
@@ -253,6 +425,14 @@ public class Board extends JFrame {
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_X && Inventory.contains(bottle)) {
+                        /*
+
+
+                            @requires X key and bottle
+                            @modifies bottle trajectory, status of bottleThrown
+                            @effects bottle moves to south, bottleThrown = true
+
+                         */
                         bottle.setTrajectory("south");
                         bottleThrown = true;
 
@@ -264,9 +444,23 @@ public class Board extends JFrame {
                     playerAbs.setVisible(true);
 
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                        /*
+
+                            @requires Esc key and game status should be running
+                            @modifies game status
+                            @effects game status become 0
+
+                         */
                         System.exit(0);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_P) {
+                        /*
+
+
+                            @modifies: game status
+                            @effects game status becomes pause
+                         */
+
                         System.out.println(GameControler.getGameStatus());
                         GameControler.setGameStatus(GameControler.PAUSED);
                         System.out.println(GameControler.getGameStatus());
@@ -279,6 +473,13 @@ public class Board extends JFrame {
                 if (GameControler.getGameStatus() == GameControler.PAUSED) {
                     System.out.println("Here");
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        /*
+
+
+                            @requires Space key
+                            @modifies game status
+                            @effects game status changes paused to running mode
+                         */
                         System.out.println("Space Pressed");
                         System.out.println(Inventory.isOpen());
 
@@ -295,6 +496,13 @@ public class Board extends JFrame {
                 super.keyReleased(e);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     if (e.getKeyCode() == KeyEvent.VK_I) {
+                         /*
+
+
+                            @requires Space key
+                            @modifies game status
+                            @effects inventory is opened
+                         */
                         System.out.println("I Pressed");
                         if (Inventory.isOpen()) {
                             Inventory.closeFrame();
