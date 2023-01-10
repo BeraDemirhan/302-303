@@ -86,24 +86,7 @@ public class BuildMode extends JFrame implements ActionListener {
         tableLabel.setAlignmentX(CENTER_ALIGNMENT);
         tableLabel.setAlignmentY(CENTER_ALIGNMENT);
     }
-   /* private JLabel cloneFurniture(JLabel label){
-        JLabel newLabel = new JLabel();
-        newLabel.setIcon(new ImageIcon(((ImageIcon) label.getIcon()).getImage()));
-        newLabel.setAlignmentX(label.getAlignmentX());
-        newLabel.setBounds(label.getX() - label.getWidth()/2, label.getY() - label.getHeight()/2,192, 108);
-        newLabel.setAlignmentX(label.getAlignmentX());
-        newLabel.setAlignmentY(label.getAlignmentY());
-        newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        container.add(newLabel);
-        container.setComponentZOrder(newLabel, 0);
-        container.validate();
-        container.repaint();
-        return newLabel;
-    }*/
 
-    private void moveClonedFurniture(JLabel newLabel){
-
-    }
     private void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
@@ -223,9 +206,6 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-               // JLabel newLabel = cloneFurniture(originalPianoLabel);
-                //newLabel.addMouseListener(this);
-                //moveClonedFurniture(newLabel);
             }
 
             @Override
