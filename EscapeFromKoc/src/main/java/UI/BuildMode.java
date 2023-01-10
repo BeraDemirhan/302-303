@@ -12,12 +12,7 @@ import Backend.Player.Player;
 import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.ObjectFactory;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 public class BuildMode extends JFrame implements ActionListener {
     private Image chair = new ImageIcon("EscapeFromKoc/resources/RoomObjects/chair.png").getImage();
@@ -40,8 +35,8 @@ public class BuildMode extends JFrame implements ActionListener {
         loadImages();
         setSizeandLocation();
         alignLabels();
-        addComponentsToContainer();
         addActionEvent();
+        addComponentsToContainer();
 
     }
 
@@ -91,7 +86,24 @@ public class BuildMode extends JFrame implements ActionListener {
         tableLabel.setAlignmentX(CENTER_ALIGNMENT);
         tableLabel.setAlignmentY(CENTER_ALIGNMENT);
     }
+   /* private JLabel cloneFurniture(JLabel label){
+        JLabel newLabel = new JLabel();
+        newLabel.setIcon(new ImageIcon(((ImageIcon) label.getIcon()).getImage()));
+        newLabel.setAlignmentX(label.getAlignmentX());
+        newLabel.setBounds(label.getX() - label.getWidth()/2, label.getY() - label.getHeight()/2,192, 108);
+        newLabel.setAlignmentX(label.getAlignmentX());
+        newLabel.setAlignmentY(label.getAlignmentY());
+        newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        container.add(newLabel);
+        container.setComponentZOrder(newLabel, 0);
+        container.validate();
+        container.repaint();
+        return newLabel;
+    }*/
 
+    private void moveClonedFurniture(JLabel newLabel){
+
+    }
     private void addActionEvent() {
         addKeyListener(new KeyAdapter() {
             @Override
@@ -102,7 +114,8 @@ public class BuildMode extends JFrame implements ActionListener {
                 }
             }
         });
-        chairLabel.addMouseListener(new MouseListener() {
+        JLabel originalChairLabel = chairLabel;
+        originalChairLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -114,7 +127,28 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                chairLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                JLabel newLabel = new JLabel();
+                newLabel.setIcon(new ImageIcon(((ImageIcon) originalChairLabel.getIcon()).getImage()));
+                newLabel.setAlignmentX(originalChairLabel.getAlignmentX());
+                newLabel.setBounds(originalChairLabel.getX() - originalChairLabel.getWidth()/2, originalChairLabel.getY() - originalChairLabel.getHeight()/2,192, 108);
+                newLabel.setAlignmentX(originalChairLabel.getAlignmentX());
+                newLabel.setAlignmentY(originalChairLabel.getAlignmentY());
+                newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                container.add(newLabel);
+                container.setComponentZOrder(newLabel, 0);
+                container.validate();
+                container.repaint();
+                newLabel.addMouseMotionListener(new MouseMotionListener() {
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                    }
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -128,8 +162,8 @@ public class BuildMode extends JFrame implements ActionListener {
             }
 
         });
-
-        sofaLabel.addMouseListener(new MouseListener() {
+        JLabel originalSofaLabel = sofaLabel;
+        originalSofaLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -141,7 +175,28 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                sofaLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                JLabel newLabel = new JLabel();
+                newLabel.setIcon(new ImageIcon(((ImageIcon) originalSofaLabel.getIcon()).getImage()));
+                newLabel.setBounds(0,0,192,108);
+                newLabel.setLocation(originalSofaLabel.getX(), originalSofaLabel.getY());
+                newLabel.setAlignmentX(originalSofaLabel.getAlignmentX());
+                newLabel.setAlignmentY(originalSofaLabel.getAlignmentY());
+                newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                container.add(newLabel);
+                container.setComponentZOrder(newLabel, 0);
+                container.validate();
+                container.repaint();
+                newLabel.addMouseMotionListener(new MouseMotionListener() {
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                    }
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -155,7 +210,8 @@ public class BuildMode extends JFrame implements ActionListener {
             }
 
         });
-        pianoLabel.addMouseListener(new MouseListener() {
+        JLabel originalPianoLabel = pianoLabel;
+        originalPianoLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -167,7 +223,9 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                pianoLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+               // JLabel newLabel = cloneFurniture(originalPianoLabel);
+                //newLabel.addMouseListener(this);
+                //moveClonedFurniture(newLabel);
             }
 
             @Override
@@ -181,7 +239,8 @@ public class BuildMode extends JFrame implements ActionListener {
             }
 
         });
-        tableLabel.addMouseListener(new MouseListener() {
+        JLabel originalTableLabel = tableLabel;
+        originalTableLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -193,9 +252,10 @@ public class BuildMode extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                tableLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+              //  JLabel newLabel = cloneFurniture(originalTableLabel);
+               // newLabel.addMouseListener(this);
+                //
             }
-
             @Override
             public void mouseEntered(MouseEvent e) {
 
