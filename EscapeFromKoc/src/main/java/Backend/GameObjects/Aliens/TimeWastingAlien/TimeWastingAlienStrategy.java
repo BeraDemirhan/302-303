@@ -5,6 +5,6 @@ import Backend.Player.Player;
 import Backend.GameObjects.Key;
 import javax.swing.*;
 
-public interface TimeWastingAlienStrategy extends Alien {
-    void changeKeyLoc(Key key);
+public interface TimeWastingAlienStrategy {
+    void changeKeyLoc(Object[] list, Key key);
 }

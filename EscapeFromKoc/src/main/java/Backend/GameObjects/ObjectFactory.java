@@ -1,6 +1,7 @@
 package Backend.GameObjects;
 
 import Backend.GameObjects.Aliens.BlindAlienImpl;
+import Backend.GameObjects.Aliens.TimeWastingAlien.TimeWastingAlien;
 
 public class ObjectFactory {
 
@@ -12,6 +13,9 @@ public class ObjectFactory {
         }
         else if(mark.equals("blind-alien")){
             gameObject = new BlindAlienImpl(x,y);
+        }
+        else if(mark.equals("timeawasting-alien")){
+            gameObject = new TimeWastingAlien(x,y);
         }
         else{
             throw new RuntimeException(mark+" is not a game object.");
