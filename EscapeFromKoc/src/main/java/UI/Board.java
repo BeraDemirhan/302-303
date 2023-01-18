@@ -5,6 +5,7 @@ import javax.swing.*;
 import Backend.GameControler;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.HintPowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
@@ -29,6 +30,7 @@ public class Board extends JFrame {
     private JLabel chair;
 
     private JLabel health;
+    private JLabel hintPowerUp;
 
     private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
     private Image playerfrontimage = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
@@ -66,10 +68,11 @@ public class Board extends JFrame {
         setLocationAndSize();
         createFurniture();
         createHealth();
+        createHintPowerUp();
         addComponentsToContainer();
 
         addActionEvent();
-    
+
         updateFrame();
     }
 
@@ -131,6 +134,7 @@ public class Board extends JFrame {
         pCont.add(playerAbs);
         pCont.add(chair);
         pCont.add(health);
+        pCont.add(hintPowerUp);
         pCont.add(blindAlienLabel);
         pCont.add(bottleLabel);
         pCont.add(background);
@@ -178,6 +182,11 @@ public class Board extends JFrame {
 
        */
         health = new AddHealthImpl(100, 100).getHealth();
+    }
+    public void createHintPowerUp(){
+        hintPowerUp = new HintPowerUp(100,100).getHintPowerUP();
+        hintPowerUp.setVisible(true);
+
     }
 
     public boolean getHealth(){
