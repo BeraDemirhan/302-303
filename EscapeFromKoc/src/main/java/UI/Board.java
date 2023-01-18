@@ -42,6 +42,7 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
+    private int timer = 0;
 
     private Container pCont = getContentPane();
     private Key key = new Key();
@@ -294,6 +295,8 @@ public class Board extends JFrame {
                     playerAbs.setVisible(true);
                     blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
                     blindAlien.setDirection(blindAlienLabel);
+                    timer += 1;
+                    System.out.println("timer: " + timer);
 
                     if (bottleThrown) {
                         new Thread() {
@@ -305,6 +308,7 @@ public class Board extends JFrame {
                 }
             }
         }).start();
+
     }
     /*Overview: all key operations for game is implemented with addActionEvent
 
