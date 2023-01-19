@@ -6,6 +6,7 @@ import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.HintPowerUp;
 import Backend.GameObjects.PowerUps.PowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
@@ -146,6 +147,7 @@ public class GameControler {
         Inventory.addItem(obj);
         if (obj instanceof AddHealthImpl) {
             p.usePowerUp((AddHealthImpl) obj);
+
         }
     }
 
@@ -189,7 +191,12 @@ public class GameControler {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
             return health;
-        }else return null;
+        } else if (type.equals("hint")) {
+            HintPowerUp hint = new HintPowerUp(x, y);
+
+            return hint;
+        }
+        else return null;
 
     }
 

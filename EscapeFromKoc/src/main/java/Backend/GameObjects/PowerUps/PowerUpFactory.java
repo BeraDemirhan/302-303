@@ -10,6 +10,9 @@ public class PowerUpFactory {
         else if(mark.equals("throw-bottle")){
             powerUp = new ThrowBottleImpl(x,y);
         }
+        else if(mark.equals("hint")){
+            powerUp = new HintPowerUp(x, y);
+        }
         else{
             throw new RuntimeException(mark+" is not a power up.");
         }
