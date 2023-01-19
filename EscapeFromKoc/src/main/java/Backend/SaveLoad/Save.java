@@ -18,16 +18,26 @@ public class Save {
     private static int saveNumber = 1;
     private static File saveFile = new File("EscapeFromKoc/resources/Save" + saveNumber + ".txt");
     private static File NamesandPasswords = new File("EscapeFromKoc/resources/NamesPasswords.txt");
+    private static PrintWriter pw = null;
 
     //Save the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
 
+    private static void pwInit(){
+        try{
+            pw = new PrintWriter(saveFile);
+        }catch(FileNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void saveGame(){
         //Save the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
         System.out.println("Saving game...");
+        pwInit();
         saveLevel();
         savePlayer();
         saveObjects();
+        pw.close();
         System.out.println("Game saved!");
     }
 
@@ -46,17 +56,10 @@ public class Save {
     }
 
     public static void write(String text){
-        BufferedWriter bw;
-        try {
-            bw = new BufferedWriter(new FileWriter(saveFile, true));
-            bw.write(text);
-            bw.newLine();
-            bw.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //Write the text to the save file
+        pw.println(text);
     }
+
     public static void saveLevel(){
         //Save the current level
         int level = GameControler.getCurrentLevel();
