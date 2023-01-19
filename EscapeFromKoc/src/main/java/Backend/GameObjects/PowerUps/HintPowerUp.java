@@ -1,6 +1,7 @@
 package Backend.GameObjects.PowerUps;
 
 import Backend.Player.Player;
+import UI.Board;
 import UI.HintPowerUpUI.HintPowerUpHighlight;
 import UI.UIUtils;
 
@@ -12,6 +13,9 @@ public class HintPowerUp implements PowerUp{
 
     private int keyX;
     private int keyY;
+
+
+
     public HintPowerUp(int x, int y){
         spawnHintPowerUp(x,y);
 
@@ -28,24 +32,21 @@ public class HintPowerUp implements PowerUp{
     }
 
     public JLabel getHintPowerUP() {
-        // REQUIRES: Health power up
-        // Modifies: health existence
-        // Effects: the player get health
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/hintKey.png", x, y, 50, 50);
+        return UIUtils.createLabel("EscapeFromKoc/resources/carrot.png", x, y, 50, 50);
+    }
+    public JLabel getHintPowerUpKeyLocation(){
+        return UIUtils.createLabel("EscapeFromKoc/resources/hintKey.png", keyX, keyY, 50, 50);
+
     }
     @Override
     public void activatePowerUp(Player player) {
+        new Thread(){
+            {
+                Board.hintPowerUpUsage();
+            }
+        }.start();
+    }
 
-    }
-    public void paintForHint(){
-        HintPowerUpHighlight rect =new HintPowerUpHighlight();
-        JFrame frame = new JFrame("Rectangles");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(rect);
-        frame.setSize(40, 40);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
     public int getX() {
         return x;
     }

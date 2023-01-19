@@ -31,6 +31,7 @@ public class Board extends JFrame {
 
     private JLabel health;
     private JLabel hintPowerUp;
+    private static JLabel keyLocationPointer;
 
     private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
     private Image playerfrontimage = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
@@ -46,7 +47,7 @@ public class Board extends JFrame {
 
 
     private Container pCont = getContentPane();
-    private Key key = new Key();
+    private static Key key = new Key();
 
 
     private BlindAlienImpl blindAlien;
@@ -132,9 +133,12 @@ public class Board extends JFrame {
             pCont.add(key.reveal());
         }
         pCont.add(playerAbs);
+        pCont.add(hintPowerUp);
+        pCont.add(keyLocationPointer);
+
         pCont.add(chair);
         pCont.add(health);
-        pCont.add(hintPowerUp);
+
         pCont.add(blindAlienLabel);
         pCont.add(bottleLabel);
         pCont.add(background);
@@ -183,10 +187,25 @@ public class Board extends JFrame {
        */
         health = new AddHealthImpl(100, 100).getHealth();
     }
-    public void createHintPowerUp(){
-        hintPowerUp = new HintPowerUp(100,100).getHintPowerUP();
-        hintPowerUp.setVisible(true);
 
+    public void createHintPowerUp(){
+        HintPowerUp hint = (HintPowerUp) GameControler.createPowerUp("hint", 200,300);
+        hintPowerUp = hint.getHintPowerUP();
+        hint.setKeyX(key.getX());
+        hint.setKeyY(key.getY());
+        keyLocationPointer = hint.getHintPowerUpKeyLocation();
+        keyLocationPointer.setVisible(false);
+    }
+    public static void hintPowerUpUsage(){
+        keyLocationPointer.setBounds(key.getX(),key.getY(),50,50);
+        keyLocationPointer.setVisible(true);
+        long x = System.nanoTime();
+        while(true){
+            long y = System.nanoTime();
+            if(((y - x)/ 1000000000) == 10){
+                keyLocationPointer.setVisible(false);
+            }
+        }
     }
 
     public boolean getHealth(){
@@ -523,7 +542,44 @@ public class Board extends JFrame {
                 }
             }
         });
+        hintPowerUp.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] powerUpCoords = { hintPowerUp.getX(), hintPowerUp.getY() };
+                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50) {
+                            System.out.println("Picked hint powerup");
+                            GameControler.pickObject(hintPowerUp);
+                            hintPowerUp.setVisible(false);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         bottleLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {

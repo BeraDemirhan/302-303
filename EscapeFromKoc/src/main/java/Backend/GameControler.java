@@ -143,7 +143,7 @@ public class GameControler {
         Inventory.addItem(obj);
         if (obj instanceof AddHealthImpl) {
             p.usePowerUp((AddHealthImpl) obj);
-            p.usePowerUp((HintPowerUp) obj);
+
         }
     }
 
@@ -190,8 +190,9 @@ public class GameControler {
         } else if (type.equals("hint")) {
             HintPowerUp hint = new HintPowerUp(x, y);
 
-
-        } else return null;
+            return hint;
+        }
+        else return null;
 
     }
 
