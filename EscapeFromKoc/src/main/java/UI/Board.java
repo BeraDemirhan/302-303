@@ -92,7 +92,9 @@ public class Board extends JFrame {
 
     public void addToContainer(JLabel label, String name){
         ObjectList.add(name);
+        
         pCont.add(label);
+        
     }
 
     public void setBackground(){
@@ -359,6 +361,8 @@ public class Board extends JFrame {
 
                     GameControler.currentTime = System.nanoTime();
                     System.out.println("timer: " + GameControler.levelTime);
+
+
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
@@ -382,7 +386,6 @@ public class Board extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
@@ -395,6 +398,7 @@ public class Board extends JFrame {
                                      blind aliens follows the player
 
                          */
+                       
                         newImgPlayer = singleImageResize(GameControler.movePlayer("back"));
                         GameControler.applyAlienGoal(blindAlien);
                     }
@@ -412,6 +416,7 @@ public class Board extends JFrame {
 
                          */
 
+                       
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
                         GameControler.applyAlienGoal(blindAlien);
 
@@ -446,6 +451,7 @@ public class Board extends JFrame {
                                      blind aliens follows the player
 
                          */
+                        
                         newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
                         GameControler.applyAlienGoal(blindAlien);
                         System.out.println("right");
@@ -508,9 +514,9 @@ public class Board extends JFrame {
                         GameControler.usePowerUp(bottle);
                     }
 
-                    pCont.removeAll();
-                    addComponentsToContainer();
-                    playerAbs.setVisible(true);
+                    //pCont.removeAll();
+                    //addComponentsToContainer();
+                    //playerAbs.setVisible(true);
 
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         /*
