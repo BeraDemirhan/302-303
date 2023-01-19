@@ -36,10 +36,8 @@ public class Load {
                 GameControler.getPlayer().setInventory(newLine.substring(19));
             }
             if(newLine.contains("Object")){
-                while(!newLine.contains("End of objects")){
-                    newLine = br.readLine();
-                    GameControler.addObject(newLine.substring(7, 8), Integer.parseInt(newLine.substring(9, 12)), Integer.parseInt(newLine.substring(13, 16)));
-                }
+                //GameControler.getObjects().get(Integer.parseInt(newLine.substring(7, 10))).setX(Integer.parseInt(newLine.substring(11, 14)));
+                //GameControler.getObjects().get(Integer.parseInt(newLine.substring(7, 10))).setY(Integer.parseInt(newLine.substring(15, 18)));
             }
 
         }

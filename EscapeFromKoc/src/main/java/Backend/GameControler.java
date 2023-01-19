@@ -216,10 +216,6 @@ public class GameControler {
     public static int getCurrentLevel(){
         return level;
     }
-
-    public static void addObject(String name , int x, int y){
-        ObjectFactory.createObject(name, x, y);
-    }
     
 
     public static void bottleThrowAnimation(int[] playerCoords, int[] newCoords, Board board) {
