@@ -1,0 +1,8 @@
+Level: 1
+Objects:
+chair: 263, 193
+sofa: 202, 432
+piano: 633, 199
+table: 679, 439
+piano: 633, 199
+End of objects

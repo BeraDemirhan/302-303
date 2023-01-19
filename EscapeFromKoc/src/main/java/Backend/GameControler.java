@@ -1,6 +1,7 @@
 package Backend;
 
 import Backend.GameObjects.Chair;
+import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
@@ -8,12 +9,14 @@ import Backend.GameObjects.Aliens.BlindAlienImpl;
 import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
+import Backend.SaveLoad.Load;
 import Backend.SaveLoad.Save;
 
 import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -23,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.UIDefaults.ProxyLazyValue;
 
 import UI.Board;
+import UI.BuildMode;
 import UI.ScreenCoordinator;
 import UI.UIUtils;
 
@@ -34,6 +38,7 @@ public class GameControler {
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static Board activeBoard = new Board();
+    private static BuildMode actBuildMode = new BuildMode(5);
 
     public static int EXIT = 3;
     public static int levelTime = 0;
@@ -61,9 +66,20 @@ public class GameControler {
         GameControler.gameStatus = gameStatus;
     }
 
+    public static int getSaveNumber() {
+        return Save.getSaveNumber();
+    }
+
     public static void saveGame() {
         Save.setSaveNum();
         Save.saveGame();
+    }
+
+    public static void startGame(){
+        gameStatus = RUNNING;
+        activeBoard.setBackground();
+        ScreenCoordinator.startGame(activeBoard);
+        activeBoard.printContainer();
     }
 
     public static int getPlayerHealth() {
@@ -78,7 +94,26 @@ public class GameControler {
         return activeBoard.getObjectCoords(object);
     }
 
+    public static void loadGame() throws NumberFormatException, IOException{
+        //Load the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
+        System.out.println("Loading game...");
+        Load.loadGame();
+        System.out.println("Game loaded!");
+    }
 
+    public static void saveBuildMode() throws NumberFormatException, IOException{
+        Save.setSaveNum();
+        Save.saveBuildMode();
+        Load.loadGame();
+    }
+
+    public static ArrayList<String> getBuiltObjects(){
+        return actBuildMode.getBuiltObjects();
+    }
+
+    public static int[] getBuiltObjectCoords(String object){
+        return actBuildMode.getBuiltObjectCoords(object);
+    }
 
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
@@ -218,7 +253,9 @@ public class GameControler {
     }
 
     public static void addObject(String name , int x, int y){
-        ObjectFactory.createObject(name, x, y);
+        //put the creaded object in the activeBoard
+        GameObjectIntterface obj = ObjectFactory.createObject(name, x, y);
+        activeBoard.addObject(obj);
     }
     
 

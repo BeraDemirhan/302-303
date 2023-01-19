@@ -3,7 +3,9 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
+import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
+import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ExtraTime;
 import Backend.GameObjects.PowerUps.HintPowerUp;
@@ -36,7 +38,7 @@ public class Board extends JFrame {
 
     private static JLabel keyLocationPointer;
 
-    private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
+    private Image backimage = new ImageIcon("EscapeFromKoc/resources/emptyRoom.png").getImage();
     private Image playerfrontimage = new ImageIcon("EscapeFromKoc/resources/rabbit-front-angled.png").getImage();
     private Image playerbackimage = new ImageIcon("EscapeFromKoc/resources/rabbit-back-angled.png").getImage();
     private Image playerleftimage = new ImageIcon("EscapeFromKoc/resources/rabbit-left-angled.png").getImage();
@@ -48,6 +50,7 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
+    private ArrayList<String> ObjectList = new ArrayList<String>();
 
     private Container pCont = getContentPane();
     private static Key key = new Key();
@@ -83,9 +86,31 @@ public class Board extends JFrame {
         addComponentsToContainer();
         setLevelTime();
         addActionEvent();
-
         updateFrame();
     }
+
+    public void addToContainer(JLabel label, String name){
+        ObjectList.add(name);
+        pCont.add(label);
+    }
+
+    public void setBackground(){
+        background = UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/emptyRoom.png", 0, 0, 960, 540);
+        addToContainer(background, "background");
+        System.out.println("background");
+    }
+
+    public void printContainer(){
+        for (int i = 0; i<pCont.getComponentCount(); i++){
+            System.out.println(pCont.getComponent(i).getName() + "x: " + pCont.getComponent(i).getX() + " y: " + pCont.getComponent(i).getY());
+        }
+    }
+
+    public void addObject(GameObjectIntterface object){
+        JLabel label = object.getObjectLabel();
+        addToContainer(label, object.getName());
+    }
+
 
     private void imageResize() {
         backimage = backimage.getScaledInstance(960, 540, Image.SCALE_SMOOTH);
@@ -147,22 +172,15 @@ public class Board extends JFrame {
         pCont.add(extraTimePowerUp);
         pCont.add(keyLocationPointer);
 
-        pCont.add(chair);
+        //pCont.add(chair);
         pCont.add(health);
-
         pCont.add(blindAlienLabel);
         pCont.add(bottleLabel);
         pCont.add(background);
     }
 
     public ArrayList<String> getObjects(){
-        ArrayList<String> objects = new ArrayList<String>();
-        for(int i = 0; i < pCont.getComponentCount(); i++){
-            if (pCont.getComponent(i).toString().contains("JLabel")) {
-                objects.add(pCont.getComponent(i).toString());
-            }
-        }
-        return objects;
+        return ObjectList;
     }
 
     public int[] getObjectCoords(String object){

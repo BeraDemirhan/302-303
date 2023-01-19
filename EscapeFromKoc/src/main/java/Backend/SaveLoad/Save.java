@@ -82,8 +82,9 @@ public class Save {
         write("Objects:");
         for(String i : GameControler.getObjects()){
             int[] coords = GameControler.getObjectCoords(i);
-            write("Object " + i + ": " + coords[0] + ", " + coords[1]);
+            write(i + ": " + coords[0] + ", " + coords[1]);
         }
+        write("End of objects");
         
     }
 
@@ -109,10 +110,38 @@ public class Save {
         return lines;
     }
 
+    public static int getSaveNumber(){
+        //Get the save number
+        return saveNumber;
+    }
+
     public void saveNamesandPasswords(){
         //Save the names and passwords of the users
         write("Names and passwords:");
         write(read(NamesandPasswords).toString());
+    }
+
+    public static void saveBuildMode(){
+        //Save the build mode
+        System.out.println("Saving build mode...");
+        pwInit();
+        saveLevel();
+        saveBuildModeObjects();
+        pw.close();
+        System.out.println("Build mode saved!");
+    }
+
+    public static void saveBuildModeObjects(){
+        //Save the location of the objects in the level
+        write("Objects:");
+        for(String i : GameControler.getBuiltObjects()){
+            System.out.println("Saving object: " + i);
+            System.out.println("Object coords: " + GameControler.getBuiltObjectCoords(i)[0] + ", " + GameControler.getBuiltObjectCoords(i)[1]);
+            int[] coords = GameControler.getBuiltObjectCoords(i);
+            write(i + ": " + coords[0] + ", " + coords[1]);
+        }
+        write("End of objects");
+        
     }
     
 }

@@ -9,11 +9,11 @@ import java.io.IOException;
 import Backend.GameControler;
 
 public class Load {
-    private static File file = new File("save.txt");
+    private static File file = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveNumber() + ".txt");
     private static BufferedReader br;
-    public static void loadGame() {
+    public static void loadGame() throws NumberFormatException, IOException {
         // TODO Auto-generated method stub
-
+        readFile();
     }
 
     public static void readFile() throws NumberFormatException, IOException{
@@ -44,10 +44,20 @@ public class Load {
                 while(!newLine.contains("End of objects")){
                     newLine = br.readLine();
                     // GameController.addObject(name, x, y)
-                    GameControler.addObject(newLine.substring(0, 5), Integer.parseInt(newLine.substring(7, 10)), Integer.parseInt(newLine.substring(11, 14)));
+                    String line = newLine;
+                    if(line.contains("End of objects")){
+                        break;
+                    }
+                    //System.out.println("line: " + line + " " + "    index of : : "+ line.indexOf(":") + "    index of , : " + line.indexOf(","));
+                    String name = line.substring(0, line.indexOf(":"));
+                    String x = line.substring(line.indexOf(":") + 2, line.indexOf(","));
+                    String y = line.substring(line.indexOf(",") + 2);
+                    GameControler.addObject(name, Integer.parseInt(x), Integer.parseInt(y));
                 }
             }
-
+            else{
+                break;
+            }
         }
         
     }

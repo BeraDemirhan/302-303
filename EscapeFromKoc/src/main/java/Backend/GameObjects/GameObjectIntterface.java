@@ -12,4 +12,6 @@ public interface GameObjectIntterface {
     void spawnObject(int x, int y);
 
     boolean objectHasKey();
+
+    String getName();
 }
