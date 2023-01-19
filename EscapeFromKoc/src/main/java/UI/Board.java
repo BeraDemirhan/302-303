@@ -67,6 +67,9 @@ public class Board extends JFrame {
         GameControler.levelTime = 5 * getObjects().size();
         GameControler.startTime = System.nanoTime();
     }
+    public static void addTime(){
+        GameControler.setLevelTime(GameControler.getLevelTime() + 5);
+    }
     public Board() {
         imageResize();
         setLayoutManager();
@@ -577,6 +580,7 @@ public class Board extends JFrame {
                             System.out.println("Picked extra-time powerup");
                             GameControler.pickObject(extraTimePowerUp);
                             extraTimePowerUp.setVisible(false);
+
                         }
 
                     }

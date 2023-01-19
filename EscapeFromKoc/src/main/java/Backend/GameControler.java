@@ -146,6 +146,9 @@ public class GameControler {
             p.usePowerUp((AddHealthImpl) obj);
 
         }
+        if (obj instanceof ExtraTime){
+            p.usePowerUp((ExtraTime) obj);
+        }
     }
 
     public static int[] getPlayerCoords() {

@@ -28,7 +28,8 @@ public class ExtraTime implements PowerUp{
 
     @Override
     public void activatePowerUp(Player player) {
-        GameControler.setLevelTime(GameControler.getLevelTime() + 5);
+        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        Board.addTime();
     }
 
     public int getX() {
