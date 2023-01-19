@@ -5,10 +5,7 @@ import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
-import Backend.GameObjects.PowerUps.AddHealthImpl;
-import Backend.GameObjects.PowerUps.HintPowerUp;
-import Backend.GameObjects.PowerUps.PowerUp;
-import Backend.GameObjects.PowerUps.ThrowBottleImpl;
+import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
 import Backend.SaveLoad.Save;
@@ -195,8 +192,10 @@ public class GameControler {
             HintPowerUp hint = new HintPowerUp(x, y);
 
             return hint;
-        }
-        else return null;
+        } else if (type.equals("extra-time")) {
+            ExtraTime extraTime =  new ExtraTime(x, y);
+            return extraTime;
+        } else return null;
 
     }
 
@@ -243,5 +242,13 @@ public class GameControler {
         }
         board.setBottleThrown(false);
         System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
+    }
+
+    public static int getLevelTime() {
+        return levelTime;
+    }
+
+    public static void setLevelTime(int levelTime) {
+        GameControler.levelTime = levelTime;
     }
 }

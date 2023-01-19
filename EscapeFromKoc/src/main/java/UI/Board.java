@@ -5,6 +5,7 @@ import javax.swing.*;
 import Backend.GameControler;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
+import Backend.GameObjects.PowerUps.ExtraTime;
 import Backend.GameObjects.PowerUps.HintPowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
@@ -31,6 +32,8 @@ public class Board extends JFrame {
 
     private JLabel health;
     private JLabel hintPowerUp;
+    private JLabel extraTimePowerUp;
+
     private static JLabel keyLocationPointer;
 
     private Image backimage = new ImageIcon("EscapeFromKoc/resources/room.png").getImage();
@@ -45,7 +48,6 @@ public class Board extends JFrame {
     private JLabel playerAbs;
     private JLabel bottleLabel;
 
-    private int timer = 0;
 
     private Container pCont = getContentPane();
     private static Key key = new Key();
@@ -74,6 +76,7 @@ public class Board extends JFrame {
         createFurniture();
         createHealth();
         createHintPowerUp();
+        createExtraTimePowerUp();
         addComponentsToContainer();
         setLevelTime();
         addActionEvent();
@@ -138,6 +141,7 @@ public class Board extends JFrame {
         }
         pCont.add(playerAbs);
         pCont.add(hintPowerUp);
+        pCont.add(extraTimePowerUp);
         pCont.add(keyLocationPointer);
 
         pCont.add(chair);
@@ -191,7 +195,11 @@ public class Board extends JFrame {
        */
         health = new AddHealthImpl(100, 100).getHealth();
     }
+    public void createExtraTimePowerUp(){
+       ExtraTime extraTimePowerUpCreated = (ExtraTime) GameControler.createPowerUp("extra-time", 400,300);
+       extraTimePowerUp = extraTimePowerUpCreated.getExtraTimeLabel();
 
+    }
     public void createHintPowerUp(){
         HintPowerUp hint = (HintPowerUp) GameControler.createPowerUp("hint", 200,300);
         hintPowerUp = hint.getHintPowerUP();
@@ -326,9 +334,9 @@ public class Board extends JFrame {
                     playerAbs.setVisible(true);
                     blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
                     blindAlien.setDirection(blindAlienLabel);
-                    timer += 1;
+
                     GameControler.currentTime = System.nanoTime();
-                    System.out.println("timer: " + ((GameControler.currentTime - GameControler.startTime)/1000000000));
+                    System.out.println("timer: " + GameControler.levelTime);
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
@@ -552,6 +560,44 @@ public class Board extends JFrame {
                 }
             }
         });
+        extraTimePowerUp.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] powerUpCoords = { extraTimePowerUp.getX(), extraTimePowerUp.getY() };
+                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50 && extraTimePowerUp.isVisible()) {
+                            System.out.println("Picked extra-time powerup");
+                            GameControler.pickObject(extraTimePowerUp);
+                            extraTimePowerUp.setVisible(false);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         hintPowerUp.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -561,11 +607,11 @@ public class Board extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                    if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
                         int[] playerCoords = GameControler.getPlayerCoords();
                         int[] powerUpCoords = { hintPowerUp.getX(), hintPowerUp.getY() };
                         if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
-                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50) {
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50 && hintPowerUp.isVisible()) {
                             System.out.println("Picked hint powerup");
                             GameControler.pickObject(hintPowerUp);
                             hintPowerUp.setVisible(false);
