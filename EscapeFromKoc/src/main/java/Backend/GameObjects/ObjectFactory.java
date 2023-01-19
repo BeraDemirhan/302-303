@@ -13,6 +13,15 @@ public class ObjectFactory {
         else if(mark.equals("blind-alien")){
             gameObject = new BlindAlienImpl(x,y);
         }
+        else if(mark.equals("sofa")){
+            gameObject = new Sofa(x,y);
+        }
+        else if(mark.equals("piano")){
+            gameObject = new Piano(x,y);
+        }
+        else if(mark.equals("table")){
+            gameObject = new Table(x,y);
+        }
         
         else{
             throw new RuntimeException(mark+" is not a game object.");
