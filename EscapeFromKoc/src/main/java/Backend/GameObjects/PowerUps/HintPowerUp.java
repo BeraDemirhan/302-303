@@ -2,7 +2,6 @@ package Backend.GameObjects.PowerUps;
 
 import Backend.Player.Player;
 import UI.Board;
-import UI.HintPowerUpUI.HintPowerUpHighlight;
 import UI.UIUtils;
 
 import javax.swing.*;
