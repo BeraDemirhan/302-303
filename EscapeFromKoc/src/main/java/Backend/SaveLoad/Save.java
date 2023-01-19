@@ -67,10 +67,11 @@ public class Save {
         //Save the player's current position, inventory, health, etc.
         int[] coords = GameControler.getPlayerCoords();
         write("Player's coordinates: " + coords[0] + ", " + coords[1]);
-        String inventory = GameControler.getPlayerInventory();
-        write("Player's inventory: " + inventory);
         int health = GameControler.getPlayerHealth();
         write("Player's health: " + health);
+        String inventory = GameControler.getPlayerInventory();
+        write("Player's inventory: " + inventory);
+        write("End of inventory");
     }
 
     public static void saveObjects(){

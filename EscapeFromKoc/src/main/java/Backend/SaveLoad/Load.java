@@ -33,7 +33,12 @@ public class Load {
                 GameControler.getPlayer().setX(Integer.parseInt(newLine.substring(7, 10)));
                 GameControler.getPlayer().setY(Integer.parseInt(newLine.substring(11, 14)));
                 GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(15, 18)));
-                GameControler.getPlayer().setInventory(newLine.substring(19));
+            }
+            if(newLine.contains("Inventory")){
+                while(!newLine.contains("End of inventory")){
+                    newLine = br.readLine();
+                    GameControler.getPlayer().setInventory(newLine);
+                }
             }
             if(newLine.contains("Object")){
                 while(!newLine.contains("End of objects")){
