@@ -13,6 +13,8 @@ import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.ObjectFactory;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BuildMode extends JFrame implements ActionListener {
 
@@ -30,22 +32,21 @@ public class BuildMode extends JFrame implements ActionListener {
 
     private Container container = getContentPane();
 
-    public BuildMode() {
+
+    public BuildMode(int atLeast) {
         setLayoutManager();
         imageResize();
         loadImages();
         setSizeandLocation();
         alignLabels();
-        addActionEvent();
+        addActionEvent(atLeast);
         addComponentsToContainer();
-
     }
-
     private void imageResize() {
-        chair = chair.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-        sofa = sofa.getScaledInstance(96 * 3, 54 * 3, Image.SCALE_SMOOTH);
-        piano = piano.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
-        table = table.getScaledInstance(96, 54, Image.SCALE_SMOOTH);
+        chair = chair.getScaledInstance(96/2, 54/2, Image.SCALE_SMOOTH);
+        sofa = sofa.getScaledInstance(96 * 3/2, 54 * 3/2, Image.SCALE_SMOOTH);
+        piano = piano.getScaledInstance(96/2, 54/2, Image.SCALE_SMOOTH);
+        table = table.getScaledInstance(96/2, 54/2, Image.SCALE_SMOOTH);
         room = room.getScaledInstance(960, 540, Image.SCALE_SMOOTH);
     }
 
@@ -87,21 +88,49 @@ public class BuildMode extends JFrame implements ActionListener {
         tableLabel.setAlignmentX(CENTER_ALIGNMENT);
         tableLabel.setAlignmentY(CENTER_ALIGNMENT);
     }
-    private JLabel newLabel;
+    /*public ArrayList<String> getObjects(){
+        for(int i = 0; i < container.getComponentCount(); i++){
+            if (container.getComponent(i).toString().contains("JLabel")) {
+                objects.add(container.getComponent(i).toString());
+            }
+        }
+        return objects;
 
-    private void addActionEvent() {
+
+    }
+    public int[] getObjectCoords(String object){
+        int[] coords = new int[2];
+        for(int i = 0; i < container.getComponentCount(); i++){
+            if (container.getComponent(i).toString().equals(object)) {
+                coords[0] = container.getComponent(i).getX();
+                coords[1] = container.getComponent(i).getY();
+                return coords;
+            }
+        }
+        return coords;
+    }*/
+
+
+    int totalComponents = container.getComponents().length;
+
+    private void addActionEvent(int atLeast) {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    dispose();
-                    ScreenCoordinator.startGame();
+                    if (totalComponents - 6 < atLeast) {
+                        JOptionPane.showMessageDialog(container, "You should add at least "+ atLeast + " objects");
+                    }
+                    else {
+                        dispose();
+                        ScreenCoordinator.startGame();
+                    }
                 }
             }
         });
 
         chairLabel.addMouseListener(new MouseListener() {
-
+            private JLabel newLabel;
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -114,7 +143,7 @@ public class BuildMode extends JFrame implements ActionListener {
                 newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 container.add(newLabel);
                 container.setComponentZOrder(newLabel, 0);
-            }
+        }
 
 
             @Override
@@ -125,6 +154,7 @@ public class BuildMode extends JFrame implements ActionListener {
                     @Override
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                        totalComponents = container.getComponents().length;
                     }
                 });
 
@@ -145,6 +175,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
 
         sofaLabel.addMouseListener(new MouseListener() {
+            private JLabel newLabel;
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -157,6 +188,7 @@ public class BuildMode extends JFrame implements ActionListener {
                 newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 container.add(newLabel);
                 container.setComponentZOrder(newLabel, 0);
+
             }
 
             @Override
@@ -167,6 +199,7 @@ public class BuildMode extends JFrame implements ActionListener {
                     @Override
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                        totalComponents = container.getComponents().length;
                     }
                 });
             }
@@ -187,6 +220,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
 
         pianoLabel.addMouseListener(new MouseListener() {
+            private JLabel newLabel;
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -199,6 +233,7 @@ public class BuildMode extends JFrame implements ActionListener {
                 newLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 container.add(newLabel);
                 container.setComponentZOrder(newLabel, 0);
+
             }
 
             @Override
@@ -209,6 +244,7 @@ public class BuildMode extends JFrame implements ActionListener {
                     @Override
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                        totalComponents = container.getComponents().length;
                     }
                 });
 
@@ -227,6 +263,7 @@ public class BuildMode extends JFrame implements ActionListener {
         });
 
         tableLabel.addMouseListener(new MouseListener() {
+            private JLabel newLabel;
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -240,6 +277,7 @@ public class BuildMode extends JFrame implements ActionListener {
                 container.add(newLabel);
                 container.setComponentZOrder(newLabel, 0);
 
+
             }
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -249,6 +287,7 @@ public class BuildMode extends JFrame implements ActionListener {
                     @Override
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                        totalComponents = container.getComponents().length;
                     }
                 });
 
@@ -270,7 +309,6 @@ public class BuildMode extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-
     }
 
 }
