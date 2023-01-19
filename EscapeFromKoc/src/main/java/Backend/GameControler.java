@@ -41,7 +41,7 @@ public class GameControler {
     private static BuildMode actBuildMode = new BuildMode(5);
 
     public static int EXIT = 3;
-    public static int levelTime = 0;
+    public static int levelTime = 50;
     public static long startTime;
     public static long currentTime;
 

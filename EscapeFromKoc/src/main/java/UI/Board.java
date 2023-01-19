@@ -87,6 +87,7 @@ public class Board extends JFrame {
         setLevelTime();
         addActionEvent();
         updateFrame();
+        System.out.println("Board created");
     }
 
     public void addToContainer(JLabel label, String name){
@@ -447,6 +448,7 @@ public class Board extends JFrame {
                          */
                         newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
                         GameControler.applyAlienGoal(blindAlien);
+                        System.out.println("right");
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
