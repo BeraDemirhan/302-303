@@ -5,9 +5,7 @@ import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
-import Backend.GameObjects.PowerUps.AddHealthImpl;
-import Backend.GameObjects.PowerUps.PowerUp;
-import Backend.GameObjects.PowerUps.ThrowBottleImpl;
+import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
 import Backend.SaveLoad.Save;
@@ -31,13 +29,17 @@ import UI.UIUtils;
 public class GameControler {
     public static int PAUSED = 0;
     public static int RUNNING = 1;
-    private static int GAMEOVER = 2;
+    public static int GAMEOVER = 2;
     private static int gameStatus;
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static Board activeBoard = new Board();
 
     public static int EXIT = 3;
+    public static int levelTime = 0;
+    public static long startTime;
+    public static long currentTime;
+
 
 
     /*
@@ -142,6 +144,10 @@ public class GameControler {
         Inventory.addItem(obj);
         if (obj instanceof AddHealthImpl) {
             p.usePowerUp((AddHealthImpl) obj);
+
+        }
+        if (obj instanceof ExtraTime){
+            p.usePowerUp((ExtraTime) obj);
         }
     }
 
@@ -185,7 +191,14 @@ public class GameControler {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
             return health;
-        }else return null;
+        } else if (type.equals("hint")) {
+            HintPowerUp hint = new HintPowerUp(x, y);
+
+            return hint;
+        } else if (type.equals("extra-time")) {
+            ExtraTime extraTime =  new ExtraTime(x, y);
+            return extraTime;
+        } else return null;
 
     }
 
@@ -202,6 +215,10 @@ public class GameControler {
 
     public static int getCurrentLevel(){
         return level;
+    }
+
+    public static void addObject(String name , int x, int y){
+        ObjectFactory.createObject(name, x, y);
     }
     
 
@@ -232,5 +249,13 @@ public class GameControler {
         }
         board.setBottleThrown(false);
         System.out.println("bottle thrown animation completed: " + board.getBottleThrown());
+    }
+
+    public static int getLevelTime() {
+        return levelTime;
+    }
+
+    public static void setLevelTime(int levelTime) {
+        GameControler.levelTime = levelTime;
     }
 }

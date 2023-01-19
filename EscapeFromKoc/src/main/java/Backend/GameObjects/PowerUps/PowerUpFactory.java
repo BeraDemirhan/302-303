@@ -10,7 +10,13 @@ public class PowerUpFactory {
         else if(mark.equals("throw-bottle")){
             powerUp = new ThrowBottleImpl(x,y);
         }
-        else{
+        else if(mark.equals("hint")){
+            powerUp = new HintPowerUp(x, y);
+        }
+        else if (mark.equals("extra-time")) {
+            powerUp = new ExtraTime(x,y);
+
+        } else{
             throw new RuntimeException(mark+" is not a power up.");
         }
         return powerUp;
