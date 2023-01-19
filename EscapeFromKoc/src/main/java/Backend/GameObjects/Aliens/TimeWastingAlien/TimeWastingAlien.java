@@ -6,13 +6,15 @@ import Backend.GameObjects.Key;
 import Backend.Player.Player;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class TimeWastingAlien implements Alien {
     private boolean isActive = true;
+    private double timeElapsed;
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";
+    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlienFront.png";
 
 
     private TimeWastingAlienStrategy wastingStrategy;
@@ -31,9 +33,9 @@ public class TimeWastingAlien implements Alien {
     public int getStrategyCode(){
         return strategyCode;
     }
-    public void wasteTime(Object[] list, Key key){
+    public void wasteTime(ArrayList<Object> list, Key key, TimeWastingAlien wastingAlien){
         if(isActive){
-            wastingStrategy.changeKeyLoc(list, key);
+            wastingStrategy.changeKeyLoc(list, key, wastingAlien);
         }
     }
     private void setAlienStrategy(int strategyCode){
@@ -61,19 +63,28 @@ public class TimeWastingAlien implements Alien {
     @Override
     public void applyAlienGoal(Object o) {
         // inputumuz geçen zaman
-        //int remainingTimeRate = ((double) o) / GameControler.get
-        if((double)o >0.7){
+        setTimeElapsed((double) o);
+        if( getTimeElapsed()/ GameControler.levelTime > 0.7){
             setStrategyCode(Timing);
             setAlienStrategy(getStrategyCode());
-        } else if (((double) o >= 0.3) && ((double) o <=0.7)){
+        }
+        else if ((getTimeElapsed()/GameControler.levelTime >= 0.3) && (getTimeElapsed()/ GameControler.levelTime <= 0.7)){
             setStrategyCode(BetweenThreshold);
             setAlienStrategy(getStrategyCode());
-        } else if ((double) o < 0.3) {
+        }
+        else if (getTimeElapsed()/ GameControler.levelTime < 0.3) {
             setStrategyCode(LastCall);
             setAlienStrategy(getStrategyCode());
         }
     }
 
+    public double getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(double timeElapsed) {
+        this.timeElapsed = timeElapsed;
+    }
 
     @Override
     public boolean objectHasKey() {
@@ -106,5 +117,13 @@ public class TimeWastingAlien implements Alien {
     @Override
     public void attackPlayer(Player p) {
         // do nothing
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
