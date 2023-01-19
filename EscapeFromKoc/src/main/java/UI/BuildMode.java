@@ -118,7 +118,7 @@ public class BuildMode extends JFrame implements ActionListener {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    if (totalComponents - 6 < atLeast) {
+                    if (totalComponents - 5 < atLeast) {
                         JOptionPane.showMessageDialog(container, "You should add at least "+ atLeast + " objects");
                     }
                     else {
