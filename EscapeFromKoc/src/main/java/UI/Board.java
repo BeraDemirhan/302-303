@@ -58,7 +58,10 @@ public class Board extends JFrame {
         return bottleThrown;
     }
     private static final int TIMER_DELAY = 35;
-
+    public void setLevelTime(){
+        GameControler.levelTime = 5 * getObjects().size();
+        GameControler.startTime = System.nanoTime();
+    }
     public Board() {
         imageResize();
         setLayoutManager();
@@ -68,7 +71,7 @@ public class Board extends JFrame {
         createFurniture();
         createHealth();
         addComponentsToContainer();
-
+        setLevelTime();
         addActionEvent();
     
         updateFrame();
@@ -296,8 +299,11 @@ public class Board extends JFrame {
                     blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
                     blindAlien.setDirection(blindAlienLabel);
                     timer += 1;
-                    System.out.println("timer: " + timer);
-
+                    GameControler.currentTime = System.nanoTime();
+                    System.out.println("timer: " + ((GameControler.currentTime - GameControler.startTime)/1000000000));
+                    if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
+                        GameControler.setGameStatus(GameControler.GAMEOVER);
+                    }
                     if (bottleThrown) {
                         new Thread() {
                             public void run() {

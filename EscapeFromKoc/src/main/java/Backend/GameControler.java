@@ -31,13 +31,17 @@ import UI.UIUtils;
 public class GameControler {
     public static int PAUSED = 0;
     public static int RUNNING = 1;
-    private static int GAMEOVER = 2;
+    public static int GAMEOVER = 2;
     private static int gameStatus;
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static Board activeBoard = new Board();
 
     public static int EXIT = 3;
+    public static int levelTime = 0;
+    public static long startTime;
+    public static long currentTime;
+
 
 
     /*
