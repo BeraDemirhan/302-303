@@ -28,7 +28,7 @@ public class Sofa implements GameObjectIntterface {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/sofaCorner.png", x, y, 96*3, 54*3);
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/sofaCorner.png", x, y, 96*3/2, 54*3/2);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class Sofa implements GameObjectIntterface {
     public int getY() {
         return y;
     } 
+
+    @Override
+    public String getName() {
+        return "Sofa";
+    }
 }
     
 

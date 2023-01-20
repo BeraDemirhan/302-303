@@ -1,0 +1,12 @@
+Level: 1
+Player's coordinates: 242, 130
+Player's health: 5
+Player's inventory: 
+End of inventory
+Objects:
+Sofa: 263, 226
+Piano: 634, 216
+Piano: 692, 446
+Table: 228, 441
+Chair: 463, 324
+End of objects

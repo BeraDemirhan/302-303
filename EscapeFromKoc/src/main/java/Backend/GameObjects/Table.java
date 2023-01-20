@@ -28,7 +28,7 @@ public class Table implements GameObjectIntterface {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/table.png", x, y, 96, 54);
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/table.png", x, y, 96/2, 54/2);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class Table implements GameObjectIntterface {
     public int getY() {
         return y;
     } 
+
+    @Override
+    public String getName() {
+        return "Table";
+    }
 }
     
 

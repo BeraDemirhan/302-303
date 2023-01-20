@@ -31,10 +31,10 @@ public class HintPowerUp implements PowerUp{
     }
 
     public JLabel getHintPowerUP() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/carrot.png", x, y, 50, 50);
+        return UIUtils.createLabel("EscapeFromKoc/resources/carrot.png", x, y, 325/10, 356/10);
     }
     public JLabel getHintPowerUpKeyLocation(){
-        return UIUtils.createLabel("EscapeFromKoc/resources/hintKey.png", keyX, keyY, 50, 50);
+        return UIUtils.createLabel("EscapeFromKoc/resources/hintKey.png", keyX, keyY, 96/2, 54/2);
 
     }
     @Override

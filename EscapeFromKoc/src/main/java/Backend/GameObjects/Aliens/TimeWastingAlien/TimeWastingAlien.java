@@ -107,4 +107,8 @@ public class TimeWastingAlien implements Alien {
     public void attackPlayer(Player p) {
         // do nothing
     }
+    @Override
+    public String getName() {
+        return "TimeWastingAlien";
+    }
 }

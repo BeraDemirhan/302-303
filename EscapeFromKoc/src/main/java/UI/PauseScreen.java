@@ -7,6 +7,7 @@ import Backend.GameControler;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class PauseScreen extends JFrame implements ActionListener {
 
@@ -18,6 +19,7 @@ public class PauseScreen extends JFrame implements ActionListener {
     private JButton exitButton = new JButton("EXIT");
     private JButton helpButton = new JButton("HELP");
     private JButton saveButton = new JButton("SAVE");
+    private JButton loadButton = new JButton("LOAD");
 
     private JLabel background;
     private JLabel pauseLabel;
@@ -49,9 +51,10 @@ public class PauseScreen extends JFrame implements ActionListener {
         background.setBounds(0, 0, 960, 540);
         pauseLabel.setBounds(0, 0, 960, 540);
         resumeButton.setBounds(400, 100, 150, 50);
-        exitButton.setBounds(400, 200, 150, 50);
-        helpButton.setBounds(400, 300, 150, 50);
-        saveButton.setBounds(400, 400, 150, 50);
+        exitButton.setBounds(400, 180, 150, 50);
+        helpButton.setBounds(400, 260, 150, 50);
+        saveButton.setBounds(400, 340, 150, 50);
+        loadButton.setBounds(400, 420, 150, 50);
     }
 
     public void addComponentsToContainer() {
@@ -59,8 +62,10 @@ public class PauseScreen extends JFrame implements ActionListener {
         container.add(exitButton);
         container.add(saveButton);
         container.add(helpButton);
+        container.add(loadButton);
         container.add(background);
         container.add(pauseLabel);
+        
         
     }
 
@@ -69,6 +74,7 @@ public class PauseScreen extends JFrame implements ActionListener {
         exitButton.addActionListener(this);
         helpButton.addActionListener(this);
         saveButton.addActionListener(this);
+        loadButton.addActionListener(this);
     }
 
     @Override
@@ -93,6 +99,14 @@ public class PauseScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == saveButton) {
             GameControler.saveGame();
+        }
+        if (e.getSource() == loadButton) {
+            try {
+                GameControler.loadGame();
+            } catch (NumberFormatException | IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     }
 }
