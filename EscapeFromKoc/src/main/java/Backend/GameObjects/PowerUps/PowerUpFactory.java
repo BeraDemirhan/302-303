@@ -16,6 +16,9 @@ public class PowerUpFactory {
         else if (mark.equals("extra-time")) {
             powerUp = new ExtraTime(x,y);
 
+        }else if (mark.equals("power-up-vest")){
+            powerUp = new PowerUpVest(x,y);
+        
         } else{
             throw new RuntimeException(mark+" is not a power up.");
         }

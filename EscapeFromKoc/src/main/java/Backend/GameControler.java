@@ -193,11 +193,13 @@ public class GameControler {
             return health;
         } else if (type.equals("hint")) {
             HintPowerUp hint = new HintPowerUp(x, y);
-
             return hint;
         } else if (type.equals("extra-time")) {
             ExtraTime extraTime =  new ExtraTime(x, y);
             return extraTime;
+        } else if (type.equals("power-up-vest")) {
+            PowerUpVest powerUpVest = new PowerUpVest(x, y);
+            return powerUpVest;
         } else return null;
 
     }

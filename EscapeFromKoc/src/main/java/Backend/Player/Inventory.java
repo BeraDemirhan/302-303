@@ -1,7 +1,7 @@
 package Backend.Player;
 
 import Backend.GameObjects.Key;
-
+import Backend.GameObjects.PowerUps.PowerUpVest;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import UI.UIUtils;
 
@@ -59,6 +59,11 @@ public class Inventory {
                 }
                 if (item.getClass().equals(Key.class)) {
                     container.add(UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/key.png", x, y, 96, 54));
+                    x += placer;
+                    placer = 100;
+                }
+                if (item.getClass().equals(PowerUpVest.class)) {
+                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/vest.png", x, y, 196, 154));
                     x += placer;
                     placer = 100;
                 }

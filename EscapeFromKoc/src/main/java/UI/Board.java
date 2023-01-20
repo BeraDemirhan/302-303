@@ -7,6 +7,7 @@ import Backend.GameObjects.Key;
 import Backend.GameObjects.PowerUps.AddHealthImpl;
 import Backend.GameObjects.PowerUps.ExtraTime;
 import Backend.GameObjects.PowerUps.HintPowerUp;
+import Backend.GameObjects.PowerUps.PowerUpVest;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
@@ -33,6 +34,7 @@ public class Board extends JFrame {
     private JLabel health;
     private JLabel hintPowerUp;
     private JLabel extraTimePowerUp;
+    private static JLabel powerUpVest;
 
     private static JLabel keyLocationPointer;
 
@@ -59,6 +61,9 @@ public class Board extends JFrame {
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
 
+    private PowerUpVest vest = new PowerUpVest(300, 300);
+    private boolean vestActivated = false;
+
     public boolean getBottleThrown(){
         return bottleThrown;
     }
@@ -80,6 +85,7 @@ public class Board extends JFrame {
         createHealth();
         createHintPowerUp();
         createExtraTimePowerUp();
+        createPowerUpVest();
         addComponentsToContainer();
         setLevelTime();
         addActionEvent();
@@ -145,6 +151,7 @@ public class Board extends JFrame {
         pCont.add(playerAbs);
         pCont.add(hintPowerUp);
         pCont.add(extraTimePowerUp);
+        pCont.add(powerUpVest);
         pCont.add(keyLocationPointer);
 
         pCont.add(chair);
@@ -223,6 +230,24 @@ public class Board extends JFrame {
         }
     }
 
+    public void createPowerUpVest(){
+        vest.setX(GameControler.getPlayerCoords()[0]);
+        vest.setY(GameControler.getPlayerCoords()[1]);
+        powerUpVest = vest.getPowerUpVestLabel();
+    }
+
+    public static void powerUpVestUsage(){
+        powerUpVest.setVisible(true);
+        long x = System.nanoTime();
+        while(true){
+            long y = System.nanoTime();
+            if(((y - x)/ 1000000000) == 20){
+                powerUpVest.setVisible(false);
+                break;
+            }
+        }
+        powerUpVest.setVisible(false);
+    }
     public boolean getHealth(){
         if( !(health == null)){
             return true;
@@ -339,7 +364,7 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.currentTime = System.nanoTime();
-                    System.out.println("timer: " + GameControler.levelTime);
+                    ("timer: " + GameControler.levelTime);
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
@@ -349,6 +374,11 @@ public class Board extends JFrame {
                                 bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
                             }
                         }.start();;
+                    }
+                    if (vestActivated){
+                        powerUpVest.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
+                        100);
+                        powerUpVest.setVisible(true);
                     }
                 }
             }
@@ -360,12 +390,14 @@ public class Board extends JFrame {
      */
     public void addActionEvent() {
         addKeyListener(new KeyAdapter() {
+            int firstEventCode = 0; //initially 0 since there is no key event code 0
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 playerAbs.setVisible(false);
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
                     int[] oldCoords = GameControler.getPlayerCoords();
+		            int currentEventCode = e.getKeyCode(); 
                     if (e.getKeyCode() == KeyEvent.VK_UP && oldCoords[1] >= background.getY() + 140) {
                         /*
 
@@ -395,7 +427,6 @@ public class Board extends JFrame {
 
                         newImgPlayer = singleImageResize(GameControler.movePlayer("front"));
                         GameControler.applyAlienGoal(blindAlien);
-
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_LEFT
@@ -431,6 +462,7 @@ public class Board extends JFrame {
                         GameControler.applyAlienGoal(blindAlien);
 
                     }
+                    if (firstEventCode == KeyEvent.VK_B){
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
                         /*
 
@@ -487,6 +519,20 @@ public class Board extends JFrame {
 
                         GameControler.usePowerUp(bottle);
                     }
+                    firstEventCode -= 48;
+                }
+                    if (e.getKeyCode() == KeyEvent.VK_V && Inventory.contains(powerUpVest)) {
+                        /*
+
+
+                            @requires V key and power up vest
+                            @modifies status of powerup vest
+                            @effects power up vest is activated
+
+                         */
+                        vestActivated=true;
+                        GameControler.usePowerUp(vest);
+                    }
 
                     pCont.removeAll();
                     addComponentsToContainer();
@@ -517,7 +563,7 @@ public class Board extends JFrame {
 
                         ScreenCoordinator.pauseGame();
                     }
-
+                    firstEventCode = currentEventCode;
                 }
                 if (GameControler.getGameStatus() == GameControler.PAUSED) {
                     System.out.println("Here");
@@ -537,6 +583,7 @@ public class Board extends JFrame {
                         ScreenCoordinator.pauseGame();
                     }
                 }
+                
 
             }
 
@@ -779,6 +826,45 @@ public class Board extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
+        powerUpVest.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] powerUpCoords = { powerUpVest.getX(), powerUpVest.getY() };
+                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50 && powerUpVest.isVisible()) {
+                            System.out.println("Picked powerup vest");
+                            GameControler.pickObject(powerUpVest);
+                            powerUpVest.setVisible(false);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        
 
     }
 
