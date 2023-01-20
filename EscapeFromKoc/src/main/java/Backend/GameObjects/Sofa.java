@@ -1,16 +1,16 @@
 package Backend.GameObjects;
 
-import javax.swing.*;
+import javax.swing.JLabel;
 
 import UI.UIUtils;
 
-public class Chair implements GameObjectIntterface {
+public class Sofa implements GameObjectIntterface {
     private int x;
     private int y;
 
     private boolean hasKey = true;
 
-    public Chair(int x, int y) {
+    public Sofa(int x, int y) {
         spawnObject(x, y);
     }
 
@@ -28,7 +28,7 @@ public class Chair implements GameObjectIntterface {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/chair.png", x, y, 96/2, 54/2);
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/sofaCorner.png", x, y, 96*3/2, 54*3/2);
     }
 
     @Override
@@ -39,11 +39,12 @@ public class Chair implements GameObjectIntterface {
     @Override
     public int getY() {
         return y;
-    }
+    } 
 
     @Override
     public String getName() {
-        return "Chair";
+        return "Sofa";
     }
-
 }
+    
+

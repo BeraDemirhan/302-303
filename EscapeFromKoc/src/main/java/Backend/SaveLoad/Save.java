@@ -39,7 +39,7 @@ public class Save {
         }
 
     }
-
+    
     private static void pwInit() {
 
         try {
@@ -48,16 +48,25 @@ public class Save {
             throw new RuntimeException(ex);
         }
     }
+    
+    
+    private static MongoClient clientGlobal = null;
 
     private static MongoDatabase mongoInit() {
         MongoClient mongo = new MongoClient("localhost", 27017);
+        clientGlobal = mongo;
         MongoCredential credential = MongoCredential.createCredential("sampleUser", "myDb",
                 "password".toCharArray());
         return mongo.getDatabase("myDb"); 
 
     }
 
-    private static void saveToDB(){
+    private static void mongoClose(){
+        clientGlobal.close();
+    }
+
+
+    private static void savePlayerToDB(){
         MongoDatabase database = mongoInit();
         String collName = "Level"+GameControler.getCurrentLevel();
 
@@ -70,20 +79,30 @@ public class Save {
         .append("health", GameControler.getPlayerHealth());
         
         collection.insertOne(PlayerDocument);
+        
 
+        
+        mongoClose();
+        //Inserting document into the collection
+        
+    }
+    private static void saveBuildModeToDB(){
+        MongoDatabase database = mongoInit();
+        
+        String collname = "Level"+GameControler.getCurrentLevel();
+
+        MongoCollection<Document> collection = database.getCollection(collname);
         
 
         int o = 0;
-        for (String i : GameControler.getObjects()) {
-            int[] coords = GameControler.getObjectCoords(i);
+        for (String i : GameControler.getBuiltObjects()) {
+            int[] coords = GameControler.getBuiltObjectCoords(i);
             Document ObjectDocument = new Document("id", o);
-            ObjectDocument.append("title", "Object").append("coordinates", new ArrayList<Integer>(Arrays.asList(new Integer[]{coords[0], coords[1]})).toString());
+            ObjectDocument.append("title", "GameObjectIntterface").append("mark", i).append("coordinates", new ArrayList<Integer>(Arrays.asList(new Integer[]{coords[0], coords[1]})).toString());
             o++;
             collection.insertOne(ObjectDocument);
         }
-        
-        //Inserting document into the collection
-        
+        mongoClose();
     }
 
     // Save the game, including the player's current position, inventory, health,
@@ -100,7 +119,7 @@ public class Save {
             pw.close();
 
         }else if (saveMethod.equals("MongoDB")){
-            saveToDB();
+            savePlayer();
         }
 
         System.out.println("Game saved!");
@@ -120,11 +139,11 @@ public class Save {
         }
     }
 
-    public static void write(String text) {
-
+    public static void write(String text){
+        //Write the text to the save file
         pw.println(text);
-
     }
+
 
     public static void saveLevel() {
         // Save the current level
@@ -136,10 +155,11 @@ public class Save {
         // Save the player's current position, inventory, health, etc.
         int[] coords = GameControler.getPlayerCoords();
         write("Player's coordinates: " + coords[0] + ", " + coords[1]);
-        String inventory = GameControler.getPlayerInventory();
-        write("Player's inventory: " + inventory);
         int health = GameControler.getPlayerHealth();
         write("Player's health: " + health);
+        String inventory = GameControler.getPlayerInventory();
+        write("Player's inventory: " + inventory);
+        write("End of inventory");
     }
 
     public static void saveObjects() {
@@ -147,9 +167,10 @@ public class Save {
         write("Objects:");
         for (String i : GameControler.getObjects()) {
             int[] coords = GameControler.getObjectCoords(i);
-            write("Object " + i + ": " + coords[0] + ", " + coords[1]);
+            write(i + ": " + coords[0] + ", " + coords[1]);
         }
-
+        write("End of objects");
+        
     }
 
     public ArrayList<String> read(File file) {
@@ -174,10 +195,47 @@ public class Save {
         return lines;
     }
 
+
+
+    public static int getSaveNumber(){
+        //Get the save number
+        return saveNumber;
+    }
+
     public void saveNamesandPasswords() {
         // Save the names and passwords of the users
         write("Names and passwords:");
         write(read(NamesandPasswords).toString());
     }
 
+    public static void saveBuildMode(){
+        //Save the build mode
+        System.out.println("Saving build mode...");
+          if(saveMethod.equals("Plaintext")){
+            pwInit();
+            saveLevel();
+            savePlayer();
+            saveBuildModeObjects();
+            pw.close();
+
+        }else if (saveMethod.equals("MongoDB")){
+            savePlayerToDB();
+            saveBuildModeToDB();
+        }
+        System.out.println("Build mode saved!");
+    }
+
+    public static void saveBuildModeObjects(){
+        //Save the location of the objects in the level
+        write("Objects:");
+        for(String i : GameControler.getBuiltObjects()){
+            System.out.println("Saving object: " + i);
+            System.out.println("Object coords: " + GameControler.getBuiltObjectCoords(i)[0] + ", " + GameControler.getBuiltObjectCoords(i)[1]);
+            int[] coords = GameControler.getBuiltObjectCoords(i);
+            write(i + ": " + coords[0] + ", " + coords[1]);
+        }
+        write("End of objects");
+        
+    }
+    
 }

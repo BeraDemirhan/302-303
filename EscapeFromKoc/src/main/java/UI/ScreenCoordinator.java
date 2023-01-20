@@ -15,15 +15,13 @@ public class ScreenCoordinator {
         frame.setVisible(true);
     }
 
-    public static void startGame() {
-        Board frame = new Board();
+    public static void startGame(Board frame) {
         frame.setTitle("Escape From Koç");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(960, 540);
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setFocusable(true);
-        GameControler.setGameStatus(GameControler.RUNNING);
     }
 
     public static void pauseGame() {
@@ -36,7 +34,7 @@ public class ScreenCoordinator {
     }
 
     public static void buildGame() {
-        BuildMode buildMode = new BuildMode();
+        BuildMode buildMode = new BuildMode(5);
         buildMode.setTitle("Build Mode");
         buildMode.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         buildMode.setSize(960, 540);

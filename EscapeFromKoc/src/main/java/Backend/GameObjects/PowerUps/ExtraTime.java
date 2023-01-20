@@ -23,7 +23,7 @@ public class ExtraTime implements PowerUp{
     }
 
     public JLabel getExtraTimeLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/key.png", x, y, 50, 50);
+        return UIUtils.createLabel("EscapeFromKoc/resources/extraTime.png", x, y, 96/2, 54/2);
     }
 
     @Override
