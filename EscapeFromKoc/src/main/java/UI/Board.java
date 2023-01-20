@@ -371,7 +371,7 @@ public class Board extends JFrame {
                     GameControler.currentTime = System.nanoTime();
                     //System.out.println("timer: " + (GameControler.levelTime));
 
-                    System.out.println( key.getX() +" " + key.getY());
+                    //System.out.println( key.getX() +" " + key.getY());
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
