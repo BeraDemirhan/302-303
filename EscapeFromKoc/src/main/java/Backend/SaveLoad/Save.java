@@ -95,10 +95,10 @@ public class Save {
         
 
         int o = 0;
-        for (String i : GameControler.getBuiltObjects()) {
-            int[] coords = GameControler.getBuiltObjectCoords(i);
+        for (GameObjectIntterface i : GameControler.getBuiltObjects()) {
+            int[] coords = {i.getX(), i.getY()};
             Document ObjectDocument = new Document("id", o);
-            ObjectDocument.append("title", "GameObjectIntterface").append("mark", i).append("coordinates", new ArrayList<Integer>(Arrays.asList(new Integer[]{coords[0], coords[1]})).toString());
+            ObjectDocument.append("title", "GameObjectIntterface").append("mark", i.getName()).append("coordinates", new ArrayList<Integer>(Arrays.asList(new Integer[]{coords[0], coords[1]})).toString());
             o++;
             collection.insertOne(ObjectDocument);
         }
@@ -228,11 +228,10 @@ public class Save {
     public static void saveBuildModeObjects(){
         //Save the location of the objects in the level
         write("Objects:");
-        for(String i : GameControler.getBuiltObjects()){
+        for(GameObjectIntterface i : GameControler.getBuiltObjects()){
             System.out.println("Saving object: " + i);
-            System.out.println("Object coords: " + GameControler.getBuiltObjectCoords(i)[0] + ", " + GameControler.getBuiltObjectCoords(i)[1]);
-            int[] coords = GameControler.getBuiltObjectCoords(i);
-            write(i + ": " + coords[0] + ", " + coords[1]);
+            System.out.println("Object coords: " + i.getX() + ", " + i.getX());
+            write(i.getName() + ": " + i.getX() + ", " + i.getY());
         }
         write("End of objects");
         

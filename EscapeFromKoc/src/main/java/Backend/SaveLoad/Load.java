@@ -83,7 +83,7 @@ public class Load {
 
     public static void readDatabase(){
         MongoDatabase database = mongoInit();
-        MongoCollection<Document> collection  = database.getCollection("Level1");
+        MongoCollection<Document> collection  = database.getCollection("Level"+GameControler.getCurrentLevel());
 
 
         Document playerDoc = collection.find(eq("title", "Player")).first();

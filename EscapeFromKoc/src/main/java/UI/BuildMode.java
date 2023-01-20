@@ -33,6 +33,9 @@ public class BuildMode extends JFrame implements ActionListener {
     private static ArrayList<String> objects = new ArrayList<String>();
     private static ArrayList<Pair> objectsCoords = new ArrayList<Pair>();    
 
+    Pair coords = new Pair(0,0);
+
+
     private Container container = getContentPane();
     
     public class Pair {
@@ -197,7 +200,6 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -207,6 +209,8 @@ public class BuildMode extends JFrame implements ActionListener {
                         coords.setY(getMousePosition().y - 13);
                     }
                 });
+
+                GameControler.addObject("chair", coords.getX(), coords.getY());
                 objects.add("chair");
                 objectsCoords.add(coords);
            }
@@ -245,7 +249,6 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -256,6 +259,8 @@ public class BuildMode extends JFrame implements ActionListener {
                         
                     }
                 });
+                GameControler.addObject("sofa", coords.getX(), coords.getY());
+
                 objects.add("sofa");
                 objectsCoords.add(coords);
             }
@@ -296,7 +301,6 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -307,6 +311,8 @@ public class BuildMode extends JFrame implements ActionListener {
                     }
                     
                 });
+                GameControler.addObject("piano", coords.getX(), coords.getY());
+
                 objects.add("piano");
                 System.out.println("piano");
                 objectsCoords.add(coords);
@@ -345,7 +351,6 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -356,6 +361,8 @@ public class BuildMode extends JFrame implements ActionListener {
                         coords.setY(getMousePosition().y - 13);
                     }
                 });
+                GameControler.addObject("table", coords.getX(), coords.getY());
+
                 objects.add("table");
                 objectsCoords.add(coords);
                 System.out.println("ObjecCoords: " + objectsCoords.get(0).getX() + " " + objectsCoords.get(0).getY());

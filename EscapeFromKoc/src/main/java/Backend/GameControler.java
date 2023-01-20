@@ -37,8 +37,18 @@ public class GameControler {
     private static int gameStatus;
     private static int level = 1;
     private static Player p = Player.getPlayer();
+    
+    private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
+
+
     private static Board activeBoard = new Board();
+
     private static BuildMode actBuildMode = new BuildMode(5);
+    
+    
+
+
+
 
     public static int EXIT = 3;
     public static int levelTime = 50;
@@ -107,8 +117,8 @@ public class GameControler {
         Load.loadGame();
     }
 
-    public static ArrayList<String> getBuiltObjects(){
-        return actBuildMode.getBuiltObjects();
+    public static ArrayList<GameObjectIntterface> getBuiltObjects(){
+        return gameObjectList;
     }
 
     public static int[] getBuiltObjectCoords(String object){
@@ -255,6 +265,7 @@ public class GameControler {
     public static void addObject(String name , int x, int y){
         //put the creaded object in the activeBoard
         GameObjectIntterface obj = ObjectFactory.createObject(name, x, y);
+        gameObjectList.add(obj);
         activeBoard.addObject(obj);
     }
     
