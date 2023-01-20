@@ -1,11 +1,12 @@
 Level: 1
-Player's coordinates: 244, 120
-Player's inventory: Backend.Player.Inventory@65b66bd5
+Player's coordinates: 242, 130
 Player's health: 5
+Player's inventory: 
+End of inventory
 Objects:
-Object javax.swing.JLabel[,244,120,100x100,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@68f035d6,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 244, 120
-Object javax.swing.JLabel[,300,300,96x54,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@10a1b885,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 300, 300
-Object javax.swing.JLabel[,100,100,50x50,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@7c420654,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 100, 100
-Object javax.swing.JLabel[,200,200,100x100,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@c0df40a,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 200, 200
-Object javax.swing.JLabel[,400,200,100x100,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@2d68cf4e,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 400, 200
-Object javax.swing.JLabel[,0,0,960x540,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=javax.swing.ImageIcon@30102ff6,disabledIcon=,horizontalAlignment=CENTER,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]: 0, 0
+Sofa: 238, 196
+Piano: 443, 301
+Table: 635, 204
+Piano: 689, 446
+Chair: 218, 449
+End of objects

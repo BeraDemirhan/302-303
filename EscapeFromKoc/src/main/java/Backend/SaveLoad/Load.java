@@ -49,9 +49,16 @@ public class Load {
                 GameControler.setCurrentLevel(Integer.parseInt(newLine.substring(6)));
             }
             if(newLine.contains("Player")){
-                GameControler.getPlayer().setX(Integer.parseInt(newLine.substring(7, 10)));
-                GameControler.getPlayer().setY(Integer.parseInt(newLine.substring(11, 14)));
-                GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(15, 18)));
+                newLine = br.readLine();
+                String[] coords = newLine.substring(11).split(", ");
+                GameControler.getPlayer().setX(Integer.parseInt(coords[0]));
+                GameControler.getPlayer().setY(Integer.parseInt(coords[1]));
+                newLine = br.readLine();
+                GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(8)));
+                newLine = br.readLine();
+                GameControler.getPlayer().setScore(Integer.parseInt(newLine.substring(7)));
+                newLine = br.readLine();
+                GameControler.getPlayer().setInventory(newLine.substring(10));
             }
             if(newLine.contains("Inventory")){
                 while(!newLine.contains("End of inventory")){

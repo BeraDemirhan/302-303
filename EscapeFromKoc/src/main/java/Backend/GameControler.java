@@ -37,6 +37,7 @@ public class GameControler {
     private static int gameStatus;
     private static int level = 1;
     private static Player p = Player.getPlayer();
+    private static int score = 0;
     
     private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
 
@@ -306,4 +307,9 @@ public class GameControler {
     public static void setLevelTime(int levelTime) {
         GameControler.levelTime = levelTime;
     }
+
+    public static void setScore(int score) {
+        GameControler.score = score;
+    }
+
 }
