@@ -1,7 +1,7 @@
 package Backend.Player;
 
 import Backend.GameObjects.Key;
-
+import Backend.GameObjects.PowerUps.PowerUpVest;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import UI.InventoryFrame;
 import UI.UIUtils;
@@ -37,7 +37,6 @@ public class Inventory {
         }
         return str;
     }
-
 
 
 

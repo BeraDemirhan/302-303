@@ -53,6 +53,9 @@ public class Player {
             else if (s.contains("health")){
                 Inventory.addItem(PowerUpFactory.createPowerUp("add-health", 0, 0));
             }
+            else if (s.contains("vest")){
+                Inventory.addItem(PowerUpFactory.createPowerUp("power-up-vest", 0, 0));
+            }
         }
     }
 
