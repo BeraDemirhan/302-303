@@ -3,19 +3,12 @@ package UI;
 import javax.swing.*;
 
 import Backend.GameControler;
-import Backend.GameObjects.Chair;
-import Backend.GameObjects.Key;
-import Backend.GameObjects.PowerUps.AddHealthImpl;
-import Backend.GameObjects.PowerUps.ThrowBottleImpl;
-import Backend.Player.Inventory;
-import Backend.Player.Player;
-import Backend.GameObjects.GameObjectIntterface;
-import Backend.GameObjects.ObjectFactory;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class BuildMode extends JFrame implements ActionListener {
 
@@ -32,6 +25,7 @@ public class BuildMode extends JFrame implements ActionListener {
     private JLabel background;
     private static ArrayList<String> objects = new ArrayList<String>();
     private static ArrayList<Pair> objectsCoords = new ArrayList<Pair>();    
+    Pair coords = new Pair(0,0);
 
     private Container container = getContentPane();
     
@@ -112,26 +106,7 @@ public class BuildMode extends JFrame implements ActionListener {
         tableLabel.setAlignmentX(CENTER_ALIGNMENT);
         tableLabel.setAlignmentY(CENTER_ALIGNMENT);
     }
-    public ArrayList<String> getObjects(){
-        for(int i = 0; i < container.getComponentCount(); i++){
-            if (container.getComponent(i).toString().contains("JLabel")) {
-                objects.add(container.getComponent(i).toString());
-            }
-        }
-        return objects;
-
-    }
-    public int[] getObjectCoords(String object){
-        int[] coords = new int[2];
-        for(int i = 0; i < objectsCoords.size(); i++){
-            if (objects.get(i).toString().equals(object)) {
-                coords[0] = objectsCoords.get(i).getX();
-                coords[1] = objectsCoords.get(i).getY();
-                return coords;
-            }
-        }
-        return coords;
-    }
+    
 
     public ArrayList<String> getBuiltObjects(){
         return objects;
@@ -197,7 +172,6 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -207,8 +181,8 @@ public class BuildMode extends JFrame implements ActionListener {
                         coords.setY(getMousePosition().y - 13);
                     }
                 });
-                objects.add("chair");
-                objectsCoords.add(coords);
+                GameControler.addObject("chair", coords.getX(), coords.getY());
+
            }
 
             @Override
@@ -245,7 +219,7 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
+                
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -256,8 +230,8 @@ public class BuildMode extends JFrame implements ActionListener {
                         
                     }
                 });
-                objects.add("sofa");
-                objectsCoords.add(coords);
+                GameControler.addObject("sofa", coords.getX(), coords.getY());
+
             }
 
             @Override
@@ -296,7 +270,7 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
+                
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -307,8 +281,7 @@ public class BuildMode extends JFrame implements ActionListener {
                     }
                     
                 });
-                objects.add("piano");
-                System.out.println("piano");
+                GameControler.addObject("piano", coords.getX(), coords.getY());
                 objectsCoords.add(coords);
             }
 
@@ -345,7 +318,7 @@ public class BuildMode extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 container.validate();
                 container.repaint();
-                Pair coords = new Pair(0,0);
+               
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -354,11 +327,11 @@ public class BuildMode extends JFrame implements ActionListener {
                         System.out.println(getMousePosition().x + " " + getMousePosition().y);
                         coords.setX(getMousePosition().x - 24);
                         coords.setY(getMousePosition().y - 13);
+
                     }
                 });
-                objects.add("table");
-                objectsCoords.add(coords);
-                System.out.println("ObjecCoords: " + objectsCoords.get(0).getX() + " " + objectsCoords.get(0).getY());
+                GameControler.addObject("table", coords.getX(), coords.getY());
+                System.out.println("newLabel coords: " + newLabel.getX() + " " + newLabel.getY());
             }
 
             @Override
