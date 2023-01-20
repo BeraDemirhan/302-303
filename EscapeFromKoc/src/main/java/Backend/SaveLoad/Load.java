@@ -6,14 +6,33 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.bson.Document;
+
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import Backend.GameControler;
+import Backend.Player.Player;
 
 public class Load {
     private static File file = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveNumber() + ".txt");
     private static BufferedReader br;
+
+    private static String saveMethod = "MongoDB";
+    private static MongoClient clientGlobal = null;
+
     public static void loadGame() throws NumberFormatException, IOException {
         // TODO Auto-generated method stub
-        readFile();
+        if(saveMethod.equals("MongoDB")){
+            readDatabase();
+        } else{
+            readFile();
+        }
     }
 
     public static void readFile() throws NumberFormatException, IOException{
@@ -60,6 +79,58 @@ public class Load {
             }
         }
         
+    }
+
+    public static void readDatabase(){
+        MongoDatabase database = mongoInit();
+        MongoCollection<Document> collection  = database.getCollection("Level1");
+
+
+        Document playerDoc = collection.find(eq("title", "Player")).first();
+        
+        String coordString = (String) playerDoc.get("coordinates");
+        String[] coords = coordString.replaceAll("[\\[\\](){}]", "").split(", ");
+        int[] coordsInt = {Integer.parseInt(coords[0]) , Integer.parseInt(coords[1])};
+        
+        String invString =  (String) playerDoc.get("inventory");
+        String[] items = invString.replaceAll("[\\[\\](){}]", "").split(", ");
+
+        int health = (int) playerDoc.get("health");
+
+
+
+        Player.getPlayer().setHealth(health);
+        Player.getPlayer().setX(coordsInt[0]);
+        Player.getPlayer().setY(coordsInt[1]);
+        
+        for(String item: items){
+            Player.getPlayer().setInventory(item);
+        }
+        
+
+        FindIterable<Document> objectDocIter = collection.find(eq("title", "GameObjectIntterface"));
+
+        for(Document objDocument : objectDocIter){
+            String nameString = (String) objDocument.get("mark");
+            
+            String objCoordString = (String) playerDoc.get("coordinates");
+            String[] objCoord = coordString.replaceAll("[\\[\\](){}]", "").split(", ");
+            int[] coordInt = {Integer.parseInt(coords[0]) , Integer.parseInt(coords[1])};
+            
+            GameControler.addObject(nameString, coordInt[0], coordInt[1]);
+            
+        }
+    }
+
+    private static MongoDatabase mongoInit() {
+        MongoClient mongo = new MongoClient("localhost", 27017);
+        clientGlobal = mongo;
+        return mongo.getDatabase("myDb"); 
+
+    }
+
+    private static void mongoClose(){
+        clientGlobal.close();
     }
     
 }
