@@ -237,5 +237,9 @@ public class Save {
         write("End of objects");
         
     }
+
+    public static String getSaveMethod(){
+        return saveMethod;
+    }
     
 }

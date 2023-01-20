@@ -23,14 +23,14 @@ public class Load {
     private static File file = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveNumber() + ".txt");
     private static BufferedReader br;
 
-    private static String saveMethod = "MongoDB";
+    private static String saveMethod = Save.getSaveMethod();
     private static MongoClient clientGlobal = null;
 
     public static void loadGame() throws NumberFormatException, IOException {
         // TODO Auto-generated method stub
         if(saveMethod.equals("MongoDB")){
             readDatabase();
-        } else{
+        } else if(saveMethod.equals("Plaintext")){
             readFile();
         }
     }
@@ -115,11 +115,12 @@ public class Load {
             
             String objCoordString = (String) playerDoc.get("coordinates");
             String[] objCoord = coordString.replaceAll("[\\[\\](){}]", "").split(", ");
-            int[] coordInt = {Integer.parseInt(coords[0]) , Integer.parseInt(coords[1])};
+            int[] coordInt = {Integer.parseInt(coords[1]) , Integer.parseInt(coords[0])};
             
-            GameControler.addObject(nameString, coordInt[0], coordInt[1]);
+            GameControler.addObject(nameString, coordInt[1], coordInt[0]);
             
         }
+        mongoClose();
     }
 
     private static MongoDatabase mongoInit() {
