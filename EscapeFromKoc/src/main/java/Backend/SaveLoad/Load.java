@@ -113,11 +113,12 @@ public class Load {
         for(Document objDocument : objectDocIter){
             String nameString = (String) objDocument.get("mark");
             
-            String objCoordString = (String) playerDoc.get("coordinates");
-            String[] objCoord = coordString.replaceAll("[\\[\\](){}]", "").split(", ");
-            int[] coordInt = {Integer.parseInt(coords[1]) , Integer.parseInt(coords[0])};
+            String objCoordString = (String) objDocument.get("coordinates");
+            String[] objCoord = objCoordString.replaceAll("[\\[\\](){}]", "").split(", ");
+            int[] coordInt = {Integer.parseInt(objCoord[0]) , Integer.parseInt(objCoord[1])};
+            System.out.println("coords of " + nameString + " " + coordInt[0] + " " + coordInt[1]);
             
-            GameControler.addObject(nameString, coordInt[1], coordInt[0]);
+            GameControler.addObject(nameString, coordInt[0], coordInt[1]);
             
         }
         mongoClose();
