@@ -28,7 +28,7 @@ public class Chair implements GameObjectIntterface {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/chair.png", x, y, 96, 54);
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/chair.png", x, y, 96/2, 54/2);
     }
 
     @Override
@@ -39,6 +39,11 @@ public class Chair implements GameObjectIntterface {
     @Override
     public int getY() {
         return y;
+    }
+
+    @Override
+    public String getName() {
+        return "Chair";
     }
 
 }

@@ -28,7 +28,7 @@ public class Piano implements GameObjectIntterface {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/piano.png", x, y, 96, 54);
+        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/piano.png", x, y, 96/2, 54/2);
     }
 
     @Override
@@ -40,4 +40,9 @@ public class Piano implements GameObjectIntterface {
     public int getY() {
         return y;
     } 
+
+    @Override
+    public String getName() {
+        return "Piano";
+    }
 }

@@ -1,5 +1,6 @@
 package Backend.GameObjects.PowerUps;
 
+
 public class PowerUpFactory {
     public static PowerUp createPowerUp(String mark, int x, int y){
         PowerUp powerUp;

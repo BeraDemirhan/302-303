@@ -144,4 +144,10 @@ public class BlindAlienImpl implements Alien {
         GameControler.setLabelImage(label, generalPath, dir, 96, 54);
     }
 
+    @Override
+    public String getName() {
+        return "BlindAlien";
+    }
+
+
 }
