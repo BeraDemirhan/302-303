@@ -225,7 +225,7 @@ public class Board extends JFrame {
 
     }
     public void createHintPowerUp(){
-        HintPowerUp hint = (HintPowerUp) GameControler.createPowerUp("hint", 200,300);
+        HintPowerUp hint = (HintPowerUp) GameControler.createPowerUp("hint", 500,300);
         hintPowerUp = hint.getHintPowerUP();
         hint.setKeyX(key.getX());
         hint.setKeyY(key.getY());

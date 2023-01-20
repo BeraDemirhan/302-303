@@ -38,10 +38,16 @@ public class InventoryFrame extends JFrame{
                     placer = 100;
                 }
                 if (item.getClass().equals(Key.class)) {
-                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/key.png", x, y, 96, 54));
+                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/key.png", x, y, 96, 54));
                     x += placer;
                     placer = 100;
                 }
+                if(item.getClass().equals(HintPowerUp.class)){
+                    container.add(UIUtils.createLabel("EscapeFromKoc/resources/carrot.png", x, y, 96, 54));
+                    x += placer;
+                    placer = 100;
+                }
+                
             }
         }
     }
