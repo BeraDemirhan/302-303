@@ -186,12 +186,11 @@ public class GameControler {
     }
 
     public static void pickObject(Object obj) {
-        p.getInventory();
-        Inventory.addItem(obj);
+        p.getInventory().addItem(obj);
         if (obj instanceof AddHealthImpl) {
             p.usePowerUp((AddHealthImpl) obj);
-
         }
+
         if (obj instanceof ExtraTime){
             p.usePowerUp((ExtraTime) obj);
         }

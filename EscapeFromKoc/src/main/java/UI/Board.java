@@ -60,6 +60,8 @@ public class Board extends JFrame {
     private JLabel blindAlienLabel;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
+    private ExtraTime extraTimePowerUpCreated;
+    private HintPowerUp hint;
     private boolean bottleThrown = false;
 
     public boolean getBottleThrown(){
@@ -72,6 +74,7 @@ public class Board extends JFrame {
     }
     public static void addTime(){
         GameControler.setLevelTime(GameControler.getLevelTime() + 5);
+        System.out.println("Time Updated: "+ GameControler.getLevelTime() );
     }
     public Board() {
         imageResize();
@@ -201,6 +204,8 @@ public class Board extends JFrame {
 
     public void createFurniture() {
         chair = GameControler.createFurniture().getObjectLabel();
+        key.setX(450);
+        key.setY(250);
     }
 
     // Overview: this function creates health which is a power up
@@ -220,12 +225,12 @@ public class Board extends JFrame {
         health = new AddHealthImpl(100, 100).getHealth();
     }
     public void createExtraTimePowerUp(){
-       ExtraTime extraTimePowerUpCreated = (ExtraTime) GameControler.createPowerUp("extra-time", 400,300);
+       extraTimePowerUpCreated = (ExtraTime) GameControler.createPowerUp("extra-time", 400,300);
        extraTimePowerUp = extraTimePowerUpCreated.getExtraTimeLabel();
 
     }
     public void createHintPowerUp(){
-        HintPowerUp hint = (HintPowerUp) GameControler.createPowerUp("hint", 500,300);
+        hint = (HintPowerUp) GameControler.createPowerUp("hint", 500,300);
         hintPowerUp = hint.getHintPowerUP();
         hint.setKeyX(key.getX());
         hint.setKeyY(key.getY());
@@ -233,8 +238,10 @@ public class Board extends JFrame {
         keyLocationPointer.setVisible(false);
     }
     public static void hintPowerUpUsage(){
-        keyLocationPointer.setBounds(key.getX(),key.getY(),50,50);
+        keyLocationPointer.setBounds(key.getX(),key.getY(),100,100);
         keyLocationPointer.setVisible(true);
+        System.out.println( key.getX() +" " + key.getY());
+        System.out.println(keyLocationPointer.getX() + " " + keyLocationPointer.getY());
         long x = System.nanoTime();
         while(true){
             long y = System.nanoTime();
@@ -242,6 +249,8 @@ public class Board extends JFrame {
                 keyLocationPointer.setVisible(false);
             }
         }
+
+
     }
 
     public boolean getHealth(){
@@ -360,9 +369,9 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.currentTime = System.nanoTime();
-                    //System.out.println("timer: " + (GameControler.currentTime - GameControler.startTime)/1000000000);
+                    //System.out.println("timer: " + (GameControler.levelTime));
 
-
+                    System.out.println( key.getX() +" " + key.getY());
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
@@ -513,6 +522,9 @@ public class Board extends JFrame {
 
                         GameControler.usePowerUp(bottle);
                     }
+                    if(e.getKeyCode() == KeyEvent.VK_H && Inventory.contains(hint)){
+                        GameControler.usePowerUp(hint);
+                    }
 
                     //pCont.removeAll();
                     //addComponentsToContainer();
@@ -601,10 +613,10 @@ public class Board extends JFrame {
                     if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
                         int[] playerCoords = GameControler.getPlayerCoords();
                         int[] powerUpCoords = { extraTimePowerUp.getX(), extraTimePowerUp.getY() };
-                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
-                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50 && extraTimePowerUp.isVisible()) {
+                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 100
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 100 && extraTimePowerUp.isVisible() ) {
                             System.out.println("Picked extra-time powerup");
-                            GameControler.pickObject(extraTimePowerUp);
+                            GameControler.pickObject(extraTimePowerUpCreated);
                             extraTimePowerUp.setVisible(false);
 
                         }
@@ -640,10 +652,10 @@ public class Board extends JFrame {
                     if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
                         int[] playerCoords = GameControler.getPlayerCoords();
                         int[] powerUpCoords = { hintPowerUp.getX(), hintPowerUp.getY() };
-                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 50
-                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 50 && hintPowerUp.isVisible()) {
+                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 100
+                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 100 && hintPowerUp.isVisible()) {
                             System.out.println("Picked hint powerup");
-                            GameControler.pickObject(hintPowerUp);
+                            GameControler.pickObject(hint);
                             hintPowerUp.setVisible(false);
                         }
 

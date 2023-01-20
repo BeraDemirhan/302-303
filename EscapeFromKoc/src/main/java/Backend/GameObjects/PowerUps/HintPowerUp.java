@@ -39,11 +39,9 @@ public class HintPowerUp implements PowerUp{
     }
     @Override
     public void activatePowerUp(Player player) {
-        new Thread(){
-            {
+
                 Board.hintPowerUpUsage();
-            }
-        }.start();
+
     }
 
     public int getX() {
