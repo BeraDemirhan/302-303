@@ -49,16 +49,25 @@ public class Load {
                 GameControler.setCurrentLevel(Integer.parseInt(newLine.substring(6)));
             }
             if(newLine.contains("Player")){
-                newLine = br.readLine();
-                String[] coords = newLine.substring(11).split(", ");
-                GameControler.getPlayer().setX(Integer.parseInt(coords[0]));
-                GameControler.getPlayer().setY(Integer.parseInt(coords[1]));
-                newLine = br.readLine();
-                GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(8)));
-                newLine = br.readLine();
-                GameControler.getPlayer().setScore(Integer.parseInt(newLine.substring(7)));
-                newLine = br.readLine();
-                GameControler.getPlayer().setInventory(newLine.substring(10));
+                if(newLine.contains("coordinates")){
+                    
+                    String line = newLine;
+                    String x = line.substring(line.indexOf(":") + 2, line.indexOf(","));
+                    String y = line.substring(line.indexOf(",") + 2);
+                    GameControler.getPlayer().setX(Integer.parseInt(x));
+                    GameControler.getPlayer().setY(Integer.parseInt(y));
+                }
+                if(newLine.contains("health")){
+                    
+                    GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(7)));
+                }
+                if(newLine.contains("inventory")){
+                    while(!newLine.contains("End of inventory")){
+                        GameControler.getPlayer().setInventory(newLine);
+                        newLine = br.readLine();
+                    }
+                }
+                
             }
             if(newLine.contains("Inventory")){
                 while(!newLine.contains("End of inventory")){

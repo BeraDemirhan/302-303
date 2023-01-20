@@ -1,5 +1,6 @@
 package Backend.GameObjects.PowerUps;
 
+
 public class PowerUpFactory {
     public static PowerUp createPowerUp(String mark, int x, int y){
         PowerUp powerUp;
@@ -16,7 +17,8 @@ public class PowerUpFactory {
         else if (mark.equals("extra-time")) {
             powerUp = new ExtraTime(x,y);
 
-        } else{
+        }
+        else{
             throw new RuntimeException(mark+" is not a power up.");
         }
         return powerUp;

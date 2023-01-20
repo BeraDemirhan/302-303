@@ -360,7 +360,7 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.currentTime = System.nanoTime();
-                    System.out.println("timer: " + (GameControler.currentTime - GameControler.startTime)/1000000000);
+                    //System.out.println("timer: " + (GameControler.currentTime - GameControler.startTime)/1000000000);
 
 
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
