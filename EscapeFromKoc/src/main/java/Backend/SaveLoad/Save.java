@@ -29,7 +29,7 @@ public class Save {
     private static File NamesandPasswords = new File("EscapeFromKoc/resources/NamesPasswords.txt");
     private static PrintWriter pw = null;
 
-    private static String saveMethod = "MongoDB";
+    private static String saveMethod = "Plaintext";
 
     public static void setSaveMethod(boolean mongo) {
         if (mongo) {

@@ -205,14 +205,46 @@ public class BuildMode extends JFrame implements ActionListener {
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
                         totalComponents = container.getComponents().length;
-                        coords.setX(getMousePosition().x - 24);
-                        coords.setY(getMousePosition().y - 13);
+
                     }
                 });
 
-                GameControler.addObject("chair", coords.getX(), coords.getY());
-                objects.add("chair");
-                objectsCoords.add(coords);
+                newLabel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        coords.setX(getMousePosition().x - 24);
+                        coords.setY(getMousePosition().y - 13);
+                        GameControler.addObject("chair", coords.getX(), coords.getY());
+                        objects.add("chair");
+                        objectsCoords.add(coords);
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+                });
+
+                
            }
 
             @Override
@@ -252,17 +284,46 @@ public class BuildMode extends JFrame implements ActionListener {
                 newLabel.addMouseMotionListener(new MouseMotionAdapter() {
                     @Override
                     public void mouseDragged(MouseEvent e) {
-                        newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
+                        newLabel.setLocation(getMousePosition().x - 96*2/3, getMousePosition().y - 54*2/3);
                         totalComponents = container.getComponents().length;
-                        coords.setX(getMousePosition().x - 36);
-                        coords.setY(getMousePosition().y - 20);
+                        
                         
                     }
                 });
-                GameControler.addObject("sofa", coords.getX(), coords.getY());
+                newLabel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        coords.setX(getMousePosition().x - 24);
+                        coords.setY(getMousePosition().y - 13);
+                        GameControler.addObject("sofa", coords.getX(), coords.getY());
+                        objects.add("sofa");
+                        objectsCoords.add(coords);
+                    }
 
-                objects.add("sofa");
-                objectsCoords.add(coords);
+                    @Override
+                    public void mouseClicked(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+                });
             }
 
             @Override
@@ -306,16 +367,45 @@ public class BuildMode extends JFrame implements ActionListener {
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
                         totalComponents = container.getComponents().length;
+                        
+                    }
+                
+                });
+
+                newLabel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
                         coords.setX(getMousePosition().x - 24);
                         coords.setY(getMousePosition().y - 13);
+                        GameControler.addObject("piano", coords.getX(), coords.getY());
+                        objects.add("piano");
+                        objectsCoords.add(coords);
                     }
-                    
-                });
-                GameControler.addObject("piano", coords.getX(), coords.getY());
 
-                objects.add("piano");
-                System.out.println("piano");
-                objectsCoords.add(coords);
+                    @Override
+                    public void mouseClicked(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+                });
             }
 
             @Override
@@ -356,16 +446,45 @@ public class BuildMode extends JFrame implements ActionListener {
                     public void mouseDragged(MouseEvent e) {
                         newLabel.setLocation(getMousePosition().x - 96, getMousePosition().y - 54);
                         totalComponents = container.getComponents().length;
-                        System.out.println(getMousePosition().x + " " + getMousePosition().y);
-                        coords.setX(getMousePosition().x - 24);
-                        coords.setY(getMousePosition().y - 13);
+                        
                     }
                 });
-                GameControler.addObject("table", coords.getX(), coords.getY());
 
-                objects.add("table");
-                objectsCoords.add(coords);
-                System.out.println("ObjecCoords: " + objectsCoords.get(0).getX() + " " + objectsCoords.get(0).getY());
+                newLabel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        coords.setX(getMousePosition().x - 24);
+                        coords.setY(getMousePosition().y - 13);
+                        GameControler.addObject("table", coords.getX(), coords.getY());
+                        objects.add("table");
+                        objectsCoords.add(coords);
+                    }
+
+                    @Override
+                    public void mouseClicked(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent arg0) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+                });
+                
             }
 
             @Override
