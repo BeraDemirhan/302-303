@@ -102,7 +102,7 @@ public class PauseScreen extends JFrame implements ActionListener {
         }
         if (e.getSource() == loadButton) {
             try {
-                GameControler.loadGame();
+                GameControler.loadPrevGame();
             } catch (NumberFormatException | IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
