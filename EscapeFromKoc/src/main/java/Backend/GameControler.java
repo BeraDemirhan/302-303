@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -39,17 +40,27 @@ public class GameControler {
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static int score = 0;
-    
-    private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
-
-
-    private static Board activeBoard = new Board();
 
     private static BuildMode actBuildMode = new BuildMode(5);
-    
-    
 
 
+    private static ArrayList<Integer> atleastList = new ArrayList<Integer>(Arrays.asList(5,7,10,14,19,25));
+
+    private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
+
+    private static int lastRequiredObjectSize;
+    public static void setRequiredObjSize(int size){
+        lastRequiredObjectSize = size;
+    }
+    public static int getRequiredObjSize(){
+        return lastRequiredObjectSize;
+    }
+    
+
+    private static Board activeBoard = new Board();
+    
+    
+    
 
 
     public static int EXIT = 3;
@@ -87,6 +98,14 @@ public class GameControler {
         Save.saveGame();
     }
 
+    public static void selectSaveFile(String name){
+        Save.setSaveName(name);
+    }
+
+    public static String getSaveName(){
+        return Save.getSaveName();
+    }
+
     public static void startGame(){
         gameStatus = RUNNING;
         activeBoard.setBackground();
@@ -119,12 +138,33 @@ public class GameControler {
         Load.loadGame();
     }
 
+    public static void setSaveMethod(String method){
+        if(method.equalsIgnoreCase("mongodb")){
+            Save.setSaveMethod(true);
+        }
+        else{
+            Save.setSaveMethod(false);
+        }
+    }
+
     public static ArrayList<GameObjectIntterface> getBuiltObjects(){
         return gameObjectList;
     }
 
     public static int[] getBuiltObjectCoords(String object){
         return actBuildMode.getBuiltObjectCoords(object);
+    }
+
+    public static void nextLevel(){
+        if (level < 7){
+            level++;
+            actBuildMode = new BuildMode(atleastList.get(level-1));
+            activeBoard = new Board();
+            buildGame();
+        }
+        else{
+            ScreenCoordinator.win();
+        }
     }
 
     public static Image movePlayer(String trajectory) {
@@ -145,6 +185,11 @@ public class GameControler {
             p.setX(p.getX() - p.getVelocity());
         } else if (trajectory.equalsIgnoreCase("right")) {
             p.setX(p.getX() + p.getVelocity());
+        }
+        if(p.hasKey() && (p.getX() >= 180 && p.getX() <= 300) && (p.getY() >= 350 && p.getY() <= 540)){
+            System.out.println("You have reached the exit!");
+            p.deleteKey();
+            nextLevel();
         }
         return trajectoryImg;
 
@@ -174,6 +219,10 @@ public class GameControler {
         p.usePowerUp(pu);
     }
 
+    public static void gameOver() {
+        ScreenCoordinator.gameOver();
+    }
+
     public static void setPlayerHealth(int health) {
         p.setHealth(health);
     }
@@ -187,12 +236,11 @@ public class GameControler {
     }
 
     public static void pickObject(Object obj) {
-        p.getInventory();
-        Inventory.addItem(obj);
+        p.getInventory().addItem(obj);
         if (obj instanceof AddHealthImpl) {
             p.usePowerUp((AddHealthImpl) obj);
-
         }
+
         if (obj instanceof ExtraTime){
             p.usePowerUp((ExtraTime) obj);
         }
@@ -228,13 +276,12 @@ public class GameControler {
 
     public static Chair createFurniture() {
         Chair chair = (Chair) ObjectFactory.createObject("chair", 300, 300);
-        Key key = new Key(); 
-        key.spawnKey(chair.getX(), chair.getY());
+
         return chair;
     }
 
 
-    public static PowerUp createPowerUp(String type, int x, int y) {
+    /*public static PowerUp createPowerUp(String type, int x, int y) {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
             return health;
@@ -247,7 +294,7 @@ public class GameControler {
             return extraTime;
         } else return null;
 
-    }
+    }*/
 
     public static Alien createAlien(String type, int x , int y) {
         if (type.equals("blind")) {
@@ -316,4 +363,46 @@ public class GameControler {
         GameControler.score = score;
     }
 
+    public static void buildGame(){
+        ScreenCoordinator.buildGame(actBuildMode);
+    }
+
+
+    public static void setCurrentLevelTime(){
+        setGameObjectList(getBuiltObjects());
+        setLevelTime(5 * gameObjectList.size());
+        System.out.println("SADOJASDASDAD:  " + gameObjectList.size());
+
+    }
+    public static void addTime(){
+        setLevelTime(getLevelTime() + 5);
+        System.out.println("Time Updated: "+ getLevelTime() );
+    }
+
+    public static long getStartTime() {
+        return startTime;
+    }
+
+    public static void setStartTime(long startTime) {
+        GameControler.startTime = startTime;
+    }
+    public static int showTime(){
+        return (int) ((getCurrentTime() - getStartTime())/1000000000);
+    };
+
+    public static long getCurrentTime() {
+        return currentTime;
+    }
+
+    public static void setCurrentTime(long currentTime) {
+        GameControler.currentTime = currentTime;
+    }
+
+    public static ArrayList<GameObjectIntterface> getGameObjectList() {
+        return gameObjectList;
+    }
+
+    public static void setGameObjectList(ArrayList<GameObjectIntterface> gameObjectList) {
+        GameControler.gameObjectList = gameObjectList;
+    }
 }

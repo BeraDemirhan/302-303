@@ -141,5 +141,17 @@ public class ShooterAlienImpl implements Alien {
         return b;
     }
 
+    @Override
+    public void setObjectHasKey(boolean x) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void addKey() {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 }

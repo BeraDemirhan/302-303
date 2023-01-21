@@ -117,4 +117,12 @@ public class Player {
     public void setScore(int parseInt) {
         this.score = parseInt;
     }
+
+    public boolean hasKey(){
+        return inventory.hasKey();
+    }
+
+    public void deleteKey(){
+        inventory.deleteKey();
+    }
 }

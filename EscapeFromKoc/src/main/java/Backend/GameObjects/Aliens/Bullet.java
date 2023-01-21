@@ -24,6 +24,17 @@ public class Bullet implements GameObjectIntterface {
     }
 
     @Override
+    public void setObjectHasKey(boolean x) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void addKey() {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
     public JLabel getObjectLabel() {
         // TODO Auto-generated method stub
         return GameControler.getObjectLabel(generalPath, "", x, y, 34, 56);
@@ -99,4 +110,6 @@ public class Bullet implements GameObjectIntterface {
     public void setY(int y) {
         this.y = y;
     }
+
+    
 }

@@ -140,6 +140,11 @@ public class BlindAlienImpl implements Alien {
         return false;
     }
 
+    @Override
+    public void setObjectHasKey(boolean x) {
+
+    }
+
     public void setDirection(JLabel label) {
         GameControler.setLabelImage(label, generalPath, dir, 96, 54);
     }
@@ -147,6 +152,11 @@ public class BlindAlienImpl implements Alien {
     @Override
     public String getName() {
         return "BlindAlien";
+    }
+
+    @Override
+    public void addKey(){
+        return;
     }
 
 

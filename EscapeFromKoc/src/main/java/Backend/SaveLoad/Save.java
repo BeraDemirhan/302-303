@@ -25,7 +25,8 @@ import org.bson.conversions.Bson;
 
 public class Save {
     private static int saveNumber = 1;
-    private static File saveFile = new File("EscapeFromKoc/resources/Save" + saveNumber + ".txt");
+    private static String saveName = "xyz";
+    private static File saveFile = new File("EscapeFromKoc/resources/Save" + saveName + saveNumber + ".txt");
     private static File NamesandPasswords = new File("EscapeFromKoc/resources/NamesPasswords.txt");
     private static PrintWriter pw = null;
 
@@ -55,14 +56,18 @@ public class Save {
     private static MongoDatabase mongoInit() {
         MongoClient mongo = new MongoClient("localhost", 27017);
         clientGlobal = mongo;
-        MongoCredential credential = MongoCredential.createCredential("sampleUser", "myDb",
+        MongoCredential credential = MongoCredential.createCredential("sampleUser", saveName,
                 "password".toCharArray());
-        return mongo.getDatabase("myDb"); 
+        return mongo.getDatabase(saveName); 
 
     }
 
     private static void mongoClose(){
         clientGlobal.close();
+    }
+
+    public static String getSaveName(){
+        return saveName;
     }
 
 
@@ -129,7 +134,7 @@ public class Save {
         // Set the save number to the next available save slot
         int i = 1;
         while (true) {
-            saveFile = new File("EscapeFromKoc/resources/Save" + i + ".txt");
+            saveFile = new File("EscapeFromKoc/resources/Save" + saveName + i + ".txt");
             if (saveFile.exists()) {
                 i++;
             } else {
@@ -137,6 +142,11 @@ public class Save {
                 break;
             }
         }
+    }
+
+    public static void setSaveName(String name) {
+        // Set the name of the save file
+        saveName = name;    
     }
 
     public static void write(String text){
@@ -191,6 +201,11 @@ public class Save {
                 throw new RuntimeException(ex);
             }
             lines.add(line);
+        }
+        try {
+            br.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
         return lines;
     }

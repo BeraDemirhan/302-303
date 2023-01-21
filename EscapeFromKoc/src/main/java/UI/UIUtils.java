@@ -21,16 +21,14 @@ public class UIUtils {
         return label;
     }
 
-    public static JFrame createFrame(String title) {
-        JFrame frame = new JFrame(title);
+    public static void createFrame(InventoryFrame frame) {
         frame.setLayout(null);
         frame.setBounds(0, 380, 960, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setUndecorated(true);
+        //frame.setUndecorated(true);
         frame.setVisible(true);
         frame.setFocusable(true);
-        return frame;
     }
 
     public static void setLabelImage(JLabel label,String path,int width, int height){

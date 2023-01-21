@@ -19,6 +19,7 @@ public class Register extends JFrame implements ActionListener {
     private JButton loginButton = new JButton("LOGIN");
     private JButton resetButton = new JButton("RESET");
     private JButton signUp = new JButton("SIGN UP");
+    private JButton saveMethodButton = new JButton("SAVE TO MONGODB");
     private JCheckBox showPassword = new JCheckBox("Show Password");
 
     private JLabel background = new JLabel(new ImageIcon("EscapeFromKoc/resources/EscapeFomKoc.png"));
@@ -44,6 +45,7 @@ public class Register extends JFrame implements ActionListener {
         showPassword.setBounds(150, 250, 150, 30);
         loginButton.setBounds(30, 300, 100, 30);
         resetButton.setBounds(220, 300, 100, 30);
+        saveMethodButton.setBounds(30, 350, 300, 30);
         background.setBounds(0, 0, 900, 950);
     }
 
@@ -55,6 +57,7 @@ public class Register extends JFrame implements ActionListener {
         container.add(showPassword);
         container.add(loginButton);
         container.add(resetButton);
+        container.add(saveMethodButton);
         container.add(signUp);
         container.add(background);
     }
@@ -64,6 +67,7 @@ public class Register extends JFrame implements ActionListener {
         resetButton.addActionListener(this);
         showPassword.addActionListener(this);
         signUp.addActionListener(this);
+        saveMethodButton.addActionListener(this);
     }
 
     @Override
@@ -79,7 +83,7 @@ public class Register extends JFrame implements ActionListener {
             if (loginSuccess) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 // ScreenCoordinator.startGame();
-                ScreenCoordinator.buildGame();
+                GameControler.buildGame();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
@@ -112,6 +116,10 @@ public class Register extends JFrame implements ActionListener {
             }
             userTextField.setText("");
             passwordField.setText("");
+        }
+        if (e.getSource() == saveMethodButton) {
+            GameControler.setSaveMethod("MongoDB");
+            JOptionPane.showMessageDialog(this, "Save method changed to MongoDB");
         }
     }
 }

@@ -8,7 +8,7 @@ public class Sofa implements GameObjectIntterface {
     private int x;
     private int y;
 
-    private boolean hasKey = true;
+    private boolean hasKey = false;
 
     public Sofa(int x, int y) {
         spawnObject(x, y);
@@ -24,6 +24,11 @@ public class Sofa implements GameObjectIntterface {
     @Override
     public boolean objectHasKey() {
         return this.hasKey;
+    }
+
+    @Override
+    public void setObjectHasKey(boolean x) {
+        this.hasKey = x;
     }
 
     @Override
@@ -44,6 +49,12 @@ public class Sofa implements GameObjectIntterface {
     @Override
     public String getName() {
         return "Sofa";
+    }
+    @Override
+    public void addKey() {
+        // TODO Auto-generated method stub
+        hasKey = true;
+        
     }
 }
     
