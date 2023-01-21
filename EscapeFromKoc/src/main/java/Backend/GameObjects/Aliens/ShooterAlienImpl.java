@@ -82,7 +82,7 @@ public class ShooterAlienImpl implements Alien {
                             throw new RuntimeException(e);
                         }
 
-                    }else{
+                    }else if (GameControler.getGameStatus() == GameControler.RUNNING){
                         attackPlayer(Player.getPlayer());
                         cooldownStartTime = System.nanoTime();
 
