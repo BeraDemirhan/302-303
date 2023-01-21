@@ -435,13 +435,12 @@ public class Board extends JFrame {
                     //System.out.println("timer: " + (GameControler.getLevelTime()));
 
                     //System.out.println("time: " + GameControler.showTime());
-<<<<<<< Updated upstream
-=======
+
                     double x = ((GameControler.getCurrentTime() - GameControler.getStartTime()) / 1000000000);
                     timeWastingAlien.applyAlienGoal(x/GameControler.getLevelTime());
                     timeWastingAlien.wasteTime(GameControler.getBuiltObjects(), key, GameControler.showTime(), timeWastingAlien);
                     System.out.println("key coooordssss: X: "+key.getX()+ "  Y: " + key.getY());
->>>>>>> Stashed changes
+
                     if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
