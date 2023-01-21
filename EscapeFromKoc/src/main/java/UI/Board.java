@@ -100,7 +100,7 @@ public class Board extends JFrame {
     }
     public void createVest(){
         vest = (Vest) PowerUpFactory.createPowerUp("vest", 350, 400);
-        vestLabel= vest.getPowerupVestLabel();
+        vestLabel= vest.getPowerUpVestLabel();
         addToContainer(vestLabel, "vest");
     }
     public static void powerUpVestUsage(){
