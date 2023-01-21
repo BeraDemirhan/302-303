@@ -4,9 +4,9 @@ Player's health: 5
 Player's inventory: 
 End of inventory
 Objects:
-Sofa: 246, 202
-Piano: 423, 319
-Table: 621, 204
-Chair: 229, 437
-Piano: 668, 435
+Sofa: 234, 209
+Piano: 450, 304
+Table: 612, 210
+Chair: 218, 442
+Sofa: 624, 419
 End of objects

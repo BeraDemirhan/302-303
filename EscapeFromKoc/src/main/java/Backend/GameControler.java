@@ -86,6 +86,14 @@ public class GameControler {
         Save.saveGame();
     }
 
+    public static void selectSaveFile(String name){
+        Save.setSaveName(name);
+    }
+
+    public static String getSaveName(){
+        return Save.getSaveName();
+    }
+
     public static void startGame(){
         gameStatus = RUNNING;
         activeBoard.setBackground();
@@ -126,7 +134,7 @@ public class GameControler {
             Save.setSaveMethod(false);
         }
     }
-    
+
     public static ArrayList<GameObjectIntterface> getBuiltObjects(){
         return gameObjectList;
     }

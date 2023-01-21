@@ -32,6 +32,7 @@ public class ButtonResponders {
             info = line.split(rgx);
             if (username.equals(info[0]) && password.equals(info[1])) {
                 br.close();
+                GameControler.selectSaveFile(username);
                 return true;
             }
         }
