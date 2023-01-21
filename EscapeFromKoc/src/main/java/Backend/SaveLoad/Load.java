@@ -21,6 +21,7 @@ import Backend.Player.Player;
 
 public class Load {
     private static File file = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveName() + GameControler.getSaveNumber() + ".txt");
+    private static File prevFile = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveName() + (GameControler.getSaveNumber() - 1) + ".txt");
     private static BufferedReader br;
 
     private static String saveMethod = Save.getSaveMethod();
@@ -35,8 +36,20 @@ public class Load {
         }
     }
 
+    public static void loadPrevGame() throws NumberFormatException, IOException {
+        // TODO Auto-generated method stub
+        if(saveMethod.equals("MongoDB")){
+            readDatabase();
+        } else if(saveMethod.equals("Plaintext")){
+            file = prevFile;
+            GameControler.setNewBoard();
+            readFile();
+        }
+    }
+
     public static void readFile() throws NumberFormatException, IOException{
         br = new BufferedReader(new FileReader(file));
+        System.out.println("reading: " + file.getName() + "");
         while (true) {
             try {
                 if (!((br.readLine()) != null)) break;

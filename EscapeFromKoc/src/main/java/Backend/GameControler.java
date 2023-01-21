@@ -246,6 +246,16 @@ public class GameControler {
         }
     }
 
+    public static void setNewBoard() {
+        activeBoard = new Board();
+    }
+
+    public static void loadPrevGame() throws NumberFormatException, IOException{
+        System.out.println("Loading previous game");
+        Load.loadPrevGame();
+        System.out.println("Previous game loaded");
+    }
+
     public static int[] getPlayerCoords() {
         int[] coords = { p.getX(), p.getY() };
         return coords;
