@@ -52,6 +52,10 @@ public class Board extends JFrame {
 
     private Container pCont = getContentPane();
     private static Key key = new Key();
+    
+    private static Vest vest;
+    private static JLabel vestLabel; 
+    private boolean vestActivated = false;
 
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
@@ -87,12 +91,31 @@ public class Board extends JFrame {
         createHintPowerUp();
         createExtraTimePowerUp();
         createKey();
+        createVest();
         addComponentsToContainer();
 
         addActionEvent();
         updateFrame();
         System.out.println("Board created");
     }
+    public void createVest(){
+        vest = (Vest) PowerUpFactory.createPowerUp("vest", 350, 400);
+        vestLabel= vest.getPowerupVestLabel();
+        addToContainer(vestLabel, "vest");
+    }
+    public static void powerUpVestUsage(){
+        vestLabel.setVisible(true);
+        long x = System.nanoTime();
+        while(true){
+            long y = System.nanoTime();
+            if(((y-x)/1000000000) > 20){
+                vestLabel.setVisible(false);
+                break;
+            }
+        }
+        vestLabel.setVisible(false);
+    }
+
 
     public void createKey(){
         keyLocationPointer = UIUtils.createLabel("EscapeFromKoc/resources/key.png", 400, 400, 96, 54);
@@ -404,6 +427,10 @@ public class Board extends JFrame {
                         }.start();
                         ;
                     }
+                    if(vestActivated){
+                        vestLabel.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1]+10, 100, 100);
+                        vestLabel.setVisible(true);
+                    }
                 }
             }
         }).start();
@@ -559,6 +586,7 @@ public class Board extends JFrame {
 
                         GameControler.usePowerUp(bottle);
                     }
+
                     if (e.getKeyCode() == KeyEvent.VK_H && Inventory.contains(hint)) {
                         GameControler.usePowerUp(hint);
                     }
@@ -578,6 +606,10 @@ public class Board extends JFrame {
                          * 
                          */
                         System.exit(0);
+                    }
+                    if(e.getKeyCode() == KeyEvent.VK_V && Inventory.contains(vest)){
+                        vestActivated = true;
+                        GameControler.usePowerUp(vest);
                     }
                     if (e.getKeyCode() == KeyEvent.VK_P) {
                         /*
@@ -975,7 +1007,45 @@ public class Board extends JFrame {
 
             }
         }.start();
+        vestLabel.addMouseListener(new MouseListener(){
 
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println("Vest clicked");
+                if (e.getButton() == MouseEvent.BUTTON1 && vestActivated == false) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] vestCoords = { vest.getX(), vest.getY() };
+                        System.out.println("0 -> " + playerCoords[0] + " " + vestCoords[0]);
+                        System.out.println("1 -> " + playerCoords[1] + " " + vestCoords[1]);
+                        if (Math.abs(playerCoords[0] - vestCoords[0]) < 100
+                                && Math.abs(playerCoords[1] - vestCoords[1]) < 100) {
+                            System.out.println("Picked vest up");
+                            GameControler.pickObject(vest);
+                            vestLabel.setVisible(false);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
 
     }
 
