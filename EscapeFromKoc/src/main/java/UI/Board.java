@@ -6,10 +6,7 @@ import Backend.GameControler;
 import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
-import Backend.GameObjects.PowerUps.AddHealthImpl;
-import Backend.GameObjects.PowerUps.ExtraTime;
-import Backend.GameObjects.PowerUps.HintPowerUp;
-import Backend.GameObjects.PowerUps.ThrowBottleImpl;
+import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
 
@@ -225,12 +222,12 @@ public class Board extends JFrame {
         health = new AddHealthImpl(100, 100).getHealth();
     }
     public void createExtraTimePowerUp(){
-       extraTimePowerUpCreated = (ExtraTime) GameControler.createPowerUp("extra-time", 400,300);
+       extraTimePowerUpCreated = (ExtraTime) PowerUpFactory.spawnPowerUp("extra-time");
        extraTimePowerUp = extraTimePowerUpCreated.getExtraTimeLabel();
 
     }
     public void createHintPowerUp(){
-        hint = (HintPowerUp) GameControler.createPowerUp("hint", 500,300);
+        hint = (HintPowerUp) PowerUpFactory.spawnPowerUp("hint");
         hintPowerUp = hint.getHintPowerUP();
         hint.setKeyX(key.getX());
         hint.setKeyY(key.getY());

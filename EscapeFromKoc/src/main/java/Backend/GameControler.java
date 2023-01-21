@@ -232,7 +232,7 @@ public class GameControler {
     }
 
 
-    public static PowerUp createPowerUp(String type, int x, int y) {
+    /*public static PowerUp createPowerUp(String type, int x, int y) {
         if(type.equals("health")){
             AddHealthImpl health = new AddHealthImpl(x,y);
             return health;
@@ -245,7 +245,7 @@ public class GameControler {
             return extraTime;
         } else return null;
 
-    }
+    }*/
 
     public static Alien createAlien(String type, int x , int y) {
         if (type.equals("blind")) {
