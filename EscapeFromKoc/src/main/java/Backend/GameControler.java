@@ -6,6 +6,7 @@ import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.Aliens.Alien;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
+import Backend.GameObjects.Aliens.ShooterAlienImpl;
 import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
 import Backend.Player.Player;
@@ -252,7 +253,10 @@ public class GameControler {
         if (type.equals("blind")) {
             BlindAlienImpl blindAlien = (BlindAlienImpl) ObjectFactory.createObject("blind-alien", x, y);
             return blindAlien;
-        } else return null;
+        } else if (type.equals("shooter")){
+            ShooterAlienImpl shooterAlien = (ShooterAlienImpl) ObjectFactory.createObject("shooter-alien", x, y);
+            return shooterAlien;
+        }else return null;
     }
 
     public static String getPlayerInventory(){

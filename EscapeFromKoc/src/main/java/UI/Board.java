@@ -11,7 +11,9 @@ import Backend.GameObjects.PowerUps.ExtraTime;
 import Backend.GameObjects.PowerUps.HintPowerUp;
 import Backend.GameObjects.PowerUps.ThrowBottleImpl;
 import Backend.Player.Inventory;
+import Backend.Player.Player;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
+import Backend.GameObjects.Aliens.ShooterAlienImpl;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -58,6 +60,8 @@ public class Board extends JFrame {
 
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
+    private ShooterAlienImpl shooterAlien;
+    private JLabel shooterAlienLabel;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
@@ -152,6 +156,7 @@ public class Board extends JFrame {
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
         blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
+        shooterAlienLabel.setBounds(shooterAlien.getX(), shooterAlien.getY(), 100, 100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -178,6 +183,7 @@ public class Board extends JFrame {
         //pCont.add(chair);
         pCont.add(health);
         pCont.add(blindAlienLabel);
+        pCont.add(shooterAlienLabel);
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -268,6 +274,9 @@ public class Board extends JFrame {
        */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind",200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
+        shooterAlien = (ShooterAlienImpl) GameControler.createAlien("shooter", 300, 300);
+        shooterAlienLabel = shooterAlien.getObjectLabel();
+        shooterAlien.applyAlienGoal(1);
     }
 
     /*
@@ -356,11 +365,12 @@ public class Board extends JFrame {
                     playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100,
                             100);
                     playerAbs.setVisible(true);
-                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
+                    blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
+                     
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.currentTime = System.nanoTime();
-                    System.out.println("timer: " + (GameControler.currentTime - GameControler.startTime)/1000000000);
+                    //System.out.println("timer: " + (GameControler.currentTime - GameControler.startTime)/1000000000);
 
 
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){

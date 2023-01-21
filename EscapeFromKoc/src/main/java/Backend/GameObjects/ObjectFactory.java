@@ -1,6 +1,7 @@
 package Backend.GameObjects;
 
 import Backend.GameObjects.Aliens.BlindAlienImpl;
+import Backend.GameObjects.Aliens.ShooterAlienImpl;
 
 public class ObjectFactory {
 
@@ -12,6 +13,8 @@ public class ObjectFactory {
         }
         else if(mark.equalsIgnoreCase("blind-alien")){
             gameObject = new BlindAlienImpl(x,y);
+        } else if(mark.equalsIgnoreCase("shooter-alien")){
+            gameObject = new ShooterAlienImpl(x, y);
         }
         else if(mark.equalsIgnoreCase("sofa")){
             gameObject = new Sofa(x,y);
