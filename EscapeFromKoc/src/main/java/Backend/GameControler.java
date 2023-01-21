@@ -118,6 +118,15 @@ public class GameControler {
         Load.loadGame();
     }
 
+    public static void setSaveMethod(String method){
+        if(method.equalsIgnoreCase("mongodb")){
+            Save.setSaveMethod(true);
+        }
+        else{
+            Save.setSaveMethod(false);
+        }
+    }
+    
     public static ArrayList<GameObjectIntterface> getBuiltObjects(){
         return gameObjectList;
     }
