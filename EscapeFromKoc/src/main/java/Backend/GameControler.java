@@ -353,4 +353,32 @@ public class GameControler {
         ScreenCoordinator.buildGame(actBuildMode);
     }
 
+
+    public static void setLevelTime(){
+        setLevelTime(5 * gameObjectList.size());
+
+    }
+    public static void addTime(){
+        setLevelTime(getLevelTime() + 5);
+        System.out.println("Time Updated: "+ getLevelTime() );
+    }
+
+    public static long getStartTime() {
+        return startTime;
+    }
+
+    public static void setStartTime(long startTime) {
+        GameControler.startTime = startTime;
+    }
+    public static int showTime(){
+        return (int) ((getCurrentTime() - getStartTime())/1000000000);
+    };
+
+    public static long getCurrentTime() {
+        return currentTime;
+    }
+
+    public static void setCurrentTime(long currentTime) {
+        GameControler.currentTime = currentTime;
+    }
 }

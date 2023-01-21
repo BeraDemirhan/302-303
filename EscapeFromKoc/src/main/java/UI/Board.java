@@ -65,6 +65,7 @@ public class Board extends JFrame {
         return bottleThrown;
     }
     private static final int TIMER_DELAY = 35;
+    /*
     public void setLevelTime(){
         GameControler.levelTime = 5 * getObjects().size();
         GameControler.startTime = System.nanoTime();
@@ -72,7 +73,7 @@ public class Board extends JFrame {
     public static void addTime(){
         GameControler.setLevelTime(GameControler.getLevelTime() + 5);
         System.out.println("Time Updated: "+ GameControler.getLevelTime() );
-    }
+    }*/
     public Board() {
         imageResize();
         setLayoutManager();
@@ -85,7 +86,7 @@ public class Board extends JFrame {
         createExtraTimePowerUp();
         createKey();
         addComponentsToContainer();
-        setLevelTime();
+        GameControler.setLevelTime();
         addActionEvent();
         updateFrame();
         System.out.println("Board created");
@@ -373,10 +374,10 @@ public class Board extends JFrame {
                     blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100); 
                     blindAlien.setDirection(blindAlienLabel);
 
-                    GameControler.currentTime = System.nanoTime();
-                    //System.out.println("timer: " + (GameControler.levelTime));
+                    GameControler.setCurrentTime(System.nanoTime());
+                    System.out.println("timer: " + (GameControler.levelTime));
 
-                    //System.out.println( key.getX() +" " + key.getY());
+                    System.out.println("time: " + xGameControler.showTime());
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
