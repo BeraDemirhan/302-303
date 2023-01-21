@@ -29,8 +29,8 @@ public class PowerUpFactory {
         int x = rand.nextInt(250, 710) +1;
         int y = rand.nextInt(300,540) +1;
         String [] pList = {"add-health","throw-bottle","hint","extra-time"};
-        /*int index = rand.nextInt(pList.length)+1;
-        String mark = pList[index];*/
+        int index = rand.nextInt(pList.length)+1;
+       // String mark = pList[index];
         if(mark.equals("add-health")){
             powerUp = new AddHealthImpl(x,y);
         }
