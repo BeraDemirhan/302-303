@@ -175,6 +175,7 @@ public class BuildMode extends JFrame implements ActionListener {
                         dispose();
                         GameControler.setCurrentLevelTime();
                         GameControler.setStartTime(System.nanoTime());
+                        GameControler.setShouldTimeStop(false);
                         GameControler.startGame();
                     }
                 }
