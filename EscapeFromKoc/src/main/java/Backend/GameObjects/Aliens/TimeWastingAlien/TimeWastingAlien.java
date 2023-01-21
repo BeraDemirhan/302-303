@@ -6,13 +6,15 @@ import Backend.GameObjects.Key;
 import Backend.Player.Player;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class TimeWastingAlien implements Alien {
     private boolean isActive = true;
+    
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";
+    private String generalPath = "EscapeFromKoc/resources/TimeWastingAlien.png";
 
 
     private TimeWastingAlienStrategy wastingStrategy;
@@ -31,7 +33,7 @@ public class TimeWastingAlien implements Alien {
     public int getStrategyCode(){
         return strategyCode;
     }
-    public void wasteTime(Object[] list, Key key){
+    public void wasteTime(ArrayList<Object> list, Key key){
         if(isActive){
             wastingStrategy.changeKeyLoc(list, key);
         }
