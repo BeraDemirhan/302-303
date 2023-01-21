@@ -83,11 +83,18 @@ public class Board extends JFrame {
         createHealth();
         createHintPowerUp();
         createExtraTimePowerUp();
+        createKey();
         addComponentsToContainer();
         setLevelTime();
         addActionEvent();
         updateFrame();
         System.out.println("Board created");
+    }
+
+    public void createKey(){
+        keyLocationPointer = UIUtils.createLabel("EscapeFromKoc/resources/key.png", 400, 400, 96, 54);
+        keyLocationPointer.setVisible(true);
+        addToContainer(keyLocationPointer, "keyLocationPointer");
     }
 
     public void addToContainer(JLabel label, String name){
@@ -812,6 +819,47 @@ public class Board extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
+            }
+        });
+        keyLocationPointer.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (GameControler.getGameStatus() == GameControler.RUNNING) {
+                        int[] playerCoords = GameControler.getPlayerCoords();
+                        int[] keyCoords = { key.getX(), key.getY() };
+
+                        System.out.println("0 -> " + playerCoords[0] + " " + keyCoords[0]);
+                        System.out.println("1 -> " + playerCoords[1] + " " + keyCoords[1]);
+                        if (Math.abs(playerCoords[0] - keyCoords[0]) < 100
+                                && Math.abs(playerCoords[1] - keyCoords[1]) < 100) {
+                            System.out.println("Picked key up");
+                            GameControler.pickObject(key);
+                            keyLocationPointer.setVisible(false);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 

@@ -83,7 +83,7 @@ public class Register extends JFrame implements ActionListener {
             if (loginSuccess) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 // ScreenCoordinator.startGame();
-                ScreenCoordinator.buildGame();
+                GameControler.buildGame();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");

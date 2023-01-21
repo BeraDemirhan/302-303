@@ -53,6 +53,25 @@ public class Inventory {
         InventoryOpen = false;
     }
 
+    public boolean hasKey() {
+        for (int i = 0; i < items.size(); i++) {
+            Object item = items.get(i);
+            if (item.getClass().equals(Key.class)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void deleteKey() {
+        for (int i = 0; i < items.size(); i++) {
+            Object item = items.get(i);
+            if (item.getClass().equals(Key.class)) {
+                items.remove(i);
+            }
+        }
+    }
+
     public static boolean isOpen() {
         return InventoryOpen;
     }

@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -46,8 +47,7 @@ public class GameControler {
 
     private static BuildMode actBuildMode = new BuildMode(5);
     
-    
-
+    private static ArrayList<Integer> atleastList = new ArrayList<Integer>(Arrays.asList(5,7,10,14,19,25));
 
 
 
@@ -143,6 +143,15 @@ public class GameControler {
         return actBuildMode.getBuiltObjectCoords(object);
     }
 
+    public static void nextLevel(){
+        if (level < 7){
+            level++;
+            actBuildMode = new BuildMode(level);
+            activeBoard = new Board();
+            buildGame();
+        }
+    }
+
     public static Image movePlayer(String trajectory) {
         Image trajectoryImg = p.getPlayerImg(trajectory);
         if (trajectory.equalsIgnoreCase("Front")) {
@@ -161,6 +170,11 @@ public class GameControler {
             p.setX(p.getX() - p.getVelocity());
         } else if (trajectory.equalsIgnoreCase("right")) {
             p.setX(p.getX() + p.getVelocity());
+        }
+        if(p.hasKey() && (p.getX() >= 180 && p.getX() <= 300) && (p.getY() >= 350 && p.getY() <= 540)){
+            System.out.println("You have reached the exit!");
+            p.deleteKey();
+            nextLevel();
         }
         return trajectoryImg;
 
@@ -326,6 +340,10 @@ public class GameControler {
 
     public static void setScore(int score) {
         GameControler.score = score;
+    }
+
+    public static void buildGame(){
+        ScreenCoordinator.buildGame(actBuildMode);
     }
 
 }
