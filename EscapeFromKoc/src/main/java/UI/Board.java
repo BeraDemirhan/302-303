@@ -62,6 +62,7 @@ public class Board extends JFrame {
     private JLabel blindAlienLabel;
     private ShooterAlienImpl shooterAlien;
     private JLabel shooterAlienLabel;
+    private JLabel bulletLabel ;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private boolean bottleThrown = false;
@@ -184,6 +185,8 @@ public class Board extends JFrame {
         pCont.add(health);
         pCont.add(blindAlienLabel);
         pCont.add(shooterAlienLabel);
+        pCont.add(bulletLabel).setVisible(true);
+        
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -276,6 +279,7 @@ public class Board extends JFrame {
         blindAlienLabel = blindAlien.getObjectLabel();
         shooterAlien = (ShooterAlienImpl) GameControler.createAlien("shooter", 300, 300);
         shooterAlienLabel = shooterAlien.getObjectLabel();
+        bulletLabel = shooterAlien.getBullet().getObjectLabel();
         shooterAlien.applyAlienGoal(1);
     }
 
@@ -382,6 +386,15 @@ public class Board extends JFrame {
                                 bottleThrowAnimation(GameControler.getPlayerCoords(), bottle.getCoords());
                             }
                         }.start();;
+                    }
+                    if(shooterAlien.getBulletShot()){
+                        System.out.println("BulletLabel: " + shooterAlien.getBullet().getX()+" "+ shooterAlien.getBullet().getY());
+                        bulletLabel.setBounds(shooterAlien.getBullet().getX(), shooterAlien.getBullet().getY(), 100, 100); 
+                        bulletLabel.setVisible(true);
+                        pCont.repaint();
+                    }else{
+                        shooterAlien.getBullet().getObjectLabel().setVisible(false);
+                        pCont.repaint();
                     }
                 }
             }

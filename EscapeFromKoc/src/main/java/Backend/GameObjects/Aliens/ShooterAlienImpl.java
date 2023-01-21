@@ -14,6 +14,14 @@ public class ShooterAlienImpl implements Alien {
     private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";// General path does not change but dir
                                                                                  // does
 
+    private Bullet b = new Bullet(x, y);
+    private boolean bulletShot = false;
+
+    public boolean getBulletShot(){
+        return bulletShot;
+    }
+
+
     private long cooldownStartTime = System.nanoTime();
     private int cooldownDuration = 4;
 
@@ -92,16 +100,18 @@ public class ShooterAlienImpl implements Alien {
         // TODO Auto-generated method stub
         if (Math.sqrt(Math.pow(p.getX() - this.x, 2) + Math.pow(p.getY() - this.y, 2)) < 300) {
             System.out.println("shooting to player");
+            bulletShot = true;
             System.out.println("Alien: " + this.x + " " + this.y);
-            Bullet b = new Bullet(this.x, this.y);
             int lastPlayerX = p.getX();
             int lastPlayerY = p.getY();
+            
 
             new Thread() {
                 @Override
                 public void run() {
                     try {
                         for (int i = 0; i < 300 / b.getVelocity(); i++) {
+
                             sleep(25);
                             System.out.println(b.getX() + " " + p.getX() + ", " + b.getY() + " " + p.getY());
                             b.moveBulletTo(lastPlayerX, lastPlayerY);
@@ -110,8 +120,12 @@ public class ShooterAlienImpl implements Alien {
                                 p.addHealth(-1);
                                 break;
                             }
+                            
 
                         }
+                        bulletShot = false;
+                        b.setX(x);
+                        b.setY(y);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -122,5 +136,10 @@ public class ShooterAlienImpl implements Alien {
         }
 
     }
+
+    public Bullet getBullet(){
+        return b;
+    }
+
 
 }
