@@ -4,6 +4,7 @@ import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LastCallStrategy implements TimeWastingAlienStrategy {
 
@@ -11,7 +12,14 @@ public class LastCallStrategy implements TimeWastingAlienStrategy {
     @Override
     public void changeKeyLoc(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien) {
         alien.setActive(false);
+        changeLoc(list,key);
         alienAppear(alien, key);
+    }
+    private void changeLoc(ArrayList<GameObjectIntterface> list, Key key){
+        int randomNum = ThreadLocalRandom.current().nextInt(0, list.size());
+        list.get(randomNum).setObjectHasKey(true);
+        key.setY(list.get(randomNum).getY());
+        key.setX(list.get(randomNum).getX());
     }
     private void alienAppear(TimeWastingAlien alien, Key key){
         alien.setX(key.getX());
