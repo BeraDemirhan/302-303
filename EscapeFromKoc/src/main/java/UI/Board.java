@@ -252,6 +252,7 @@ public class Board extends JFrame {
             if(((y - x)/ 1000000000) == 10){
                 keyLocationPointer.setVisible(false);
             }
+            break;
         }
 
 
