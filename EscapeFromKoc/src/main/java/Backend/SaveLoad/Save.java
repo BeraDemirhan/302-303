@@ -56,9 +56,9 @@ public class Save {
     private static MongoDatabase mongoInit() {
         MongoClient mongo = new MongoClient("localhost", 27017);
         clientGlobal = mongo;
-        MongoCredential credential = MongoCredential.createCredential("sampleUser", "myDb",
+        MongoCredential credential = MongoCredential.createCredential("sampleUser", saveName,
                 "password".toCharArray());
-        return mongo.getDatabase("myDb"); 
+        return mongo.getDatabase(saveName); 
 
     }
 
