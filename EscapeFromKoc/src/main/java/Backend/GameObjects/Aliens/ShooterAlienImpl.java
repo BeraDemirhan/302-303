@@ -72,7 +72,7 @@ public class ShooterAlienImpl implements Alien {
             @Override
             public void run() {
                 while (true) {
-                    System.out.println((System.nanoTime() - cooldownStartTime)/ 1000000000);
+                    //System.out.println((System.nanoTime() - cooldownStartTime)/ 1000000000);
                     if (( System.nanoTime()-cooldownStartTime) / 1000000000 < cooldownDuration) {
                         System.out.println("sleeping");
                         try {
@@ -86,8 +86,14 @@ public class ShooterAlienImpl implements Alien {
                         attackPlayer(Player.getPlayer());
                         cooldownStartTime = System.nanoTime();
 
-                    }
+                    }else {
+                        try {
 
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
 
             }

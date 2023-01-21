@@ -1,6 +1,7 @@
 package UI;
 
 import Backend.GameControler;
+import Backend.SaveLoad.Save;
 import Backend.ButtonResponders;
 
 import javax.swing.*;
@@ -118,7 +119,7 @@ public class Register extends JFrame implements ActionListener {
             passwordField.setText("");
         }
         if (e.getSource() == saveMethodButton) {
-            GameControler.setSaveMethod("MongoDB");
+            Save.setSaveMethod(true);
             JOptionPane.showMessageDialog(this, "Save method changed to MongoDB");
         }
     }

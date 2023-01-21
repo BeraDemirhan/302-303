@@ -143,7 +143,7 @@ public class Load {
     private static MongoDatabase mongoInit() {
         MongoClient mongo = new MongoClient("localhost", 27017);
         clientGlobal = mongo;
-        return mongo.getDatabase("myDb"); 
+        return mongo.getDatabase(GameControler.getSaveName()); 
 
     }
 

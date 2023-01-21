@@ -424,9 +424,9 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.setCurrentTime(System.nanoTime());
-                    System.out.println("timer: " + (GameControler.getLevelTime()));
+                    //System.out.println("timer: " + (GameControler.getLevelTime()));
 
-                    System.out.println("time: " + GameControler.showTime());
+                    //System.out.println("time: " + GameControler.showTime());
                     if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
