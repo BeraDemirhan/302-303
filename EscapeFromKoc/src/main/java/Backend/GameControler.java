@@ -363,4 +363,42 @@ public class GameControler {
         ScreenCoordinator.buildGame(actBuildMode);
     }
 
+
+    public static void setCurrentLevelTime(){
+        setGameObjectList(getBuiltObjects());
+        setLevelTime(5 * gameObjectList.size());
+        System.out.println("SADOJASDASDAD:  " + gameObjectList.size());
+
+    }
+    public static void addTime(){
+        setLevelTime(getLevelTime() + 5);
+        System.out.println("Time Updated: "+ getLevelTime() );
+    }
+
+    public static long getStartTime() {
+        return startTime;
+    }
+
+    public static void setStartTime(long startTime) {
+        GameControler.startTime = startTime;
+    }
+    public static int showTime(){
+        return (int) ((getCurrentTime() - getStartTime())/1000000000);
+    };
+
+    public static long getCurrentTime() {
+        return currentTime;
+    }
+
+    public static void setCurrentTime(long currentTime) {
+        GameControler.currentTime = currentTime;
+    }
+
+    public static ArrayList<GameObjectIntterface> getGameObjectList() {
+        return gameObjectList;
+    }
+
+    public static void setGameObjectList(ArrayList<GameObjectIntterface> gameObjectList) {
+        GameControler.gameObjectList = gameObjectList;
+    }
 }

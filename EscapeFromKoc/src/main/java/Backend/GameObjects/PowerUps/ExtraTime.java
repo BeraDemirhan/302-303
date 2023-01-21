@@ -29,7 +29,7 @@ public class ExtraTime implements PowerUp{
     @Override
     public void activatePowerUp(Player player) {
         System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-        Board.addTime();
+        GameControler.addTime();
     }
 
     public int getX() {
