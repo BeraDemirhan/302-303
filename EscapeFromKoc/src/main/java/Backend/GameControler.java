@@ -39,16 +39,27 @@ public class GameControler {
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static int score = 0;
-    
-    private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
-
-
-    private static Board activeBoard = new Board();
 
     private static BuildMode actBuildMode = new BuildMode(5);
-    
+
+
     private static ArrayList<Integer> atleastList = new ArrayList<Integer>(Arrays.asList(5,7,10,14,19,25));
 
+    private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
+
+    private static int lastRequiredObjectSize;
+    public static void setRequiredObjSize(int size){
+        lastRequiredObjectSize = size;
+    }
+    public static int getRequiredObjSize(){
+        return lastRequiredObjectSize;
+    }
+    
+
+    private static Board activeBoard = new Board();
+    
+    
+    
 
 
     public static int EXIT = 3;
@@ -264,8 +275,7 @@ public class GameControler {
 
     public static Chair createFurniture() {
         Chair chair = (Chair) ObjectFactory.createObject("chair", 300, 300);
-        Key key = new Key(); 
-        key.spawnKey(chair.getX(), chair.getY());
+
         return chair;
     }
 

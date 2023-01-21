@@ -8,7 +8,7 @@ public class Chair implements GameObjectIntterface {
     private int x;
     private int y;
 
-    private boolean hasKey = true;
+    private boolean hasKey = false;
 
     public Chair(int x, int y) {
         spawnObject(x, y);
@@ -49,6 +49,13 @@ public class Chair implements GameObjectIntterface {
     @Override
     public String getName() {
         return "Chair";
+    }
+
+    @Override
+    public void addKey() {
+        // TODO Auto-generated method stub
+        hasKey = true;
+        
     }
 
 }

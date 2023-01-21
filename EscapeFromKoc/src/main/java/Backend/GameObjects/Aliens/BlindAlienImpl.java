@@ -154,5 +154,10 @@ public class BlindAlienImpl implements Alien {
         return "BlindAlien";
     }
 
+    @Override
+    public void addKey(){
+        return;
+    }
+
 
 }

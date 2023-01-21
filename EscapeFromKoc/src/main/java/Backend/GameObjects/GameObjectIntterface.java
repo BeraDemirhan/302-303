@@ -16,4 +16,6 @@ public interface GameObjectIntterface {
     void setObjectHasKey(boolean x);
 
     String getName();
+
+    void addKey();
 }

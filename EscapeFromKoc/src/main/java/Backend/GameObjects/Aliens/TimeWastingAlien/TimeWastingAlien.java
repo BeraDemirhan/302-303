@@ -127,4 +127,9 @@ public class TimeWastingAlien implements Alien {
     public String getName() {
         return "TimeWastingAlien";
     }
+    @Override
+    public void addKey(){
+        return;
+    }
+
 }
