@@ -1,0 +1,12 @@
+Level: 1
+Player's coordinates: 242, 130
+Player's health: 5
+Player's inventory: 
+End of inventory
+Objects:
+Table: 638, 197
+Table: 636, 244
+Table: 633, 303
+Table: 640, 287
+Table: 627, 363
+End of objects
