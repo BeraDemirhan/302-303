@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class TimeWastingAlien implements Alien {
     private boolean isActive = true;
-    
+    private boolean doJob = true;
+    private boolean appear = true;
     private int x;
     private int y;
     private String dir = "Front";
@@ -30,26 +31,32 @@ public class TimeWastingAlien implements Alien {
 
     }
     public void setStrategyCode(int arg){
+
         this.strategyCode = arg;
     }
     public int getStrategyCode(){
         return strategyCode;
     }
     public void wasteTime(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien){
-        if(isActive){
+        if(isActive() && !key.getRevealed()){
+            System.out.println(key.getRevealed());
+            //System.out.println(isActive());
             wastingStrategy.changeKeyLoc(list, key, time, alien);
         }
     }
     private void setAlienStrategy(int strategyCode){
         switch (getStrategyCode()){
             case TimeWastingAlien.Timing:
+                //System.out.println("Strategy has changed to timing");
                 wastingStrategy = new TimingStrategy();
                     break;
             case TimeWastingAlien.BetweenThreshold:
+                //System.out.println("Strategy has changed to betweeen");
                 wastingStrategy = new BetweenThresholdStrategy();
                     break;
             case TimeWastingAlien.LastCall:
                 wastingStrategy = new LastCallStrategy();
+                //System.out.println("Strategy has changed to lastCALLL");
                     break;
         }
     }
@@ -64,15 +71,19 @@ public class TimeWastingAlien implements Alien {
 
     @Override
     public void applyAlienGoal(Object o) {
+        //System.out.println(o.getClass());
+        //System.out.println(o);
+
+        double timerRate = (double) o;
         // inputumuz geçen zaman
         //int remainingTimeRate = ((double) o) / GameControler.get
-        if((double)o >0.7){
+        if(timerRate < 0.3){
             setStrategyCode(Timing);
             setAlienStrategy(getStrategyCode());
-        } else if (((double) o >= 0.3) && ((double) o <=0.7)){
+        } else if ((timerRate >= 0.3) && (timerRate <=0.7)){
             setStrategyCode(BetweenThreshold);
             setAlienStrategy(getStrategyCode());
-        } else if ((double) o < 0.3) {
+        } else if (timerRate > 0.7) {
             setStrategyCode(LastCall);
             setAlienStrategy(getStrategyCode());
         }
@@ -132,4 +143,19 @@ public class TimeWastingAlien implements Alien {
         return;
     }
 
+    public boolean isDoJob() {
+        return doJob;
+    }
+
+    public void setDoJob(boolean doJob) {
+        this.doJob = doJob;
+    }
+
+    public boolean isAppear() {
+        return appear;
+    }
+
+    public void setAppear(boolean appear) {
+        this.appear = appear;
+    }
 }

@@ -4,6 +4,7 @@ import javax.net.ssl.TrustManager;
 import javax.swing.*;
 
 import Backend.GameControler;
+import Backend.GameObjects.Aliens.TimeWastingAlien.TimeWastingAlien;
 import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
@@ -61,6 +62,8 @@ public class Board extends JFrame {
 
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
+    private TimeWastingAlien timeWastingAlien;
+    private JLabel timeWastingAlienLabel;
     private ShooterAlienImpl shooterAlien;
     private JLabel shooterAlienLabel;
     private JLabel bulletLabel ;
@@ -192,6 +195,7 @@ public class Board extends JFrame {
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
         blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
         shooterAlienLabel.setBounds(shooterAlien.getX(), shooterAlien.getY(), 100, 100);
+        timeWastingAlienLabel.setBounds(timeWastingAlien.getX(),timeWastingAlien.getY(), 100,100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -222,6 +226,7 @@ public class Board extends JFrame {
         pCont.add(health);
         pCont.add(blindAlienLabel);
         pCont.add(shooterAlienLabel);
+        pCont.add(timeWastingAlienLabel);
         pCont.add(bulletLabel).setVisible(true);
         
         pCont.add(bottleLabel);
@@ -326,10 +331,13 @@ public class Board extends JFrame {
          */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind", 200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
+        timeWastingAlien = (TimeWastingAlien) GameControler.createAlien("time-wasting", 400 , 400);
+        timeWastingAlienLabel = timeWastingAlien.getObjectLabel();
         shooterAlien = (ShooterAlienImpl) GameControler.createAlien("shooter", 300, 300);
         shooterAlienLabel = shooterAlien.getObjectLabel();
         bulletLabel = shooterAlien.getBullet().getObjectLabel();
         shooterAlien.applyAlienGoal(1);
+
     }
 
     /*
@@ -412,7 +420,7 @@ public class Board extends JFrame {
 
     public void updateFrame() {
 
-        new javax.swing.Timer(25, new ActionListener() {
+        new Timer(25, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (GameControler.getGameStatus() == GameControler.RUNNING) {
@@ -427,6 +435,13 @@ public class Board extends JFrame {
                     //System.out.println("timer: " + (GameControler.getLevelTime()));
 
                     //System.out.println("time: " + GameControler.showTime());
+<<<<<<< Updated upstream
+=======
+                    double x = ((GameControler.getCurrentTime() - GameControler.getStartTime()) / 1000000000);
+                    timeWastingAlien.applyAlienGoal(x/GameControler.getLevelTime());
+                    timeWastingAlien.wasteTime(GameControler.getBuiltObjects(), key, GameControler.showTime(), timeWastingAlien);
+                    System.out.println("key coooordssss: X: "+key.getX()+ "  Y: " + key.getY());
+>>>>>>> Stashed changes
                     if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);

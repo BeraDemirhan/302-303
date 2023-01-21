@@ -2,6 +2,7 @@ package Backend.GameObjects;
 
 import Backend.GameObjects.Aliens.BlindAlienImpl;
 import Backend.GameObjects.Aliens.ShooterAlienImpl;
+import Backend.GameObjects.Aliens.TimeWastingAlien.TimeWastingAlien;
 
 public class ObjectFactory {
 
@@ -24,9 +25,9 @@ public class ObjectFactory {
         }
         else if(mark.equalsIgnoreCase("table")){
             gameObject = new Table(x,y);
-        }
-        
-        else{
+        } else if (mark.equalsIgnoreCase("wasting-alien")) {
+            gameObject = new TimeWastingAlien(x,y);
+        } else{
             throw new RuntimeException(mark+" is not a game object.");
         }
         return gameObject;

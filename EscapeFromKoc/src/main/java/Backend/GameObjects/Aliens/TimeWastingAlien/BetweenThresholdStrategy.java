@@ -9,13 +9,18 @@ public class BetweenThresholdStrategy implements TimeWastingAlienStrategy{
 
     @Override
     public void changeKeyLoc(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien) {
-        alienAppear(alien,key);
+        if(alien.isAppear()){
+            alienAppear(alien,key);
+            alien.setAppear(false);
+        }
+
     }
 
     private void alienAppear(TimeWastingAlien alien, Key key){
         alien.setX(key.getX());
         alien.setY(key.getY());
         alien.getObjectLabel().setVisible(true);
+        System.out.println("Between strategy alien is seen");
         new Thread(){
             long start = System.nanoTime();
             long finish;
@@ -31,4 +36,6 @@ public class BetweenThresholdStrategy implements TimeWastingAlienStrategy{
         }.start();
 
     }
+
+
 }

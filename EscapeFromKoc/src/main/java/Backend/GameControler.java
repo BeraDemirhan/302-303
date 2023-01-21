@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.GameObjects.Aliens.TimeWastingAlien.TimeWastingAlien;
 import Backend.GameObjects.Chair;
 import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
@@ -315,7 +316,10 @@ public class GameControler {
         } else if (type.equals("shooter")){
             ShooterAlienImpl shooterAlien = (ShooterAlienImpl) ObjectFactory.createObject("shooter-alien", x, y);
             return shooterAlien;
-        }else return null;
+        } else if (type.equals("time-wasting")) {
+            TimeWastingAlien wastingAlien = (TimeWastingAlien) ObjectFactory.createObject("wasting-alien",x,y);
+            return wastingAlien;
+        } else return null;
     }
 
     public static String getPlayerInventory(){
