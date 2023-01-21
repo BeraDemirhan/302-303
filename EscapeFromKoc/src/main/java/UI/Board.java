@@ -377,6 +377,7 @@ public class Board extends JFrame {
 
                     //System.out.println( key.getX() +" " + key.getY());
                     if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
+                        GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
                     if (bottleThrown) {
@@ -467,7 +468,6 @@ public class Board extends JFrame {
                         
                         newImgPlayer = singleImageResize(GameControler.movePlayer("right"));
                         GameControler.applyAlienGoal(blindAlien);
-                        System.out.println("right");
 
                     }
                     if (e.getKeyCode() == KeyEvent.VK_A && Inventory.contains(bottle)) {
@@ -776,8 +776,8 @@ public class Board extends JFrame {
 
                         System.out.println("0 -> " + playerCoords[0] + " " + chairCoords[0]);
                         System.out.println("1 -> " + playerCoords[1] + " " + chairCoords[1]);
-                        if (Math.abs(playerCoords[0] - chairCoords[0]) < 50
-                                && Math.abs(playerCoords[1] - chairCoords[1]) < 50) {
+                        if (Math.abs(playerCoords[0] - chairCoords[0]) < 100
+                                && Math.abs(playerCoords[1] - chairCoords[1]) < 100) {
                             System.out.println("Player is on chair");
                             key.setRevealed(true);
                         }
@@ -829,7 +829,7 @@ public class Board extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
+                if (e.getButton() == MouseEvent.BUTTON3) {
                     if (GameControler.getGameStatus() == GameControler.RUNNING) {
                         int[] playerCoords = GameControler.getPlayerCoords();
                         int[] keyCoords = { key.getX(), key.getY() };
@@ -842,7 +842,6 @@ public class Board extends JFrame {
                             GameControler.pickObject(key);
                             keyLocationPointer.setVisible(false);
                         }
-
                     }
                 }
             }

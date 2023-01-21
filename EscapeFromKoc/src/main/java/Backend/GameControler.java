@@ -146,9 +146,12 @@ public class GameControler {
     public static void nextLevel(){
         if (level < 7){
             level++;
-            actBuildMode = new BuildMode(level);
+            actBuildMode = new BuildMode(atleastList.get(level-1));
             activeBoard = new Board();
             buildGame();
+        }
+        else{
+            ScreenCoordinator.win();
         }
     }
 
@@ -202,6 +205,10 @@ public class GameControler {
 
     public static void usePowerUp(PowerUp pu) {
         p.usePowerUp(pu);
+    }
+
+    public static void gameOver() {
+        ScreenCoordinator.gameOver();
     }
 
     public static void setPlayerHealth(int health) {

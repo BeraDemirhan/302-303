@@ -40,6 +40,22 @@ public class ScreenCoordinator {
         buildMode.setVisible(true);
     }
 
+    public static void gameOver(){
+        GameOverScreen gameOverScreen = new GameOverScreen();
+        gameOverScreen.setTitle("Game Over");
+        gameOverScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameOverScreen.setSize(960, 540);
+        gameOverScreen.setVisible(true);
+    }
+
+    public static void win(){
+        WinScreen winScreen = new WinScreen();
+        winScreen.setTitle("You Win");
+        winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        winScreen.setSize(960, 540);
+        winScreen.setVisible(true);
+    }
+
     public static void exit() {
         System.exit(0);
     }
