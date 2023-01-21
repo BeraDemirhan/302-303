@@ -9,7 +9,9 @@ import Backend.GameObjects.Key;
 import Backend.GameObjects.ObjectFactory;
 import Backend.GameObjects.PowerUps.*;
 import Backend.Player.Inventory;
+import Backend.Player.Player;
 import Backend.GameObjects.Aliens.BlindAlienImpl;
+import Backend.GameObjects.Aliens.ShooterAlienImpl;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -59,6 +61,9 @@ public class Board extends JFrame {
 
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
+    private ShooterAlienImpl shooterAlien;
+    private JLabel shooterAlienLabel;
+    private JLabel bulletLabel ;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private ExtraTime extraTimePowerUpCreated;
@@ -185,7 +190,8 @@ public class Board extends JFrame {
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
-        blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
+        blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
+        shooterAlienLabel.setBounds(shooterAlien.getX(), shooterAlien.getY(), 100, 100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -215,6 +221,9 @@ public class Board extends JFrame {
         // pCont.add(chair);
         pCont.add(health);
         pCont.add(blindAlienLabel);
+        pCont.add(shooterAlienLabel);
+        pCont.add(bulletLabel).setVisible(true);
+        
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -317,6 +326,10 @@ public class Board extends JFrame {
          */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind", 200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
+        shooterAlien = (ShooterAlienImpl) GameControler.createAlien("shooter", 300, 300);
+        shooterAlienLabel = shooterAlien.getObjectLabel();
+        bulletLabel = shooterAlien.getBullet().getObjectLabel();
+        shooterAlien.applyAlienGoal(1);
     }
 
     /*
@@ -425,6 +438,15 @@ public class Board extends JFrame {
                             }
                         }.start();
                         ;
+                    }
+                    if(shooterAlien.getBulletShot()){
+                        System.out.println("BulletLabel: " + shooterAlien.getBullet().getX()+" "+ shooterAlien.getBullet().getY());
+                        bulletLabel.setBounds(shooterAlien.getBullet().getX(), shooterAlien.getBullet().getY(), 100, 100); 
+                        bulletLabel.setVisible(true);
+                        pCont.repaint();
+                    }else{
+                        shooterAlien.getBullet().getObjectLabel().setVisible(false);
+                        pCont.repaint();
                     }
                     if(vestActivated){
                         vestLabel.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1]+10, 100, 100);
