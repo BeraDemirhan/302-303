@@ -27,6 +27,11 @@ public class Chair implements GameObjectIntterface {
     }
 
     @Override
+    public void setObjectHasKey(boolean x) {
+        this.hasKey = x;
+    }
+
+    @Override
     public JLabel getObjectLabel() {
         return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/chair.png", x, y, 96/2, 54/2);
     }

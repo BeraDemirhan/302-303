@@ -13,5 +13,7 @@ public interface GameObjectIntterface {
 
     boolean objectHasKey();
 
+    void setObjectHasKey(boolean x);
+
     String getName();
 }

@@ -27,6 +27,11 @@ public class Sofa implements GameObjectIntterface {
     }
 
     @Override
+    public void setObjectHasKey(boolean x) {
+        this.hasKey = x;
+    }
+
+    @Override
     public JLabel getObjectLabel() {
         return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/sofaCorner.png", x, y, 96*3/2, 54*3/2);
     }
