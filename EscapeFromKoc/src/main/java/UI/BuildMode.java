@@ -61,6 +61,7 @@ public class BuildMode extends JFrame implements ActionListener {
 
 
     public BuildMode(int atLeast) {
+        GameControler.setRequiredObjSize(atLeast);
         setLayoutManager();
         imageResize();
         loadImages();

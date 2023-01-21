@@ -8,7 +8,7 @@ public class Piano implements GameObjectIntterface {
     private int x;
     private int y;
 
-    private boolean hasKey = true;
+    private boolean hasKey = false;
 
     public Piano(int x, int y) {
         spawnObject(x, y);
@@ -44,5 +44,11 @@ public class Piano implements GameObjectIntterface {
     @Override
     public String getName() {
         return "Piano";
+    }
+    @Override
+    public void addKey() {
+        // TODO Auto-generated method stub
+        hasKey = true;
+        
     }
 }
