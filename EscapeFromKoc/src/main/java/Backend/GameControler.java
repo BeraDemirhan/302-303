@@ -40,6 +40,7 @@ public class GameControler {
     private static int level = 1;
     private static Player p = Player.getPlayer();
     private static int score = 0;
+    private static boolean shouldTimeStop = false;
 
     private static BuildMode actBuildMode = new BuildMode(5);
 
@@ -157,6 +158,7 @@ public class GameControler {
 
     public static void nextLevel(){
         if (level < 7){
+            setShouldTimeStop(true);
             level++;
             actBuildMode = new BuildMode(atleastList.get(level-1));
             activeBoard = new Board();
@@ -395,6 +397,7 @@ public class GameControler {
 
     public static void setStartTime(long startTime) {
         GameControler.startTime = startTime;
+        System.out.println("Start time setted: " + startTime/1000000000);
     }
     public static int showTime(){
         return (int) ((getCurrentTime() - getStartTime())/1000000000);
@@ -405,7 +408,9 @@ public class GameControler {
     }
 
     public static void setCurrentTime(long currentTime) {
-        GameControler.currentTime = currentTime;
+        if(!isShouldTimeStop()){
+            GameControler.currentTime = currentTime;
+        }
     }
 
     public static ArrayList<GameObjectIntterface> getGameObjectList() {
@@ -414,5 +419,13 @@ public class GameControler {
 
     public static void setGameObjectList(ArrayList<GameObjectIntterface> gameObjectList) {
         GameControler.gameObjectList = gameObjectList;
+    }
+
+    public static boolean isShouldTimeStop() {
+        return shouldTimeStop;
+    }
+
+    public static void setShouldTimeStop(boolean shouldTimeStop) {
+        GameControler.shouldTimeStop = shouldTimeStop;
     }
 }
