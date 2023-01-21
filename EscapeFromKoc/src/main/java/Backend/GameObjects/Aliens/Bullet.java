@@ -6,7 +6,7 @@ import Backend.GameControler;
 import Backend.GameObjects.GameObjectIntterface;
 
 public class Bullet implements GameObjectIntterface {
-    private String generalPath = "EscapeFromKoc/resources/carrot";// General path does not change but dir
+    private String generalPath = "EscapeFromKoc/resources/bullet";// General path does not change but dir
     // does
     private int x;
     private int y;

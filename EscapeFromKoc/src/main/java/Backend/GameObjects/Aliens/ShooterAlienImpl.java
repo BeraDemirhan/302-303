@@ -11,7 +11,7 @@ public class ShooterAlienImpl implements Alien {
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";// General path does not change but dir
+    private String generalPath = "EscapeFromKoc/resources/shooterAlien";// General path does not change but dir
                                                                                  // does
 
     private Bullet b = new Bullet(x, y);
@@ -49,7 +49,7 @@ public class ShooterAlienImpl implements Alien {
     @Override
     public JLabel getObjectLabel() {
         // TODO Auto-generated method stub
-        return GameControler.getObjectLabel(generalPath, dir, x, y, 96, 54);
+        return GameControler.getObjectLabel(generalPath,  "", x, y, 96, 54);
     }
 
     @Override
