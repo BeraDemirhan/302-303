@@ -2,17 +2,21 @@ package Backend.GameObjects.Aliens.TimeWastingAlien;
 
 import Backend.GameControler;
 import Backend.GameObjects.Aliens.Alien;
+import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
 import Backend.Player.Player;
 
 import javax.swing.*;
+import java.sql.Time;
+import java.util.ArrayList;
 
 public class TimeWastingAlien implements Alien {
     private boolean isActive = true;
+    
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";
+    private String generalPath = "EscapeFromKoc/resources/TimeWastingAlien.png";
 
 
     private TimeWastingAlienStrategy wastingStrategy;
@@ -31,9 +35,9 @@ public class TimeWastingAlien implements Alien {
     public int getStrategyCode(){
         return strategyCode;
     }
-    public void wasteTime(Object[] list, Key key){
+    public void wasteTime(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien){
         if(isActive){
-            wastingStrategy.changeKeyLoc(list, key);
+            wastingStrategy.changeKeyLoc(list, key, time, alien);
         }
     }
     private void setAlienStrategy(int strategyCode){
@@ -81,8 +85,13 @@ public class TimeWastingAlien implements Alien {
     }
 
     @Override
+    public void setObjectHasKey(boolean x) {
+
+    }
+
+    @Override
     public JLabel getObjectLabel() {
-        return GameControler.getObjectLabel(generalPath, dir, x, y, 96, 54);
+        return GameControler.getObjectLabel(generalPath, dir, getX(), getY(), 96, 54);
     }
 
     @Override
@@ -94,14 +103,21 @@ public class TimeWastingAlien implements Alien {
     public int getY() {
         return this.y;
     }
-    private void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    private void setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     @Override
     public void attackPlayer(Player p) {

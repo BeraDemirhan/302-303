@@ -1,10 +1,10 @@
 package Backend.GameObjects.Aliens.TimeWastingAlien;
 
-import Backend.GameObjects.Aliens.Alien;
-import Backend.Player.Player;
+import Backend.GameObjects.GameObjectIntterface;
 import Backend.GameObjects.Key;
-import javax.swing.*;
+
+import java.util.ArrayList;
 
 public interface TimeWastingAlienStrategy {
-    void changeKeyLoc(Object[] list, Key key);
+    void changeKeyLoc(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien);
 }

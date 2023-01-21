@@ -27,6 +27,11 @@ public class Table implements GameObjectIntterface {
     }
 
     @Override
+    public void setObjectHasKey(boolean x) {
+        this.hasKey = x;
+    }
+
+    @Override
     public JLabel getObjectLabel() {
         return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/table.png", x, y, 96/2, 54/2);
     }
