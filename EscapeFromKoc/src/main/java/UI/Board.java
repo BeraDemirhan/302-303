@@ -93,7 +93,6 @@ public class Board extends JFrame {
         createKey();
         createVest();
         addComponentsToContainer();
-
         addActionEvent();
         updateFrame();
         System.out.println("Board created");
@@ -118,8 +117,8 @@ public class Board extends JFrame {
 
 
     public void createKey(){
-        keyLocationPointer = UIUtils.createLabel("EscapeFromKoc/resources/key.png", 400, 400, 96, 54);
-        keyLocationPointer.setVisible(true);
+        keyLocationPointer = UIUtils.createLabel("EscapeFromKoc/resources/hintKey.png", 400, 400, 96, 54);
+        keyLocationPointer.setVisible(false);
         addToContainer(keyLocationPointer, "keyLocationPointer");
     }
 
@@ -412,10 +411,10 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.setCurrentTime(System.nanoTime());
-                    System.out.println("timer: " + (GameControler.levelTime));
+                    System.out.println("timer: " + (GameControler.getLevelTime()));
 
                     System.out.println("time: " + GameControler.showTime());
-                    if(GameControler.levelTime == ((GameControler.currentTime - GameControler.startTime)/1000000000)){
+                    if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
