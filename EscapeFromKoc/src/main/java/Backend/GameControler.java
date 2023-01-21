@@ -354,8 +354,10 @@ public class GameControler {
     }
 
 
-    public static void setLevelTime(){
+    public static void setCurrentLevelTime(){
+        setGameObjectList(getBuiltObjects());
         setLevelTime(5 * gameObjectList.size());
+        System.out.println("SADOJASDASDAD:  " + gameObjectList.size());
 
     }
     public static void addTime(){
@@ -380,5 +382,13 @@ public class GameControler {
 
     public static void setCurrentTime(long currentTime) {
         GameControler.currentTime = currentTime;
+    }
+
+    public static ArrayList<GameObjectIntterface> getGameObjectList() {
+        return gameObjectList;
+    }
+
+    public static void setGameObjectList(ArrayList<GameObjectIntterface> gameObjectList) {
+        GameControler.gameObjectList = gameObjectList;
     }
 }

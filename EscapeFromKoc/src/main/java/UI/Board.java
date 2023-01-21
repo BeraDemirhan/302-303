@@ -86,7 +86,7 @@ public class Board extends JFrame {
         createExtraTimePowerUp();
         createKey();
         addComponentsToContainer();
-        GameControler.setLevelTime();
+
         addActionEvent();
         updateFrame();
         System.out.println("Board created");
