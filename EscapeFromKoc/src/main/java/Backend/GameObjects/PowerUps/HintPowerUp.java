@@ -80,6 +80,6 @@ public class HintPowerUp implements PowerUp{
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+        return UIUtils.createLabel("EscapeFromKoc/resources/carrot.png", x, y, 325/10, 356/10);
     }
 }

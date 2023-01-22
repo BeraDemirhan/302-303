@@ -468,8 +468,10 @@ public class Board extends JFrame {
                         System.out.println("Spawn: " + pu + "at " + pu.getX() + " " + pu.getY());
 
                         JLabel puLabel = pu.getObjectLabel();
-                        puLabel.setVisible(true);
+                        pCont.repaint();
                         pCont.add(puLabel, 0).setVisible(true);
+                        puLabel.setVisible(true);
+
                         spawnedPowerupLabels.add(puLabel);
                         puLabel.addMouseListener(new MouseListener() {
                             @Override

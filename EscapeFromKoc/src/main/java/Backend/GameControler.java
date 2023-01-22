@@ -59,14 +59,12 @@ public class GameControler {
     }
 
     public static PowerUp spawnPowerUp(){
-        if(spawnedPowerUps.size() <= 2){
-            String spawnTag = PowerUpFactory.getMarks().get(rnGsus.nextInt(0, PowerUpFactory.getMarks().size()));
-            PowerUp pu = PowerUpFactory.spawnPowerUp(spawnTag, rnGsus);
-            spawnedPowerUps.add(pu);
+        
+        String spawnTag = PowerUpFactory.getMarks().get(rnGsus.nextInt(0, PowerUpFactory.getMarks().size()));
+        PowerUp pu = PowerUpFactory.spawnPowerUp(spawnTag, rnGsus);
+        spawnedPowerUps.add(pu);
 
-            return pu;
-        }
-        return null;
+        return pu;
         
     }
     private static int lastRequiredObjectSize;

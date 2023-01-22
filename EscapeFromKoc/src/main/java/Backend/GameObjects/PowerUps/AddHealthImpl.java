@@ -27,7 +27,7 @@ public class AddHealthImpl implements PowerUp {
         // REQUIRES: Health power up
         // Modifies: health existence
         // Effects: the player get health
-        return UIUtils.createLabel("EscapeFromKoc/resources/RoomObjects/health.png", x, y, 50, 50);
+        return UIUtils.createLabel("EscapeFromKoc/resources/heart.png", x, y, 96, 54);
     }
 
     @Override
@@ -48,6 +48,6 @@ public class AddHealthImpl implements PowerUp {
     
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+        return UIUtils.createLabel("EscapeFromKoc/resources/heart.png", x, y, 96, 54);
     }
 }

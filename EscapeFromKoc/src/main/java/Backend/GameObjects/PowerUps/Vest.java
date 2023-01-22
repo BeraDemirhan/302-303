@@ -56,6 +56,6 @@ public class Vest implements PowerUp {
 
     @Override
     public JLabel getObjectLabel() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 96, 54);
     }
 }
