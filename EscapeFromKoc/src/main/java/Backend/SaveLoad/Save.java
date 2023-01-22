@@ -138,10 +138,13 @@ public class Save {
             if (saveFile.exists()) {
                 i++;
             } else {
-                saveNumber = i;
+                saveNumber = i - 1;
                 break;
             }
+            
+            
         }
+        saveFile = new File("EscapeFromKoc/resources/Save" + saveName + (i - 1)+ ".txt");
     }
 
     public static void setSaveName(String name) {

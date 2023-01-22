@@ -33,7 +33,7 @@ public class Key {
     }
 
     public JLabel getObjectLabel(){
-        return GameControler.getObjectLabel("EscapeFromKoc/resources/RoomObjects/key.png", "", x, y, 50, 50);
+        return GameControler.getObjectLabel("EscapeFromKoc/resources/key.png", "", x, y, 50, 50);
     }
 
 

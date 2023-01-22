@@ -163,6 +163,7 @@ public class GameControler {
             level++;
             actBuildMode = new BuildMode(atleastList.get(level-1));
             activeBoard = new Board();
+            gameObjectList = new ArrayList<GameObjectIntterface>();
             buildGame();
         }
         else{

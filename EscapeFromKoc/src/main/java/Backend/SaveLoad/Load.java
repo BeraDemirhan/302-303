@@ -21,7 +21,7 @@ import Backend.Player.Player;
 
 public class Load {
     private static File file = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveName() + GameControler.getSaveNumber() + ".txt");
-    private static File prevFile = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveName() + (GameControler.getSaveNumber() - 1) + ".txt");
+    private static File prevFile = new File("EscapeFromKoc/resources/Save"+ GameControler.getSaveName() + (GameControler.getSaveNumber()) + ".txt");
     private static BufferedReader br;
 
     private static String saveMethod = Save.getSaveMethod();
