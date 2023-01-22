@@ -14,7 +14,7 @@ public class Player {
     private Image playerleftimage = new ImageIcon("EscapeFromKoc/resources/rabbit-left-angled.png").getImage();
     private Image playerrightimage = new ImageIcon("EscapeFromKoc/resources/rabbit-right-angled.png").getImage();
     private Inventory inventory = null;
-    private int health = 5;
+    private int health = 5000;
     private int score = 0;
 
     private int xCoord = 240;

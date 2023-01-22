@@ -460,11 +460,11 @@ public class Board extends JFrame {
                     timeWastingAlien.wasteTime(GameControler.getBuiltObjects(), key, GameControler.showTime(), timeWastingAlien);
                     //System.out.println("key coooordssss: X: "+key.getX()+ "  Y: " + key.getY());
                     //System.out.println("alien coooordssss: X: "+timeWastingAlienLabel.getX()+ "  Y: " + timeWastingAlienLabel.getY());
-
+                    /* 
                     if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000) || GameControler.getPlayerHealth() <= 0){
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
-                    }
+                    }*/
                     if (bottleThrown) {
                         new Thread() {
                             public void run() {
