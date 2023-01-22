@@ -10,7 +10,7 @@ import java.awt.*;
 public class BlindAlienImpl implements Alien {
 
     private boolean ALERT = false;
-    private int velocity = 5;
+    private int velocity = 3;
     private int damage = 1;
     private int x;
     private int y;
@@ -110,7 +110,7 @@ public class BlindAlienImpl implements Alien {
     }
 
     public void attackPlayer(Player p) {
-        p.addHealth(-damage);
+        p.addHealth(-p.getHealth());
     }
 
     public void applyAlienGoal(Object o) {

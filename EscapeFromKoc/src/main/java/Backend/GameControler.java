@@ -182,6 +182,7 @@ public class GameControler {
             actBuildMode = new BuildMode(atleastList.get(level-1));
             activeBoard = new Board();
             gameObjectList = new ArrayList<GameObjectIntterface>();
+            GameControler.setGameStatus(GameControler.PAUSED);
             buildGame();
         }
         else{

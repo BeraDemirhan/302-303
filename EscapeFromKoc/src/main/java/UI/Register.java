@@ -25,6 +25,8 @@ public class Register extends JFrame implements ActionListener {
 
     private JLabel background = new JLabel(new ImageIcon("EscapeFromKoc/resources/EscapeFomKoc.png"));
 
+    private String registerFailedReason = "";
+
     public Register() {
         setLayoutManager();
         setLocationAndSize();
@@ -108,12 +110,25 @@ public class Register extends JFrame implements ActionListener {
         if (e.getSource() == signUp) {
             boolean signUpSuccess = false;
             try {
-                signUpSuccess = ButtonResponders.SignUpButton(userTextField.getText(), passwordField.getText());
+                if(passwordField.getText().length() >= 8){
+
+                    signUpSuccess = ButtonResponders.SignUpButton(userTextField.getText(), passwordField.getText());
+                    
+
+                }else{
+                    registerFailedReason = "Password must be at least 8 characters";
+                }
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
             if (signUpSuccess == false) {
-                JOptionPane.showMessageDialog(this, "Username already exists");
+                if (!registerFailedReason.equals("")){
+
+                    JOptionPane.showMessageDialog(this, registerFailedReason);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Username already exists");
+
+                }
             }
             userTextField.setText("");
             passwordField.setText("");
