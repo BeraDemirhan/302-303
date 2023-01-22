@@ -58,6 +58,8 @@ public class Load {
                 e.printStackTrace();
             }
             String newLine = br.readLine();
+            System.out.println("newLine: " + newLine);
+
             if(newLine.contains("Level")){
                 GameControler.setCurrentLevel(Integer.parseInt(newLine.substring(6)));
             }
@@ -90,6 +92,7 @@ public class Load {
             }
             if(newLine.contains("Object")){
                 while(!newLine.contains("End of objects")){
+                    
                     newLine = br.readLine();
                     // GameController.addObject(name, x, y)
                     String line = newLine;
@@ -100,9 +103,11 @@ public class Load {
                     String name = line.substring(0, line.indexOf(":"));
                     String x = line.substring(line.indexOf(":") + 2, line.indexOf(","));
                     String y = line.substring(line.indexOf(",") + 2);
+                    System.out.println("adding " + name);;
                     GameControler.addObject(name, Integer.parseInt(x), Integer.parseInt(y));
                 }
             }
+
             else{
                 break;
             }

@@ -148,7 +148,15 @@ public class GameControler {
     public static void loadGame() throws NumberFormatException, IOException{
         //Load the game, including the player's current position, inventory, health, current level, location of the objects in the level, etc.
         System.out.println("Loading game...");
+
+        Save.setSaveNum();
+        activeBoard = new Board();
         Load.loadGame();
+        System.out.println(gameObjectList.toString() + "furkan");
+        gameStatus = RUNNING;
+        activeBoard.setBackground();
+        ScreenCoordinator.startGame(activeBoard);
+        
         System.out.println("Game loaded!");
     }
 
@@ -451,5 +459,10 @@ public class GameControler {
 
     public static void setShouldTimeStop(boolean shouldTimeStop) {
         GameControler.shouldTimeStop = shouldTimeStop;
+    }
+
+    public static void newGame() {
+        GameControler.buildGame();
+        
     }
 }

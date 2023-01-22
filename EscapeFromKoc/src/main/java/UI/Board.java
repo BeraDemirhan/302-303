@@ -344,7 +344,7 @@ public class Board extends JFrame {
          * @effects alien object is created
          * 
          */
-        blindAlien = (BlindAlienImpl) GameControler.createAlien("blind", 200, 200);
+        blindAlien = (BlindAlienImpl) GameControler.createAlien("blind", 400, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
         timeWastingAlien = (TimeWastingAlien) GameControler.createAlien("time-wasting", 500 , 500);
         timeWastingAlienLabel = timeWastingAlien.getObjectLabel();
@@ -1053,6 +1053,7 @@ public class Board extends JFrame {
             public void run() {
                 while (!key.isPlaced()) {
                     try {
+                        System.out.println(GameControler.getBuiltObjects().toString());
                         sleep(500);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
