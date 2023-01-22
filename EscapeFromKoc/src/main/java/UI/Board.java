@@ -294,13 +294,18 @@ public class Board extends JFrame {
         keyLocationPointer.setVisible(true);
         System.out.println(key.getX() + " " + key.getY());
         System.out.println(keyLocationPointer.getX() + " " + keyLocationPointer.getY());
-        long x = System.nanoTime();
+        int x = GameControler.showTime();
         while (true) {
-            long y = System.nanoTime();
-            if (((y - x) / 1000000000) == 10) {
-                keyLocationPointer.setVisible(false);
-            }
-            break;
+            int y = GameControler.showTime();
+            System.out.println("Hint sad:" +(y - x));
+
+            if ((y - x)  == 10) {
+                    System.out.println("Hint invisibleasd");
+
+                    keyLocationPointer.setVisible(false);
+                    break;
+                }
+
         }
 
     }
