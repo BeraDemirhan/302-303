@@ -31,8 +31,9 @@ public class ThrowBottleImpl implements PowerUp {
         this.y = y;
     }
 
-    public JLabel getBottle() {
-        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+    @Override
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel("EscapeFromKoc/resources/bottle.png", x, y, 96, 54);
     }
 
     @Override

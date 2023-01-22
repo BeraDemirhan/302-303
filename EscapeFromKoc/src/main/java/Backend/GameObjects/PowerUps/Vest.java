@@ -53,4 +53,9 @@ public class Vest implements PowerUp {
         }
         }.start();
     }
+
+    @Override
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 96, 54);
+    }
 }
