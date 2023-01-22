@@ -56,6 +56,14 @@ public class ScreenCoordinator {
         winScreen.setVisible(true);
     }
 
+    public static void loadOptions() {
+        LoadOptions loadOptions = new LoadOptions();
+        loadOptions.setTitle("Load Options");
+        loadOptions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loadOptions.setSize(960, 540);
+        loadOptions.setVisible(true);
+    }
+
     public static void exit() {
         System.exit(0);
     }

@@ -52,17 +52,24 @@ public class Load {
         br = new BufferedReader(new FileReader(file));
         System.out.println("reading: " + file.getName() + "");
         while (true) {
+            String newLine = "";
             try {
-                if (!((br.readLine()) != null)) break;
+                newLine = br.readLine();
+                if(newLine == null){
+                    break;
+                }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            String newLine = br.readLine();
+            
+            System.out.println("newLine: " + newLine);
+
             if(newLine.contains("Level")){
-                GameControler.setCurrentLevel(Integer.parseInt(newLine.substring(6)));
+                String line = newLine;
+                GameControler.setCurrentLevel(Integer.parseInt(line.substring(line.indexOf(":") + 2)));
             }
-            if(newLine.contains("Player")){
+            else if(newLine.contains("Player")){
                 if(newLine.contains("coordinates")){
                     
                     String line = newLine;
@@ -72,25 +79,34 @@ public class Load {
                     GameControler.getPlayer().setY(Integer.parseInt(y));
                 }
                 if(newLine.contains("health")){
-                    
-                    GameControler.getPlayer().setHealth(Integer.parseInt(newLine.substring(7)));
+                    String line = newLine;
+                    GameControler.getPlayer().setHealth(Integer.parseInt(line.substring(line.indexOf(":") + 2)));
                 }
                 if(newLine.contains("inventory")){
                     while(!newLine.contains("End of inventory")){
                         GameControler.getPlayer().setInventory(newLine);
-                        newLine = br.readLine();
+                        if(!newLine.contains("End of inventory")){
+                            System.out.println("inventory: " + newLine + "");
+                            newLine = br.readLine();
+                        }
+                        if(newLine.contains("End of inventory")){
+                            break;
+                        }
                     }
                 }
                 
             }
-            if(newLine.contains("Inventory")){
+            else if(newLine.contains("Inventory")){
                 while(!newLine.contains("End of inventory")){
                     newLine = br.readLine();
                     GameControler.getPlayer().setInventory(newLine);
+                    System.out.println("here");
                 }
             }
-            if(newLine.contains("Object")){
+            else if(newLine.contains("Object")){
+                System.out.println("Found object: " + newLine + "");
                 while(!newLine.contains("End of objects")){
+                    System.out.println("adding object: " + newLine + "");
                     newLine = br.readLine();
                     // GameController.addObject(name, x, y)
                     String line = newLine;
@@ -101,10 +117,12 @@ public class Load {
                     String name = line.substring(0, line.indexOf(":"));
                     String x = line.substring(line.indexOf(":") + 2, line.indexOf(","));
                     String y = line.substring(line.indexOf(",") + 2);
+                    System.out.println("adding " + name);;
                     GameControler.addObject(name, Integer.parseInt(x), Integer.parseInt(y));
                 }
             }
             else{
+                System.out.println("Error: " + newLine + " not recognized");
                 break;
             }
         }

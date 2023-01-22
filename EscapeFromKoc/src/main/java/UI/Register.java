@@ -86,7 +86,7 @@ public class Register extends JFrame implements ActionListener {
             if (loginSuccess) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
                 // ScreenCoordinator.startGame();
-                GameControler.buildGame();
+                ScreenCoordinator.loadOptions();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
@@ -137,5 +137,6 @@ public class Register extends JFrame implements ActionListener {
             Save.setSaveMethod(true);
             JOptionPane.showMessageDialog(this, "Save method changed to MongoDB");
         }
+
     }
 }

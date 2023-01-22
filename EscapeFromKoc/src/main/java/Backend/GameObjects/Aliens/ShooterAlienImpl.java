@@ -119,7 +119,7 @@ public class ShooterAlienImpl implements Alien {
                         for (int i = 0; i < 300 / b.getVelocity(); i++) {
 
                             sleep(25);
-                            System.out.println(b.getX() + " " + p.getX() + ", " + b.getY() + " " + p.getY());
+                            //System.out.println(b.getX() + " " + p.getX() + ", " + b.getY() + " " + p.getY());
                             b.moveBulletTo(lastPlayerX, lastPlayerY);
                             if(Math.sqrt(Math.pow(p.getX() - b.getX(), 2) + Math.pow(p.getY() - b.getY(), 2)) < 25 ){
                                 System.out.println("player shot");

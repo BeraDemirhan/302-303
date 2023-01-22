@@ -184,15 +184,16 @@ public class Save {
     public static void saveObjects() {
         // Save the location of the objects in the level
         write("Objects:");
-        for (String i : GameControler.getObjects()) {
-            int[] coords = GameControler.getObjectCoords(i);
-            write(i + ": " + coords[0] + ", " + coords[1]);
+        for(GameObjectIntterface i : GameControler.getBuiltObjects()){
+            System.out.println("Saving object: " + i);
+            System.out.println("Object coords: " + i.getX() + ", " + i.getX());
+            write(i.getName() + ": " + i.getX() + ", " + i.getY());
         }
         write("End of objects");
         
     }
 
-    public ArrayList<String> read(File file) {
+    public static ArrayList<String> read(File file) {
         // Read the file
         BufferedReader br = null;
         try {
