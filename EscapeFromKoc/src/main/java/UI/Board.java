@@ -226,7 +226,7 @@ public class Board extends JFrame {
         pCont.add(keyLocationPointer);
 
         // pCont.add(chair);
-        pCont.add(health);
+        //pCont.add(health);
         pCont.add(blindAlienLabel);
         pCont.add(shooterAlienLabel);
 

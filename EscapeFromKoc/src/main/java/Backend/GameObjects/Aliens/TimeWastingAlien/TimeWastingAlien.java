@@ -16,8 +16,8 @@ public class TimeWastingAlien implements Alien {
     private boolean appear = true;
     private int x;
     private int y;
-    private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";
+    private String dir = "TimeWastingAlien";
+    private String generalPath = "EscapeFromKoc/resources/";
     private int control = 1;
     private int controlTime;
 
@@ -49,16 +49,13 @@ public class TimeWastingAlien implements Alien {
     private void setAlienStrategy(int strategyCode){
         switch (getStrategyCode()){
             case TimeWastingAlien.Timing:
-                //System.out.println("Strategy has changed to timing");
                 wastingStrategy = new TimingStrategy();
                     break;
             case TimeWastingAlien.BetweenThreshold:
-                //System.out.println("Strategy has changed to betweeen");
                 wastingStrategy = new BetweenThresholdStrategy();
                     break;
             case TimeWastingAlien.LastCall:
                 wastingStrategy = new LastCallStrategy();
-                //System.out.println("Strategy has changed to lastCALLL");
                     break;
         }
     }
@@ -104,7 +101,7 @@ public class TimeWastingAlien implements Alien {
 
     @Override
     public JLabel getObjectLabel() {
-        return GameControler.getObjectLabel(generalPath, dir, x, y, 96, 54);
+        return GameControler.getObjectLabel(generalPath, dir, x, y, 478/13, 771/13);
     }
 
     @Override
