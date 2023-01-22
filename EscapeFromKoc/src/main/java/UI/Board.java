@@ -63,7 +63,7 @@ public class Board extends JFrame {
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
     private TimeWastingAlien timeWastingAlien;
-    private JLabel timeWastingAlienLabel;
+    public  static JLabel timeWastingAlienLabel;
     private ShooterAlienImpl shooterAlien;
     private JLabel shooterAlienLabel;
     private JLabel bulletLabel ;
@@ -193,9 +193,10 @@ public class Board extends JFrame {
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
+        timeWastingAlienLabel.setBounds(timeWastingAlienLabel.getX(),timeWastingAlienLabel.getY(), 100,100);
+        timeWastingAlienLabel.setVisible(false);
         blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
         shooterAlienLabel.setBounds(shooterAlien.getX(), shooterAlien.getY(), 100, 100);
-        timeWastingAlienLabel.setBounds(timeWastingAlien.getX(),timeWastingAlien.getY(), 100,100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
     }
@@ -218,6 +219,7 @@ public class Board extends JFrame {
             pCont.add(key.reveal());
         }
         pCont.add(playerAbs);
+        pCont.add(timeWastingAlienLabel);
         pCont.add(hintPowerUp);
         pCont.add(extraTimePowerUp);
         pCont.add(keyLocationPointer);
@@ -226,7 +228,7 @@ public class Board extends JFrame {
         pCont.add(health);
         pCont.add(blindAlienLabel);
         pCont.add(shooterAlienLabel);
-        pCont.add(timeWastingAlienLabel);
+
         pCont.add(bulletLabel).setVisible(true);
         
         pCont.add(bottleLabel);
@@ -288,7 +290,14 @@ public class Board extends JFrame {
         keyLocationPointer = hint.getHintPowerUpKeyLocation();
         keyLocationPointer.setVisible(false);
     }
+    public static void timeWastingAlienLabelSet(){
+        timeWastingAlienLabel.setBounds(key.getX(), key.getY(), 96, 54);
+        timeWastingAlienLabel.setVisible(true);
 
+    }
+    public static void wastingAlienSet(){
+        timeWastingAlienLabel.setVisible(false);
+    }
     public static void hintPowerUpUsage() {
         keyLocationPointer.setBounds(key.getX(), key.getY(), 100, 100);
         keyLocationPointer.setVisible(true);
@@ -297,10 +306,10 @@ public class Board extends JFrame {
         int x = GameControler.showTime();
         while (true) {
             int y = GameControler.showTime();
-            System.out.println("Hint sad:" +(y - x));
+
 
             if ((y - x)  == 10) {
-                    System.out.println("Hint invisibleasd");
+
 
                     keyLocationPointer.setVisible(false);
                     break;
@@ -336,8 +345,9 @@ public class Board extends JFrame {
          */
         blindAlien = (BlindAlienImpl) GameControler.createAlien("blind", 200, 200);
         blindAlienLabel = blindAlien.getObjectLabel();
-        timeWastingAlien = (TimeWastingAlien) GameControler.createAlien("time-wasting", 400 , 400);
+        timeWastingAlien = (TimeWastingAlien) GameControler.createAlien("time-wasting", 500 , 500);
         timeWastingAlienLabel = timeWastingAlien.getObjectLabel();
+        System.out.println("yeeey"+ timeWastingAlienLabel.isVisible());
         shooterAlien = (ShooterAlienImpl) GameControler.createAlien("shooter", 300, 300);
         shooterAlienLabel = shooterAlien.getObjectLabel();
         bulletLabel = shooterAlien.getBullet().getObjectLabel();
@@ -444,7 +454,8 @@ public class Board extends JFrame {
                     double x = ((GameControler.getCurrentTime() - GameControler.getStartTime()) / 1000000000);
                     timeWastingAlien.applyAlienGoal(x/GameControler.getLevelTime());
                     timeWastingAlien.wasteTime(GameControler.getBuiltObjects(), key, GameControler.showTime(), timeWastingAlien);
-                    System.out.println("key coooordssss: X: "+key.getX()+ "  Y: " + key.getY());
+                    //System.out.println("key coooordssss: X: "+key.getX()+ "  Y: " + key.getY());
+                    //System.out.println("alien coooordssss: X: "+timeWastingAlienLabel.getX()+ "  Y: " + timeWastingAlienLabel.getY());
 
                     if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
                         GameControler.gameOver();

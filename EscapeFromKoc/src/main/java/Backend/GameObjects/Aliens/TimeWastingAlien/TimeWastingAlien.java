@@ -17,7 +17,9 @@ public class TimeWastingAlien implements Alien {
     private int x;
     private int y;
     private String dir = "Front";
-    private String generalPath = "EscapeFromKoc/resources/TimeWastingAlien.png";
+    private String generalPath = "EscapeFromKoc/resources/BlindAlien/BlindAlien";
+    private int control = 1;
+    private int controlTime;
 
 
     private TimeWastingAlienStrategy wastingStrategy;
@@ -39,7 +41,7 @@ public class TimeWastingAlien implements Alien {
     }
     public void wasteTime(ArrayList<GameObjectIntterface> list, Key key, int time, TimeWastingAlien alien){
         if(isActive() && !key.getRevealed()){
-            System.out.println(key.getRevealed());
+            //System.out.println(key.getRevealed());
             //System.out.println(isActive());
             wastingStrategy.changeKeyLoc(list, key, time, alien);
         }
@@ -102,7 +104,7 @@ public class TimeWastingAlien implements Alien {
 
     @Override
     public JLabel getObjectLabel() {
-        return GameControler.getObjectLabel(generalPath, dir, getX(), getY(), 96, 54);
+        return GameControler.getObjectLabel(generalPath, dir, x, y, 96, 54);
     }
 
     @Override
@@ -157,5 +159,21 @@ public class TimeWastingAlien implements Alien {
 
     public void setAppear(boolean appear) {
         this.appear = appear;
+    }
+
+    public int getControl() {
+        return control;
+    }
+
+    public void setControl(int control) {
+        this.control = control;
+    }
+
+    public int getControlTime() {
+        return controlTime;
+    }
+
+    public void setControlTime(int controlTime) {
+        this.controlTime = controlTime;
     }
 }
