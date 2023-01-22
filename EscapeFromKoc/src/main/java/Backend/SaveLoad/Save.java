@@ -75,7 +75,13 @@ public class Save {
         MongoDatabase database = mongoInit();
         String collName = "Level"+GameControler.getCurrentLevel();
 
-        database.createCollection(collName);
+        try {
+            database.createCollection(collName);
+            
+        } catch (Exception e) {
+            // TODO: drop database
+            database.getCollection(collName).drop();
+        }
         MongoCollection<Document> collection = database.getCollection(collName);
   
         Document PlayerDocument = new Document("title", "Player")

@@ -12,6 +12,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
+import com.mongodb.MongoSocketException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -153,11 +154,18 @@ public class Load {
         mongoClose();
     }
 
-    private static MongoDatabase mongoInit() {
-        MongoClient mongo = new MongoClient("localhost", 27017);
-        clientGlobal = mongo;
-        return mongo.getDatabase(GameControler.getSaveName()); 
-
+    private static MongoDatabase mongoInit() throws MongoSocketException{
+        try {
+            MongoClient mongo = new MongoClient("localhost", 27017);
+            clientGlobal = mongo;
+            return mongo.getDatabase(GameControler.getSaveName()); 
+    
+        } catch (MongoSocketException e) {
+            // TODO: handle exception
+            saveMethod = "Plaintext";
+            throw new MongoSocketException("Connection failed", null);
+        }
+        
     }
 
     private static void mongoClose(){
