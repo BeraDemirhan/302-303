@@ -74,7 +74,7 @@ public class ShooterAlienImpl implements Alien {
                 while (true) {
                     //System.out.println((System.nanoTime() - cooldownStartTime)/ 1000000000);
                     if (( System.nanoTime()-cooldownStartTime) / 1000000000 < cooldownDuration) {
-                        System.out.println("sleeping");
+                        //System.out.println("sleeping");
                         try {
 
                             sleep(1000);
@@ -107,7 +107,7 @@ public class ShooterAlienImpl implements Alien {
         if (Math.sqrt(Math.pow(p.getX() - this.x, 2) + Math.pow(p.getY() - this.y, 2)) < 300) {
             System.out.println("shooting to player");
             bulletShot = true;
-            System.out.println("Alien: " + this.x + " " + this.y);
+            //System.out.println("Alien: " + this.x + " " + this.y);
             int lastPlayerX = p.getX();
             int lastPlayerY = p.getY();
             

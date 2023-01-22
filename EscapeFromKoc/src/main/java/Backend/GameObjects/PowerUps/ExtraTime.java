@@ -39,4 +39,9 @@ public class ExtraTime implements PowerUp{
     public int getY() {
         return y;
     }
+
+    @Override
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel("EscapeFromKoc/resources/extraTime.png", x, y, 96, 54);
+    }
 }
