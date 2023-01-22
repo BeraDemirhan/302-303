@@ -77,4 +77,9 @@ public class HintPowerUp implements PowerUp{
     public void setKeyY(int keyY) {
         this.keyY = keyY;
     }
+
+    @Override
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+    }
 }

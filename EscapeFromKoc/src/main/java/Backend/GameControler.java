@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -44,11 +45,30 @@ public class GameControler {
 
     private static BuildMode actBuildMode = new BuildMode(5);
 
+    private static Random rnGsus = new Random();
 
     private static ArrayList<Integer> atleastList = new ArrayList<Integer>(Arrays.asList(5,7,10,14,19,25));
 
     private static ArrayList<GameObjectIntterface> gameObjectList = new ArrayList<GameObjectIntterface>();
 
+
+    private static ArrayList<PowerUp> spawnedPowerUps = new ArrayList<PowerUp>();
+
+    public static ArrayList<PowerUp> getSpawnedPowerUps() {
+        return spawnedPowerUps;
+    }
+
+    public static PowerUp spawnPowerUp(){
+        if(spawnedPowerUps.size() <= 2){
+            String spawnTag = PowerUpFactory.getMarks().get(rnGsus.nextInt(0, PowerUpFactory.getMarks().size()));
+            PowerUp pu = PowerUpFactory.spawnPowerUp(spawnTag, rnGsus);
+            spawnedPowerUps.add(pu);
+
+            return pu;
+        }
+        return null;
+        
+    }
     private static int lastRequiredObjectSize;
     public static void setRequiredObjSize(int size){
         lastRequiredObjectSize = size;

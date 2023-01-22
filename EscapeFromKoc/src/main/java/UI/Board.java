@@ -54,16 +54,16 @@ public class Board extends JFrame {
 
     private Container pCont = getContentPane();
     private static Key key = new Key();
-    
+
     private static Vest vest;
-    private static JLabel vestLabel; 
+    private static JLabel vestLabel;
     private boolean vestActivated = false;
 
     private BlindAlienImpl blindAlien;
     private JLabel blindAlienLabel;
     private ShooterAlienImpl shooterAlien;
     private JLabel shooterAlienLabel;
-    private JLabel bulletLabel ;
+    private JLabel bulletLabel;
 
     private ThrowBottleImpl bottle = new ThrowBottleImpl(400, 200);
     private ExtraTime extraTimePowerUpCreated;
@@ -75,16 +75,18 @@ public class Board extends JFrame {
     }
 
     private static final int TIMER_DELAY = 35;
-    /*
-    public void setLevelTime(){
-        GameControler.levelTime = 5 * getObjects().size();
-        GameControler.startTime = System.nanoTime();
-    }
 
-    public static void addTime() {
-        GameControler.setLevelTime(GameControler.getLevelTime() + 5);
-        System.out.println("Time Updated: "+ GameControler.getLevelTime() );
-    }*/
+    /*
+     * public void setLevelTime(){
+     * GameControler.levelTime = 5 * getObjects().size();
+     * GameControler.startTime = System.nanoTime();
+     * }
+     * 
+     * public static void addTime() {
+     * GameControler.setLevelTime(GameControler.getLevelTime() + 5);
+     * System.out.println("Time Updated: "+ GameControler.getLevelTime() );
+     * }
+     */
     public Board() {
         imageResize();
         setLayoutManager();
@@ -102,17 +104,19 @@ public class Board extends JFrame {
         updateFrame();
         System.out.println("Board created");
     }
-    public void createVest(){
+
+    public void createVest() {
         vest = (Vest) PowerUpFactory.createPowerUp("vest", 350, 400);
-        vestLabel= vest.getPowerUpVestLabel();
+        vestLabel = vest.getPowerUpVestLabel();
         addToContainer(vestLabel, "vest");
     }
-    public static void powerUpVestUsage(){
+
+    public static void powerUpVestUsage() {
         vestLabel.setVisible(true);
         long x = System.nanoTime();
-        while(true){
+        while (true) {
             long y = System.nanoTime();
-            if(((y-x)/1000000000) > 20){
+            if (((y - x) / 1000000000) > 20) {
                 vestLabel.setVisible(false);
                 break;
             }
@@ -120,14 +124,11 @@ public class Board extends JFrame {
         vestLabel.setVisible(false);
     }
 
-
-    public void createKey(){
+    public void createKey() {
         keyLocationPointer = UIUtils.createLabel("EscapeFromKoc/resources/hintKey.png", 400, 400, 96, 54);
         keyLocationPointer.setVisible(false);
         addToContainer(keyLocationPointer, "keyLocationPointer");
     }
-
-
 
     public void addToContainer(JLabel label, String name) {
         ObjectList.add(name);
@@ -190,7 +191,7 @@ public class Board extends JFrame {
         playerLeft.setBounds(100, 100, 100, 100);
         playerRight.setBounds(100, 100, 100, 100);
         playerAbs.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1], 100, 100);
-        blindAlienLabel.setBounds(blindAlien.getX(),blindAlien.getY(),100,100);
+        blindAlienLabel.setBounds(blindAlien.getX(), blindAlien.getY(), 100, 100);
         shooterAlienLabel.setBounds(shooterAlien.getX(), shooterAlien.getY(), 100, 100);
         bottleLabel.setBounds(bottle.getX(), bottle.getY(), 100, 100);
 
@@ -223,7 +224,7 @@ public class Board extends JFrame {
         pCont.add(blindAlienLabel);
         pCont.add(shooterAlienLabel);
         pCont.add(bulletLabel).setVisible(true);
-        
+
         pCont.add(bottleLabel);
         pCont.add(background);
     }
@@ -410,6 +411,9 @@ public class Board extends JFrame {
         bottleLabel.setVisible(bottleLabelVisiable);
     }
 
+    long lastSpawnTime;
+    private ArrayList<JLabel> spawnedPowerupLabels = new ArrayList<JLabel>();
+
     public void updateFrame() {
 
         new javax.swing.Timer(25, new ActionListener() {
@@ -424,10 +428,11 @@ public class Board extends JFrame {
                     blindAlien.setDirection(blindAlienLabel);
 
                     GameControler.setCurrentTime(System.nanoTime());
-                    //System.out.println("timer: " + (GameControler.getLevelTime()));
+                    // System.out.println("timer: " + (GameControler.getLevelTime()));
 
-                    //System.out.println("time: " + GameControler.showTime());
-                    if(GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())/1000000000)){
+                    // System.out.println("time: " + GameControler.showTime());
+                    if (GameControler.getLevelTime() == ((GameControler.getCurrentTime() - GameControler.getStartTime())
+                            / 1000000000)) {
                         GameControler.gameOver();
                         GameControler.setGameStatus(GameControler.GAMEOVER);
                     }
@@ -439,18 +444,76 @@ public class Board extends JFrame {
                         }.start();
                         ;
                     }
-                    if(shooterAlien.getBulletShot()){
-                        System.out.println("BulletLabel: " + shooterAlien.getBullet().getX()+" "+ shooterAlien.getBullet().getY());
-                        bulletLabel.setBounds(shooterAlien.getBullet().getX(), shooterAlien.getBullet().getY(), 100, 100); 
+                    if (shooterAlien.getBulletShot()) {
+                        //System.out.println("BulletLabel: " + shooterAlien.getBullet().getX() + " " + shooterAlien.getBullet().getY());
+                        bulletLabel.setBounds(shooterAlien.getBullet().getX(), shooterAlien.getBullet().getY(), 100,
+                                100);
                         bulletLabel.setVisible(true);
                         pCont.repaint();
-                    }else{
+                    } else {
                         shooterAlien.getBullet().getObjectLabel().setVisible(false);
                         pCont.repaint();
                     }
-                    if(vestActivated){
-                        vestLabel.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1]+10, 100, 100);
+                    if (vestActivated) {
+                        vestLabel.setBounds(GameControler.getPlayerCoords()[0], GameControler.getPlayerCoords()[1] + 10,
+                                100, 100);
                         vestLabel.setVisible(true);
+                    }
+                    // Power up spawn mechanic modulo valid for the 5th second
+                    //System.out.println(((GameControler.getCurrentTime() - lastSpawnTime) / 1000000000) % 5 == 4);
+                    if (((GameControler.getCurrentTime() - lastSpawnTime) / 1000000000) % 5 == 4
+                            && GameControler.getGameStatus() == GameControler.RUNNING && GameControler.getSpawnedPowerUps().size() <= 2) {
+                        lastSpawnTime = System.nanoTime();
+                        PowerUp pu = GameControler.spawnPowerUp();
+                        System.out.println("Spawn: " + pu + "at " + pu.getX() + " " + pu.getY());
+
+                        JLabel puLabel = pu.getObjectLabel();
+                        puLabel.setVisible(true);
+                        pCont.add(puLabel, 0).setVisible(true);
+                        spawnedPowerupLabels.add(puLabel);
+                        puLabel.addMouseListener(new MouseListener() {
+                            @Override
+                            public void mousePressed(MouseEvent e) {
+                                if (e.getButton() == MouseEvent.BUTTON1) {
+                                    if ((GameControler.getGameStatus() == GameControler.RUNNING)) {
+                                        System.out.println("Spawned pu");
+                                        int[] playerCoords = GameControler.getPlayerCoords();
+                                        int[] powerUpCoords = { pu.getX(), pu.getY() };
+                                        if (Math.abs(playerCoords[0] - powerUpCoords[0]) < 100
+                                                && Math.abs(playerCoords[1] - powerUpCoords[1]) < 100
+                                                && hintPowerUp.isVisible()) {
+                                            System.out.println("Picked spawned powerup");
+                                            GameControler.pickObject(pu);
+                                            puLabel.setVisible(false);
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                            }
+
+                            @Override
+                            public void mouseReleased(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseEntered(MouseEvent e) {
+
+                            }
+
+                            @Override
+                            public void mouseExited(MouseEvent e) {
+
+                            }
+
+                        });
+                        pCont.repaint();
+
+
                     }
                 }
             }
@@ -628,7 +691,7 @@ public class Board extends JFrame {
                          */
                         System.exit(0);
                     }
-                    if(e.getKeyCode() == KeyEvent.VK_V && Inventory.contains(vest)){
+                    if (e.getKeyCode() == KeyEvent.VK_V && Inventory.contains(vest)) {
                         vestActivated = true;
                         GameControler.usePowerUp(vest);
                     }
@@ -954,7 +1017,7 @@ public class Board extends JFrame {
 
             }
         });
-        
+
         new Thread() {
             public void run() {
                 while (!key.isPlaced()) {
@@ -1028,7 +1091,7 @@ public class Board extends JFrame {
 
             }
         }.start();
-        vestLabel.addMouseListener(new MouseListener(){
+        vestLabel.addMouseListener(new MouseListener() {
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -1064,11 +1127,10 @@ public class Board extends JFrame {
             @Override
             public void mouseClicked(MouseEvent arg0) {
                 // TODO Auto-generated method stub
-                
+
             }
         });
 
     }
 
-    
 }

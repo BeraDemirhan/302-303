@@ -45,4 +45,9 @@ public class AddHealthImpl implements PowerUp {
     public int getY() {
         return y;
     }
+    
+    @Override
+    public JLabel getObjectLabel() {
+        return UIUtils.createLabel("EscapeFromKoc/resources/PowerUps/bottle.png", x, y, 100, 100);
+    }
 }
